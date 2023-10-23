@@ -2,7 +2,9 @@ package Repository;
 import java.io.*;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 abstract public class AbstractRepo {
     private String fileName;
@@ -19,8 +21,11 @@ abstract public class AbstractRepo {
         return fileName;
     }
 
-    private void save(List<String> data) throws IOException {
+    /*
+    protected void save(List<Object> objects) throws IOException {
+        List<String> data = new ArrayList<>();
         FileWriter w = new FileWriter(fileName);  //class used for creating and writing data into a file
+
 
         for(String str : data){
                  w.write(str);
@@ -29,7 +34,20 @@ abstract public class AbstractRepo {
 
        }
 
-    private String load(){
+     */
+    public abstract List<String> convertObjectsToStrings(List<?> objects);
+
+    public void save(List<?> objects) throws IOException {
+        List<String> data = convertObjectsToStrings(objects);
+        FileWriter w = new FileWriter(fileName);
+        for (String str : data) {
+            w.write(str + "\n");
+        }
+        w.close();
+    }
+
+
+    protected String load(){
         StringBuilder dataFromFile = new StringBuilder(); //initialize an object to store the data from the file, concatenates its content into a single String using StringBuilder
         try(BufferedReader read = new BufferedReader(new FileReader(fileName))){ //reads line from the file
             String line;
