@@ -1,6 +1,7 @@
 package Entities;
 
 public class Client {
+    private int id;
     private  String  name;
     private String  address;
     private double telefon;
@@ -8,14 +9,23 @@ public class Client {
     private Cart cart;
     private Review[] review;
 
-    public Client(String name, String address, double telefon, Orders[] orders, Cart cart,
+    public Client(int id,String name, String address, double telefon, Orders[] orders, Cart cart,
                   Review[] review) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.telefon = telefon;
         this.orders = orders;
         this.cart = cart;
         this.review = review;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

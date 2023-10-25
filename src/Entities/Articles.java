@@ -1,6 +1,7 @@
 package Entities;
 
 public class Articles {
+    private int id;
     private String name;
     private String brand;
     private String material;
@@ -12,9 +13,10 @@ public class Articles {
     private Orders[] orders;
     private Warehouse warehouse;
 
-    public Articles(String name, String brand, String material, String type, float price,
+    public Articles(int id,String name, String brand, String material, String type, float price,
                     Specifications[] specifications, Review[] reviews, Cart[] cart,
                     Orders[] orders, Warehouse warehouse) {
+        this.id= id;
         this.name = name;
         this.brand = brand;
         this.material = material;
@@ -25,6 +27,14 @@ public class Articles {
         this.cart = cart;
         this.orders = orders;
         this.warehouse = warehouse;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

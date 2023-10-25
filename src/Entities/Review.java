@@ -1,18 +1,28 @@
 package Entities;
 
 public class Review {
+    private int id;
     private String stars;
     private String comment;
     private String date;
     private Client client;
     private Articles article;
 
-    public Review(String stars, String comment, String date, Client client, Articles article) {
+    public Review(int id,String stars, String comment, String date, Client client, Articles article) {
+        this.id = id;
         this.stars = stars;
         this.comment = comment;
         this.date = date;
         this.client = client;
         this.article = article;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getStars() {

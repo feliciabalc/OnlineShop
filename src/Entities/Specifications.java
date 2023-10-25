@@ -1,18 +1,28 @@
 package Entities;
 
 public class Specifications {
+    private int id;
     private Articles article;
     private String size;
     private String color;
     private double quantity;
     private boolean availability= getQuantity()>0;
 
-    public Specifications(Articles article, String size, String color, double quantity, boolean availability) {
+    public Specifications(int id,Articles article, String size, String color, double quantity, boolean availability) {
+        this.id = id;
         this.article = article;
         this.size = size;
         this.color = color;
         this.quantity = quantity;
         this.availability = availability;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Articles getArticle() {

@@ -1,16 +1,21 @@
 package Entities;
 
-public class Courier {
-    private String name;
-    private double telefon;
-    private Orders[] orders;
-    private Warehouse warehouse;
+import java.util.List;
 
-    public Courier(String name, double telefon, Orders[] orders, Warehouse warehouse) {
-        this.name = name;
-        this.telefon = telefon;
-        this.orders = orders;
-        this.warehouse = warehouse;
+public class Courier extends Employees{
+    private List<String> Shipping_address;
+
+    public Courier(int id,String name, String role, String salary, double telefon, Orders[] orders, Warehouse warehouse, List<String> shipping_address) {
+        super(id,name, role, salary, telefon, orders, warehouse);
+        Shipping_address = shipping_address;
+    }
+
+    public List<String> getShipping_address() {
+        return Shipping_address;
+    }
+
+    public void setShipping_address(List<String> shipping_address) {
+        Shipping_address = shipping_address;
     }
 
     public String getName() {

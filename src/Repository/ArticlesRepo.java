@@ -1,56 +1,95 @@
 package Repository;
 
 import Entities.Articles;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ArticlesRepo extends AbstractRepo {
     public ArticlesRepo(String fileName) {
+
         super(fileName);
     }
 
 
 
+    public List<Articles> loadArticles() {
+        Type articlesListType = new TypeToken<List<Articles>>() {}.getType();
+        return load();
+    }
 
-    public List<String> convertObjectsToStrings(List<?> objects) {
-        List<String> data = new ArrayList<>();
-        for (Object obj : objects) {
-            if (obj instanceof Articles) {
-                Articles article = (Articles) obj;
-                String formattedArticle = String.format("%s,%s,%s,%s,%f",
-                        article.getName(), article.getBrand(), article.getMaterial(),
-                        article.getType(), article.getPrice());
-                data.add(formattedArticle);
+    public List<Articles> findAll(){
+        return loadArticles();
+    }
+
+
+    public Articles findById(int Id){
+        List<Articles> allArticles = loadArticles();
+        Articles foundItem = null;
+        for(Articles item : allArticles){
+                if(item.getId() == Id)
+                    foundItem =item;
+
+        }
+
+    return foundItem;
+    }
+
+    public void delete(int Id) {
+        List<Articles> articlesList = loadArticles();
+        Articles foundItem = null;
+        int indexToRemove = -1;
+
+        for (int i = 0; i < articlesList.size(); i++) {
+            Articles item = articlesList.get(i);
+            if (item.getId() == Id) {
+                foundItem = item;
+                indexToRemove = i;
+                break;
             }
         }
-        return data;
-    }
 
-
-
-
-
-
-    //////ai ca parametru lista de articole, in abstract repo ai de string uri
-    /*
-    public void save(List<Articles> articles) throws IOException {
-        List<String> data = new ArrayList<>();
-        for (Articles article : articles) {
-            String Articles = String.format("%s,%s,%s,%s,%f",
-                    article.getName(), article.getBrand(), article.getMaterial(),
-                    article.getType(), article.getPrice());
-            data.add(Articles);
+        if (foundItem != null && indexToRemove != -1) {
+            articlesList.remove(indexToRemove);
+            save(articlesList);
+            System.out.println("Article with ID " + Id + " has been deleted.");
+        } else {
+            System.out.println("Article with ID " + Id + " not found.");
         }
-        save(data);
     }
 
-     */
 
-    public void save(List<?> objects) throws IOException {
-        super.save(objects);
+
+    public void update(int id, Articles updatedArticle) {
+        List<Articles> articlesList = loadArticles();
+        boolean found = false;
+
+        for (int i = 0; i < articlesList.size(); i++) {
+            Articles article = articlesList.get(i);
+            if (article.getId() == id) {
+                //fa cu setters
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            save(articlesList);
+            System.out.println("Article with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Article with ID " + id + " not found.");
+        }
     }
+
+
+
+
+
+
 
 
 

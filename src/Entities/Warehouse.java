@@ -1,6 +1,7 @@
 package Entities;
 
 public class Warehouse {
+    private int id;
     private String name;
     private String address;
     private Articles[] articles;
@@ -9,14 +10,23 @@ public class Warehouse {
     private Courier[] couriers;
 
 
-    public Warehouse(String name, String address, Articles[] articles, Employees[] employees,
+    public Warehouse(int id,String name, String address, Articles[] articles, Employees[] employees,
                      Suppliers[] suppliers, Courier[] couriers) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.articles = articles;
         this.employees = employees;
         this.suppliers = suppliers;
         this.couriers = couriers;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

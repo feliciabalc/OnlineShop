@@ -1,2 +1,26 @@
-bluza,cx,bumbac,maneca,24.000000
-pant,cx,bumbac,maneca,29.000000
+[
+  {
+    "id": 1,
+    "name": "bluza",
+    "brand": "cx",
+    "material": "bumbac",
+    "type": "maneca",
+    "price": 24.0
+  },
+  {
+    "id": 2,
+    "name": "tricou",
+    "brand": "cx",
+    "material": "bumbac",
+    "type": "maneca",
+    "price": 29.0
+  },
+  {
+    "id": 5,
+    "name": "top",
+    "brand": "nike",
+    "material": "tafta",
+    "type": "maneca",
+    "price": 35.0
+  }
+]

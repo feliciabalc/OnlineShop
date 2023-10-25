@@ -2,11 +2,17 @@ package Repository;
 import java.io.*;
 import java.io.File;
 import java.io.FileWriter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.util.Objects;
 
-abstract public class AbstractRepo {
+abstract public class AbstractRepo<T> {
     private String fileName;
 
     public AbstractRepo(String fileName) {
@@ -21,48 +27,54 @@ abstract public class AbstractRepo {
         return fileName;
     }
 
-    /*
-    protected void save(List<Object> objects) throws IOException {
-        List<String> data = new ArrayList<>();
-        FileWriter w = new FileWriter(fileName);  //class used for creating and writing data into a file
 
 
-        for(String str : data){
-                 w.write(str);
+
+    public void save(List<T> objects){
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create(); //prettiprinting pt a aduga linii si pt indentare; creez instanta Gson cu GsonBuilder
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))){
+            String convertTOjson =gson.toJson(objects);
+            writer.println(convertTOjson);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        w.close();
-
-       }
-
-     */
-    public abstract List<String> convertObjectsToStrings(List<?> objects);
-
-    public void save(List<?> objects) throws IOException {
-        List<String> data = convertObjectsToStrings(objects);
-        FileWriter w = new FileWriter(fileName);
-        for (String str : data) {
-            w.write(str + "\n");
-        }
-        w.close();
     }
 
 
-    protected String load(){
-        StringBuilder dataFromFile = new StringBuilder(); //initialize an object to store the data from the file, concatenates its content into a single String using StringBuilder
-        try(BufferedReader read = new BufferedReader(new FileReader(fileName))){ //reads line from the file
-            String line;
-            while((line = read.readLine())!= null){ //reads until the file it empty
-                dataFromFile.append(line); //adding to the new file
-            }
-            return dataFromFile.toString();
-        }catch (IOException e){
-            e.printStackTrace(); //print the exception if the path is invalid
+
+
+/*
+    public List<T> load(Type objectType) {
+        Gson gson = new Gson();
+        try (BufferedReader read = new BufferedReader(new FileReader(fileName))) {
+            return gson.fromJson(read, objectType);
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception properly
         }
         return null;
+    }
 
+*/
+
+    public List<T> load() {
+        Type objectType = new TypeToken<List<T>>() {}.getType();
+        Gson gson = new Gson();
+        try (BufferedReader read = new BufferedReader(new FileReader(fileName))) {
+            return gson.fromJson(read, objectType);
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception properly
+        }
+        return null;
     }
 
 
 
-    }
+
+
+
+
+
+}
 

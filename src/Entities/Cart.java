@@ -1,14 +1,24 @@
 package Entities;
 
 public class Cart {
+    private int id;
     private double quantity;
     private Client client;
     private Articles[] articles;
 
-    public Cart(double quantity, Client client, Articles[] articles) {
+    public Cart(int id,double quantity, Client client, Articles[] articles) {
+        this.id = id;
         this.quantity = quantity;
         this.client = client;
         this.articles = articles;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getQuantity() {

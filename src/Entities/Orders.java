@@ -1,6 +1,7 @@
 package Entities;
 
 public class Orders {
+    private int id;
     private double orderNumber;
     private float totalAmount;
     private  String paymentMethod;
@@ -11,8 +12,9 @@ public class Orders {
     private Courier courier;
     private Articles[] articles;
 
-    public Orders(double orderNumber, float totalAmount, String paymentMethod, String address,
+    public Orders(int id,double orderNumber, float totalAmount, String paymentMethod, String address,
                   String date, Employees[] employees, Client client, Courier courier, Articles[] articles) {
+        this.id = id;
         this.orderNumber = orderNumber;
         this.totalAmount = totalAmount;
         this.paymentMethod = paymentMethod;
@@ -22,6 +24,14 @@ public class Orders {
         this.client = client;
         this.courier = courier;
         this.articles = articles;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getOrderNumber() {
