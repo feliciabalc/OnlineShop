@@ -3,12 +3,12 @@ package Entities;
 public class Specifications {
     private int id;
     private Articles article;
-    private String size;
+    private String[] size;
     private String color;
     private double quantity;
     private boolean availability= getQuantity()>0;
 
-    public Specifications(int id,Articles article, String size, String color, double quantity, boolean availability) {
+    public Specifications(int id,Articles article, String[] size, String color, double quantity, boolean availability) {
         this.id = id;
         this.article = article;
         this.size = size;
@@ -33,11 +33,11 @@ public class Specifications {
         this.article = article;
     }
 
-    public String getSize() {
+    public String[] getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(String[] size) {
         this.size = size;
     }
 

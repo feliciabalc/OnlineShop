@@ -2,6 +2,8 @@ package Controller;
 
 import Entities.Articles;
 import Entities.Cart;
+import Entities.Employee;
+import Entities.Orders;
 import Repository.CartRepo;
 
 import java.util.ArrayList;
@@ -70,6 +72,25 @@ public class CartController {
             System.out.println("Cart with ID " + id + " not found.");
         }
     }
+    public void updateteArticles(int id, Articles article, int position){
+        List<Cart> cartList = loadCart();
+        boolean found = false;
 
+        for (int i = 0; i < cartList.size(); i++) {
+            Cart cart = cartList.get(i);
+            if (cart.getId() == id) {
+                Articles[] articles=cart.getArticles();
+                articles[position]=article;
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(cartList);
+            System.out.println("Cart with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Cart with ID " + id + " not found.");
+        }
+    }
 
 }
