@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.Arrays;
+
 public class Client {
     private int id;
     private  String  name;
@@ -74,5 +76,18 @@ public class Client {
 
     public void setReview(Review[] review) {
         this.review = review;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", telefon=" + telefon +
+                ", orders=" + Arrays.toString(orders) +
+                ", cart=" + cart +
+                ", review=" + Arrays.toString(review) +
+                '}';
     }
 }

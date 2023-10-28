@@ -64,4 +64,16 @@ public class Review {
     public void setArticle(Articles article) {
         this.article = article;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", stars='" + stars + '\'' +
+                ", comment='" + comment + '\'' +
+                ", date='" + date + '\'' +
+                ", client=" + client +
+                ", article=" + article +
+                '}';
+    }
 }

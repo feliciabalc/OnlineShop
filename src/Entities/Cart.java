@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.Arrays;
+
 public class Cart {
     private int id;
     private double quantity;
@@ -43,5 +45,15 @@ public class Cart {
 
     public void setArticles(Articles[] articles) {
         this.articles = articles;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", client=" + client +
+                ", articles=" + Arrays.toString(articles) +
+                '}';
     }
 }

@@ -1,16 +1,18 @@
 package Entities;
 
+import java.util.Arrays;
+
 public class Warehouse {
     private int id;
     private String name;
     private String address;
     private Articles[] articles;
-    private Employees[] employees;
+    private Employee[] employees;
     private Suppliers[] suppliers;
     private Courier[] couriers;
 
 
-    public Warehouse(int id,String name, String address, Articles[] articles, Employees[] employees,
+    public Warehouse(int id,String name, String address, Articles[] articles, Employee[] employees,
                      Suppliers[] suppliers, Courier[] couriers) {
         this.id = id;
         this.name = name;
@@ -51,5 +53,18 @@ public class Warehouse {
 
     public void setArticles(Articles[] articles) {
         this.articles = articles;
+    }
+
+    @Override
+    public String toString() {
+        return "Warehouse{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", articles=" + Arrays.toString(articles) +
+                ", employees=" + Arrays.toString(employees) +
+                ", suppliers=" + Arrays.toString(suppliers) +
+                ", couriers=" + Arrays.toString(employees) +
+                '}';
     }
 }

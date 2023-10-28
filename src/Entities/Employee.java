@@ -1,6 +1,8 @@
 package Entities;
 
-public class Employees {
+import java.util.Arrays;
+
+public class Employee {
     protected int id;
     protected String name;
     protected String role;
@@ -9,7 +11,7 @@ public class Employees {
     protected Orders[] orders;
     protected Warehouse warehouse;
 
-    public Employees(int id,String name, String role, String salary, double telefon, Orders[] orders,
+    public Employee(int id,String name, String role, String salary, double telefon, Orders[] orders,
                      Warehouse warehouse) {
         this.id = id;
         this.name = name;
@@ -74,5 +76,18 @@ public class Employees {
 
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", salary='" + salary + '\'' +
+                ", telefon=" + telefon +
+                ", orders=" + Arrays.toString(orders) +
+                ", warehouse=" + warehouse +
+                '}';
     }
 }

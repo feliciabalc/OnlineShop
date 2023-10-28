@@ -3,9 +3,7 @@ package Repository;
 import Entities.Articles;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,10 +14,14 @@ public class ArticlesRepo extends AbstractRepo {
     }
 
 
+    @Override
+    public void save(List objects) {
+        super.save(objects);
+    }
 
     public List<Articles> loadArticles() {
         Type articlesListType = new TypeToken<List<Articles>>() {}.getType();
-        return load();
+        return load(articlesListType);
     }
 
     public List<Articles> findAll(){
@@ -71,7 +73,11 @@ public class ArticlesRepo extends AbstractRepo {
         for (int i = 0; i < articlesList.size(); i++) {
             Articles article = articlesList.get(i);
             if (article.getId() == id) {
-                //fa cu setters
+                article.setName(updatedArticle.getName());
+                article.setBrand(updatedArticle.getBrand());
+                article.setPrice(updatedArticle.getPrice());
+                article.setMaterial(updatedArticle.getMaterial());
+                article.setType(updatedArticle.getType());
                 found = true;
                 break;
             }

@@ -64,4 +64,16 @@ public class Specifications {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+
+    @Override
+    public String toString() {
+        return "Specifications{" +
+                "id=" + id +
+                ", article=" + article +
+                ", size='" + size + '\'' +
+                ", color='" + color + '\'' +
+                ", quantity=" + quantity +
+                ", availability=" + availability +
+                '}';
+    }
 }

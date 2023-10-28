@@ -54,4 +54,15 @@ public class Suppliers {
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }
+
+    @Override
+    public String toString() {
+        return "Suppliers{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", telefon=" + telefon +
+                ", articleType='" + articleType + '\'' +
+                ", warehouse=" + warehouse +
+                '}';
+    }
 }

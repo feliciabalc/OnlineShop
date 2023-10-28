@@ -45,7 +45,7 @@ abstract public class AbstractRepo<T> {
 
 
 
-/*
+
     public List<T> load(Type objectType) {
         Gson gson = new Gson();
         try (BufferedReader read = new BufferedReader(new FileReader(fileName))) {
@@ -56,7 +56,7 @@ abstract public class AbstractRepo<T> {
         return null;
     }
 
-*/
+/*
 
     public List<T> load() {
         Type objectType = new TypeToken<List<T>>() {}.getType();
@@ -71,7 +71,7 @@ abstract public class AbstractRepo<T> {
 
 
 
-
+*/
 
 
 

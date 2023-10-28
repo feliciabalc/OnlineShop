@@ -1,5 +1,7 @@
 package Entities;
 
+import java.util.Arrays;
+
 public class Orders {
     private int id;
     private double orderNumber;
@@ -7,13 +9,13 @@ public class Orders {
     private  String paymentMethod;
     private String address;
     private String date;
-    private Employees[] employees;
+    private Employee[] employees;
     private Client client;
     private Courier courier;
     private Articles[] articles;
 
-    public Orders(int id,double orderNumber, float totalAmount, String paymentMethod, String address,
-                  String date, Employees[] employees, Client client, Courier courier, Articles[] articles) {
+    public Orders(int id, double orderNumber, float totalAmount, String paymentMethod, String address,
+                  String date, Employee[] employees, Client client, Courier courier, Articles[] articles) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.totalAmount = totalAmount;
@@ -74,11 +76,11 @@ public class Orders {
         this.date = date;
     }
 
-    public Employees[] getEmployees() {
+    public Employee[] getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Employees[] employees) {
+    public void setEmployees(Employee[] employees) {
         this.employees = employees;
     }
 
@@ -104,5 +106,21 @@ public class Orders {
 
     public void setArticles(Articles[] articles) {
         this.articles = articles;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id=" + id +
+                ", orderNumber=" + orderNumber +
+                ", totalAmount=" + totalAmount +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", address='" + address + '\'' +
+                ", date='" + date + '\'' +
+                ", employee=" + Arrays.toString(employees) +
+                ", client=" + client +
+                ", courier=" + courier +
+                ", articles=" + Arrays.toString(articles) +
+                '}';
     }
 }

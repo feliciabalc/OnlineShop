@@ -1,52 +1,35 @@
 package Entities;
 
-import java.util.List;
+import java.util.Arrays;
 
-public class Courier extends Employees{
-    private List<String> Shipping_address;
+public class Courier extends Employee{
+    private String Shipping_Address;
 
-    public Courier(int id,String name, String role, String salary, double telefon, Orders[] orders, Warehouse warehouse, List<String> shipping_address) {
-        super(id,name, role, salary, telefon, orders, warehouse);
-        Shipping_address = shipping_address;
+    public Courier(int id, String name, String role, String salary, double telefon, Orders[] orders,
+                   Warehouse warehouse, String shipping_Address) {
+        super(id, name, role, salary, telefon, orders, warehouse);
+        Shipping_Address = shipping_Address;
     }
 
-    public List<String> getShipping_address() {
-        return Shipping_address;
+    public String getShipping_Address() {
+        return Shipping_Address;
     }
 
-    public void setShipping_address(List<String> shipping_address) {
-        Shipping_address = shipping_address;
+    public void setShipping_Address(String shipping_Address) {
+        Shipping_Address = shipping_Address;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getTelefon() {
-        return telefon;
-    }
-
-    public void setTelefon(double telefon) {
-        this.telefon = telefon;
-    }
-
-    public Orders[] getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Orders[] orders) {
-        this.orders = orders;
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
+    @Override
+    public String toString() {
+        return "Courier{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", role='" + role + '\'' +
+                ", salary='" + salary + '\'' +
+                ", telefon=" + telefon +
+                ", orders=" + Arrays.toString(orders) +
+                ", warehouse=" + warehouse +
+                '}';
     }
 }

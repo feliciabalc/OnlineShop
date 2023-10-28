@@ -76,4 +76,15 @@ public class Articles {
     public void setPrice(float price) {
         this.price = price;
     }
+
+    public String toString() {
+        return "Articles{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", brand='" + getBrand() + '\'' +
+                ", material='" + getMaterial() + '\'' +
+                ", type='" + getType() + '\'' +
+                ", price=" + getPrice() +
+                '}';
+    }
 }

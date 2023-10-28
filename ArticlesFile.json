@@ -1,19 +1,11 @@
 [
   {
-    "id": 1,
-    "name": "bluza",
-    "brand": "cx",
-    "material": "bumbac",
-    "type": "maneca",
-    "price": 24.0
-  },
-  {
     "id": 2,
-    "name": "tricou",
-    "brand": "cx",
-    "material": "bumbac",
-    "type": "maneca",
-    "price": 29.0
+    "name": "pantaloni",
+    "brand": "nike",
+    "material": "elastan",
+    "type": "scurti",
+    "price": 100.0
   },
   {
     "id": 5,
