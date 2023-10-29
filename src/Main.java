@@ -2,6 +2,7 @@ import Controller.ArticlesController;
 import Entities.*;
 import Repository.ArticlesRepo;
 import Repository.ClientRepo;
+import UI.ArticlesUI;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,14 +16,14 @@ public class Main {
         Articles a2 = new Articles(2,"tricou", "cx", "bumbac", "maneca", 29, null, null, null, null, null);
         Articles a3 = new Articles(5,"top", "nike", "tafta", "maneca", 35, null, null, null, null, null);
         Articles a4 = new Articles(6,"pantaloni", "nike", "elastan","scurti", 100,null,null,null,null,null);
+
         ArticlesRepo r1 = new ArticlesRepo("ArticlesFile.json");
-
-
-
+        ArticlesController articlesController=new ArticlesController(r1);
         List<Articles> articlesList = new ArrayList<>();
         articlesList.add(a1);
         articlesList.add(a2);
         articlesList.add(a3);
+        ArticlesUI articlesUI = new ArticlesUI(articlesController);
 
 
 
