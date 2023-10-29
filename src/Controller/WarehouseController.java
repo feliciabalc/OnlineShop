@@ -1,13 +1,12 @@
 package Controller;
 
-import Entities.Employee;
-import Entities.Orders;
-import Entities.Warehouse;
+import Entities.*;
 import Repository.EmployeesRepo;
 import Repository.WarehouseRepo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class WarehouseController {
     private WarehouseRepo warehouseRepo;
@@ -52,75 +51,88 @@ public class WarehouseController {
 
 
 
-    public void updateSalary(int id, String salary){
-        List<Employee> employeeList = loadWarehouse();
-        boolean found = false;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee = employeeList.get(i);
-            if (employee.getId() == id) {
-                employee.setSalary(salary);
-                found = true;
-                break;
+    public void deleteArticles(int id,Articles article) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Articles> articleList= List.of(warehouse.getArticles());
+                for( int j=0; j<articleList.size();j++){
+                    if(articleList.get(j) ==article){
+                        articleList.remove(article);
+                        break;
+                    }
+                }
             }
         }
-        if (found) {
-            save(employeeList);
-            System.out.println("Employee with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Employee with ID " + id + " not found.");
-        }
+        save(warehouseList);
+        System.out.println("Article has been deleted.");
     }
 
-    public void updateteRole(int id, String role){
-        List<Employee> employeeList = loadEmployees();
-        boolean found = false;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee = employeeList.get(i);
-            if (employee.getId() == id) {
-                employee.setRole(role);
-                found = true;
-                break;
+    public void deleteEmployees(int id,Employee employee) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Employee> employeeList= List.of(warehouse.getEmployees());
+                for( int j=0; j<employeeList.size();j++){
+                    if(employeeList.get(j) ==employee){
+                        employeeList.remove(employee);
+                        break;
+                    }
+                }
             }
         }
-        if (found) {
-            save(employeeList);
-            System.out.println("Employee with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Employee with ID " + id + " not found.");
-        }
+        save(warehouseList);
+        System.out.println("Employee has been deleted.");
     }
 
-    public void updateteOrders(int id, Orders order, int position){
-        List<Employee> employeeList = loadEmployees();
-        boolean found = false;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee = employeeList.get(i);
-            if (employee.getId() == id) {
-                Orders[] orders=employee.getOrders();
-                orders[position]=order;
-                found = true;
-                break;
+    public void deleteSupplier(int id,Supplier supplier) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Suppliers> supplierList= List.of(warehouse.getSuppliers());
+                for( int j=0; j<supplierList.size();j++){
+                    if(supplierList.get(j) ==supplier){
+                        supplierList.remove(supplier);
+                        break;
+                    }
+                }
             }
         }
-        if (found) {
-            save(employeeList);
-            System.out.println("Courier with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Courier with ID " + id + " not found.");
-        }
+        save(warehouseList);
+        System.out.println("Article has been deleted.");
     }
 
-    public List<Employee> filteredByRole(String role) {
-        List<Employee> employee = loadEmployees();
-        List<Employee> filteredEmployee = new ArrayList<>();
-        for (Employee item : employee) {
-            if (item.getRole() == role)
-                filteredEmployee.add(item);
+
+    public void deleteCourier(int id,Courier courier) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Courier> courierList= List.of(warehouse.getCouriers());
+                for( int j=0; j<courierList.size();j++){
+                    if(courierList.get(j) ==courier){
+                        courierList.remove(courier);
+                        break;
+                    }
+                }
+            }
         }
-        return filteredEmployee;
+        save(warehouseList);
+        System.out.println("Courier has been deleted.");
+    }
+
+
+    public List<Warehouse> filteredByAddress(String address) {
+        List<Warehouse> warehouse = loadWarehouse();
+        List<Warehouse> filteredWarehouse = new ArrayList<>();
+        for (Warehouse item : warehouse) {
+            if (item.getAddress() == address)
+                filteredWarehouse.add(item);
+        }
+        return filteredWarehouse;
 
     }
 }

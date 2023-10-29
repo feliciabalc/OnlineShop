@@ -1,6 +1,7 @@
 package Controller;
 
 import Entities.Articles;
+import Entities.Cart;
 import Entities.Courier;
 import Entities.Orders;
 import Repository.CourierRepo;
@@ -112,24 +113,27 @@ public class CourierController {
         }
     }
 
-    public void updateteOrders(int id, Orders order, int position){
+    public void updateteOrders(int id, Orders order, Orders newOrder) {
         List<Courier> courierList = loadCourier();
         boolean found = false;
 
         for (int i = 0; i < courierList.size(); i++) {
             Courier courier = courierList.get(i);
             if (courier.getId() == id) {
-                Orders[] orders=courier.getOrders();
-                orders[position]=order;
-                found = true;
-                break;
+                Orders[] orders = courier.getOrders();
+                for (int j = 0; j <=orders.length; j++)
+                    if (orders[j] == order) {
+                        orders[j] = newOrder;
+                        found = true;
+                        break;
+                    }
             }
         }
         if (found) {
             save(courierList);
-            System.out.println("Courier with ID " + id + " has been updated.");
+            System.out.println("Order has been updated.");
         } else {
-            System.out.println("Courier with ID " + id + " not found.");
+            System.out.println("Order not found.");
         }
     }
 

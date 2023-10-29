@@ -72,25 +72,27 @@ public class CartController {
             System.out.println("Cart with ID " + id + " not found.");
         }
     }
-    public void updateteArticles(int id, Articles article, int position){
+    public void updateteArticles(int id, Articles article, Articles newArticle) {
         List<Cart> cartList = loadCart();
         boolean found = false;
 
         for (int i = 0; i < cartList.size(); i++) {
             Cart cart = cartList.get(i);
             if (cart.getId() == id) {
-                Articles[] articles=cart.getArticles();
-                articles[position]=article;
-                found = true;
-                break;
+                Articles[] articles = cart.getArticles();
+                for (int j = 0; j <= articles.length; j++)
+                    if (articles[j] == article) {
+                        articles[j] = newArticle;
+                        found = true;
+                        break;
+                    }
             }
         }
         if (found) {
             save(cartList);
-            System.out.println("Cart with ID " + id + " has been updated.");
+            System.out.println("Courier with ID " + id + " has been updated.");
         } else {
-            System.out.println("Cart with ID " + id + " not found.");
+            System.out.println("Courier with ID " + id + " not found.");
         }
     }
-
 }

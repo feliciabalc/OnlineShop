@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ArticlesController {
-    private ArticlesRepo articlesRepo;
+    private static ArticlesRepo articlesRepo;
 
     public ArticlesController(ArticlesRepo articlesRepo) {
         this.articlesRepo = articlesRepo;
@@ -22,11 +22,11 @@ public class ArticlesController {
     }
 
 
-    public List<Articles> load() {
+    public static List<Articles> load() {
         return articlesRepo.loadArticles();
     }
 
-    public void save(List<Articles> articles) {
+    public static void save(List<Articles> articles) {
         articlesRepo.save(articles);
     }
 

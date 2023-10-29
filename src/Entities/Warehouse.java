@@ -55,6 +55,30 @@ public class Warehouse {
         this.articles = articles;
     }
 
+    public Employee[] getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Employee[] employees) {
+        this.employees = employees;
+    }
+
+    public Suppliers[] getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Suppliers[] suppliers) {
+        this.suppliers = suppliers;
+    }
+
+    public Courier[] getCouriers() {
+        return couriers;
+    }
+
+    public void setCouriers(Courier[] couriers) {
+        this.couriers = couriers;
+    }
+
     @Override
     public String toString() {
         return "Warehouse{" +

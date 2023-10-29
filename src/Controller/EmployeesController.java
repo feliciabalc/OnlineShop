@@ -92,7 +92,7 @@ public class EmployeesController {
         }
     }
 
-    public void updateteOrders(int id, Orders order, int position){
+    public void updateteOrders(int id, Orders order, Orders newOrder){
         List<Employee> employeeList = loadEmployees();
         boolean found = false;
 
@@ -100,10 +100,12 @@ public class EmployeesController {
             Employee employee = employeeList.get(i);
             if (employee.getId() == id) {
                 Orders[] orders=employee.getOrders();
-                orders[position]=order;
-                found = true;
-                break;
-            }
+                for(int j= 0; j<= orders.length; j++)
+                    if(orders[j]==order){
+                        orders[j] = newOrder;
+                        found = true;
+                        break;
+            }}
         }
         if (found) {
             save(employeeList);
