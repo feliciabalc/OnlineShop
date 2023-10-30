@@ -11,11 +11,11 @@ public class Articles {
     private Review[] reviews;
     private Cart[] cart;
     private Orders[] orders;
-    private Warehouse warehouse;
+    private Warehouse[] warehouse;
 
     public Articles(int id,String name, String brand, String material, String type, float price,
                     Specifications[] specifications, Review[] reviews, Cart[] cart,
-                    Orders[] orders, Warehouse warehouse) {
+                    Orders[] orders, Warehouse[] warehouse) {
         this.id= id;
         this.name = name;
         this.brand = brand;

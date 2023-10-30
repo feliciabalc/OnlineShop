@@ -11,6 +11,12 @@ import java.util.List;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+    public void startMenu(){
+        System.out.println("Choose your ");
+    }
+
+
+
     public static void main(String[] args) throws IOException {
         Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24, null, null, null, null, null);
         Articles a2 = new Articles(2,"tricou", "cx", "bumbac", "maneca", 29, null, null, null, null, null);
@@ -26,7 +32,7 @@ public class Main {
         ArticlesUI articlesUI = new ArticlesUI(articlesController);
 
 
-
+    Cart cart1= new(1,20, null, null)
 
 
 
