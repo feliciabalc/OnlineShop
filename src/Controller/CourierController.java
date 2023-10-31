@@ -34,6 +34,10 @@ public class CourierController {
         courierRepo.save(couriers);
     }
 
+    public void saveOneObject(Courier courier){
+        courierRepo.saveOneObject(courier);
+    }
+
     public List<Courier> findAll() {
         return courierRepo.loadCourier();
     }
@@ -120,10 +124,10 @@ public class CourierController {
         for (int i = 0; i < courierList.size(); i++) {
             Courier courier = courierList.get(i);
             if (courier.getId() == id) {
-                Orders[] orders = courier.getOrders();
-                for (int j = 0; j <=orders.length; j++)
-                    if (orders[j] == order) {
-                        orders[j] = newOrder;
+                List<Orders> orders = courier.getOrders();
+                for (int j = 0; j <=orders.size(); j++)
+                    if (orders.get(j) == order) {
+                        orders.set(j, newOrder);
                         found = true;
                         break;
                     }
@@ -147,5 +151,9 @@ public class CourierController {
         return filteredCouriers;
 
     }
+    public void addOrderToCurier(Orders order, Courier courier){
+        courierRepo.addOrderToCurier(order, courier);}
 
+    public void removeOrderToCourier(Orders order, Courier courier){
+        courierRepo.removeOrderToCourier(order, courier);}
 }

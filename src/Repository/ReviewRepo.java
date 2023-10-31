@@ -22,6 +22,12 @@ public class ReviewRepo extends AbstractRepo {
         super.save(objects);
     }
 
+    public void saveOneObj(Review review){
+        List<Review> reviews =loadReview();
+        reviews.add(review);
+        save(reviews);
+    }
+
     public List<Review> loadReview() {
         Type reviewListType = new TypeToken<List<Review>>() {}.getType();
         return load(reviewListType);
@@ -66,8 +72,6 @@ public class ReviewRepo extends AbstractRepo {
         }
     }
 
-
-
     public void update(int id, Review updatedReview) {
         List<Review> reviewList = loadReview();
         boolean found = false;
@@ -89,5 +93,8 @@ public class ReviewRepo extends AbstractRepo {
             System.out.println( id + " not found.");
         }
     }
+    public void setClient(Client client) {client = client;}
+
+    public void setArticle(Articles article) {article = article;}
 
 }

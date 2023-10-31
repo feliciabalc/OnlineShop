@@ -1,6 +1,6 @@
 package Repository;
 
-import Entities.Articles;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -18,6 +18,8 @@ public class ArticlesRepo extends AbstractRepo {
     public void save(List objects) {
         super.save(objects);
     }
+
+
 
     public List<Articles> loadArticles() {
         Type articlesListType = new TypeToken<List<Articles>>() {}.getType();
@@ -90,6 +92,66 @@ public class ArticlesRepo extends AbstractRepo {
             System.out.println("Article with ID " + id + " not found.");
         }
     }
+
+
+    public void saveOneObject(Articles article){
+        List<Articles> allArticles =loadArticles();
+        allArticles.add(article);
+        save(allArticles);
+    }
+
+
+    public void addSpecificationsToArticle(Articles article, Specifications specification){
+        article.addSpecifications(specification);
+        saveOneObject(article);
+    }
+
+    public void removeSpecificationsToArticle(Articles article, Specifications specification){
+        article.removeSpecifications(specification);
+        saveOneObject(article);
+    }
+
+    public void addCartToArticle(Articles article, Cart cart){
+        article.addCart(cart);
+        saveOneObject(article);
+    }
+
+    public void removeCartToArticle(Articles article, Cart cart){
+        article.removeCart(cart);
+        saveOneObject(article);
+    }
+
+    public void addOrderToArticle(Articles article, Orders order){
+        article.addOrders(order);
+        saveOneObject(article);
+    }
+
+    public void removeOrderToArticle(Articles article, Orders order){
+        article.removeOrders(order);
+        saveOneObject(article);
+    }
+
+    public void addReviewToArticle(Articles article, Review review){
+        article.addReview(review);
+        saveOneObject(article);
+    }
+
+    public void removeReviewToArticle(Articles article, Review review){
+        article.removeReview(review);
+        saveOneObject(article);
+    }
+
+    public void addWarehouseToArticle(Articles article, Warehouse warehouse){
+        article.addWarehouse(warehouse);
+        saveOneObject(article);
+    }
+
+    public void removeWarehouseToArticle(Articles article, Warehouse warehouse){
+        article.removeWarehouse(warehouse);
+        saveOneObject(article);
+    }
+
+
 
 
 

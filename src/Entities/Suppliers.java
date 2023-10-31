@@ -7,12 +7,11 @@ public class Suppliers {
     private String articleType;
     private Warehouse warehouse;
 
-    public Suppliers(int id,String name, double telefon, String articleType, Warehouse warehouse) {
+    public Suppliers(int id,String name, double telefon, String articleType) {
         this.id = id;
         this.name = name;
         this.telefon = telefon;
         this.articleType = articleType;
-        this.warehouse = warehouse;
     }
 
     public int getId() {
@@ -62,7 +61,6 @@ public class Suppliers {
                 ", name='" + name + '\'' +
                 ", telefon=" + telefon +
                 ", articleType='" + articleType + '\'' +
-                ", warehouse=" + warehouse +
                 '}';
     }
 }

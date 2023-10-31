@@ -29,6 +29,10 @@ public class EmployeeUI {
         employeeController.save(employees);
     }
 
+    public void saveOneObject(Employee employee){
+        employeeController.saveOneObject(employee);
+    }
+
     public List<Employee> findAll() {
         return employeeController.findAll();
     }
@@ -59,6 +63,14 @@ public class EmployeeUI {
 
     public List<Employee> filteredByRole(String role) {
         return employeeController.filteredByRole(role);}
+
+    public void addOrderToEmployee(Orders order, Employee employee){
+        employeeController.addOrderToEmployee(order,employee);
+    }
+
+    public void removeOrderToEmployee(Orders order, Employee employee){
+        employeeController.removeOrderToEmployee(order,employee);
+    }
 
 
 }

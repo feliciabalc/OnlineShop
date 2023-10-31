@@ -1,6 +1,8 @@
 package Repository;
 
+import Entities.Articles;
 import Entities.Courier;
+import Entities.Employee;
 import Entities.Orders;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,6 +20,12 @@ public class OrdersRepo extends AbstractRepo {
     @Override
     public void save(List objects) {
         super.save(objects);
+    }
+
+    public void saveOneObj(Orders order){
+        List<Orders> orders =loadOrders();
+        orders.add(order);
+        save(orders);
     }
 
     public List<Orders> loadOrders() {
@@ -90,5 +98,27 @@ public class OrdersRepo extends AbstractRepo {
             System.out.println( id + " not found.");
         }
     }
+
+    public void addEmployeeToOrder(Employee employee, Orders order){
+        order.addEmployee(employee);
+        saveOneObj(order);
+    }
+
+    public void removeEmployeeToOrder(Employee employee, Orders order){
+        order.removeEmployee(employee);
+        saveOneObj(order);
+    }
+
+    public void addArticleToOrder(Articles article, Orders order){
+        order.addArticle(article);
+        saveOneObj(order);
+    }
+
+    public void removeArticleToOrder(Articles article, Orders order){
+        order.removeArticle(article);
+        saveOneObj(order);
+    }
+
+
 
 }

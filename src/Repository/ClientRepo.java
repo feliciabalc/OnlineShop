@@ -1,7 +1,6 @@
 package Repository;
 
-import Entities.Cart;
-import Entities.Client;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -22,6 +21,12 @@ public class ClientRepo extends AbstractRepo {
     public List<Client> loadClient() {
         Type clientListType = new TypeToken<List<Client>>() {}.getType();
         return load(clientListType);
+    }
+
+    public void saveOneObject(Client client){
+        List<Client> clients =loadClient();
+        clients.add(client);
+        save(clients);
     }
 
     public List<Client> findAll(){
@@ -88,5 +93,27 @@ public class ClientRepo extends AbstractRepo {
             System.out.println("Article with ID " + id + " not found.");
         }
     }
+
+    public void addReviewToClient(Review review, Client client){
+        client.addReview(review);
+        saveOneObject(client);
+    }
+
+    public void removeReviewToClient(Review review, Client client){
+        client.removeReview(review);
+        saveOneObject(client);
+    }
+
+    public void addOrderToClient(Orders order, Client client){
+        client.addOrders(order);
+        saveOneObject(client);
+    }
+
+    public void removeOrderToClient(Orders order, Client client){
+        client.removeOrders(order);
+        saveOneObject(client);
+    }
+
+
 
 }

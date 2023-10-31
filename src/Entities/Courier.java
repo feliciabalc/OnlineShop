@@ -5,9 +5,8 @@ import java.util.Arrays;
 public class Courier extends Employee{
     private String Shipping_Address;
 
-    public Courier(int id, String name, String role, String salary, double telefon, Orders[] orders,
-                   Warehouse warehouse, String shipping_Address) {
-        super(id, name, role, salary, telefon, orders, warehouse);
+    public Courier(int id, String name, String role, String salary, double telefon, String shipping_Address) {
+        super(id, name, role, salary, telefon);
         Shipping_Address = shipping_Address;
     }
 
@@ -28,8 +27,6 @@ public class Courier extends Employee{
                 ", role='" + role + '\'' +
                 ", salary='" + salary + '\'' +
                 ", telefon=" + telefon +
-                ", orders=" + Arrays.toString(orders) +
-                ", warehouse=" + warehouse +
-                '}';
+                                '}';
     }
 }

@@ -1,4 +1,6 @@
 package Controller;
+import Entities.Articles;
+import Entities.Employee;
 import Entities.Orders;
 import Repository.OrdersRepo;
 
@@ -25,7 +27,17 @@ public class OrdersController {
         return ordersRepo.loadOrders();
     }
 
+    public void saveOneObj(Orders order ){ordersRepo.saveOneObj(order);}
+
     public void save(List<Orders> orders) {
+        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
+        Orders o2 = new Orders(2, 13 ,100, "card", "Dornei 10", "24.05.2023");
+        Orders o3 = new Orders(3, 15, 98, "card", "Horea 10", "14.09.2023");
+
+        orders.add(o1);
+        orders.add(o2);
+        orders.add(o3);
+
         ordersRepo.save(orders);
     }
 
@@ -98,5 +110,23 @@ public class OrdersController {
         }
         return filteredOrders;
 
+    }
+
+    public void addEmployeeToOrder(Employee employee, Orders order){
+
+        ordersRepo.addEmployeeToOrder(employee,order);
+    }
+
+    public void removeEmployeeToOrder(Employee employee, Orders order){
+        ordersRepo.removeEmployeeToOrder(employee,order);}
+
+
+
+    public void addArticleToOrder(Articles article, Orders order){
+        ordersRepo.addArticleToOrder(article, order);
+    }
+
+    public void removeArticleToOrder(Articles article, Orders order){
+        ordersRepo.removeArticleToOrder(article, order);
     }
 }

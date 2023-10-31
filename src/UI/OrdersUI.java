@@ -1,6 +1,8 @@
 package UI;
 
 import Controller.OrdersController;
+import Entities.Articles;
+import Entities.Employee;
 import Entities.Orders;
 
 import java.util.List;
@@ -25,6 +27,9 @@ public class OrdersUI {
     public void save(List<Orders> orders) {
         ordersController.save(orders);}
 
+    public void saveOneObj(Orders order ){
+        ordersController.saveOneObj(order);}
+
     public List<Orders> findAll() {
         return ordersController.findAll();}
 
@@ -45,4 +50,19 @@ public class OrdersUI {
 
     public List<Orders> filteredByDate(String date) {
         return ordersController.filteredByDate(date);}
+
+    public void addEmployeeToOrder(Employee employee, Orders order){
+        ordersController.addEmployeeToOrder(employee,order);
+    }
+
+    public void removeEmployeeToOrder(Employee employee, Orders order){
+        ordersController.removeEmployeeToOrder(employee,order);}
+
+    public void addArticleToOrder(Articles article, Orders order){
+        ordersController.addArticleToOrder(article, order);
+    }
+
+    public void removeArticleToOrder(Articles article, Orders order){
+        ordersController.removeArticleToOrder(article, order);
+    }
     }

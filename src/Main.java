@@ -17,22 +17,26 @@ public class Main {
 
 
 
+
+    ////////////////ai ramas la orders, trebuie modificata metoda save one obj, adaugat obiectele cu care are legaturi in controller, plus metoda delete one obj,
+
+
+
     public static void main(String[] args) throws IOException {
-        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24, null, null, null, null, null);
-        Articles a2 = new Articles(2,"tricou", "cx", "bumbac", "maneca", 29, null, null, null, null, null);
-        Articles a3 = new Articles(5,"top", "nike", "tafta", "maneca", 35, null, null, null, null, null);
-        Articles a4 = new Articles(6,"pantaloni", "nike", "elastan","scurti", 100,null,null,null,null,null);
+        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
+        Articles a2 = new Articles(2,"tricou", "cx", "bumbac", "maneca", 2);
+        Articles a3 = new Articles(5,"top", "nike", "tafta", "maneca", 35);
+        Articles a4 = new Articles(6,"pantaloni", "nike", "elastan","scurti", 100);
 
         ArticlesRepo r1 = new ArticlesRepo("ArticlesFile.json");
-        ArticlesController articlesController=new ArticlesController(r1);
         List<Articles> articlesList = new ArrayList<>();
         articlesList.add(a1);
         articlesList.add(a2);
         articlesList.add(a3);
-        ArticlesUI articlesUI = new ArticlesUI(articlesController);
+        r1.save(articlesList);
+        r1.saveOneObject(a4);
 
 
-    Cart cart1= new(1,20, null, null)
 
 
 
@@ -48,15 +52,11 @@ public class Main {
        r2.save(clientsList);
         System.out.println(r2.loadClient());
 
-        r1.save(articlesList);
-        System.out.println(r1.loadArticles());
 
-        System.out.println(r1.findAll());
 
         ArticlesController ac = new ArticlesController(r1);
 
-        r1.delete(1);
-        r1.update(2,a4);
+
 
     }
 }

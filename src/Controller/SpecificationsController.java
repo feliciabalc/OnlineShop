@@ -27,8 +27,16 @@ public class SpecificationsController {
     }
 
     public void save(List<Specifications> specifications) {
-        specificationsRepo.save(specifications);
-    }
+        Specifications sp1=new Specifications(1, new String[]{"S", "M"},"rosu",25,true);
+        Specifications sp2=new Specifications(2, new String[]{"S", "L"},"crem",4,true);
+        Specifications sp3=new Specifications(3, new String[]{"S", "M","XL"},"verde",13,true);
+        specifications.add(sp1);
+        specifications.add(sp2);
+        specifications.add(sp3);
+        specificationsRepo.save(specifications);}
+
+
+    public void saveOneObj(Specifications specification){ specificationsRepo.saveOneObj(specification);}
 
     public List<Specifications> findAll() {
         return specificationsRepo.loadSpecifications();
@@ -137,5 +145,8 @@ public class SpecificationsController {
             return filteredSpecifications;
 
         }
+    public void setArticle(Articles article) {
+        specificationsRepo.setArticle(article);
+    }
 
     }

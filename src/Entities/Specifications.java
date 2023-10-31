@@ -8,9 +8,8 @@ public class Specifications {
     private double quantity;
     private boolean availability= getQuantity()>0;
 
-    public Specifications(int id,Articles article, String[] size, String color, double quantity, boolean availability) {
+    public Specifications(int id, String[] size, String color, double quantity, boolean availability) {
         this.id = id;
-        this.article = article;
         this.size = size;
         this.color = color;
         this.quantity = quantity;
@@ -69,7 +68,6 @@ public class Specifications {
     public String toString() {
         return "Specifications{" +
                 "id=" + id +
-                ", article=" + article +
                 ", size='" + size + '\'' +
                 ", color='" + color + '\'' +
                 ", quantity=" + quantity +

@@ -1,7 +1,7 @@
 package UI;
 
 import Controller.ArticlesController;
-import Entities.Articles;
+import Entities.*;
 
 import java.util.List;
 
@@ -55,6 +55,52 @@ public class ArticlesUI {
 
     public void updatePrice(int id, String price){
         articlesController.updateName(id,price);}
+
+
+
+    public void saveOneObject(Articles article){
+        articlesController.saveOneObject(article);
+    }
+
+
+    public void addSpecificationsToArticle(Articles article, Specifications specification){
+        articlesController.addSpecificationsToArticle(article, specification);
+    }
+
+    public void addCartToArticle(Articles article, Cart cart){
+        articlesController.addCartToArticle(article, cart);
+    }
+
+    public void removeCartToArticle(Articles article, Cart cart){
+        articlesController.removeCartToArticle(article, cart);
+    }
+
+    public void addOrderToArticle(Articles article, Orders order){
+        articlesController.addOrderToArticle(article, order);
+    }
+
+    public void removeOrderToArticle(Articles article, Orders order){
+        articlesController.removeOrderToArticle(article, order);
+    }
+
+    public void addReviewToArticle(Articles article, Review review){
+        articlesController.addReviewToArticle(article, review);
+    }
+
+    public void removeReviewToArticle(Articles article, Review review){
+        articlesController.removeReviewToArticle(article, review);
+    }
+
+    public void addWarehouseToArticle(Articles article, Warehouse warehouse){
+        articlesController.addWarehouseToArticle(article, warehouse);
+    }
+
+    public void removeWarehouseToArticle(Articles article, Warehouse warehouse){
+        articlesController.addWarehouseToArticle(article, warehouse);
+    }
+
+
+
 
 
 }

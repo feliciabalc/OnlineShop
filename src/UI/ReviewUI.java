@@ -25,6 +25,8 @@ public class ReviewUI {
     public void save(List<Review> review) {
         reviewController.save(review);}
 
+    public void saveOneObj(Review review){ reviewController.saveOneObj(review);}
+
     public List<Review> findAll() {
         return reviewController.findAll();}
 

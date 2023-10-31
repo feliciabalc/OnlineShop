@@ -26,6 +26,10 @@ public class CourierUI {
     public void save(List<Courier> couriers) {
         courierController.save(couriers);}
 
+    public void saveOneObject(Courier courier){
+        courierController.saveOneObject(courier);
+    }
+
     public List<Courier> findAll() {
         return courierController.findAll();}
 
@@ -52,4 +56,10 @@ public class CourierUI {
 
     public List<Courier> filteredByShippingAddress(String shippingAddress) {
         return courierController.filteredByShippingAddress(shippingAddress);}
+
+    public void addOrderToCourier(Orders order, Courier courier){
+        courierController.addOrderToCurier(order, courier);}
+
+    public void removeOrderToCourier(Orders order, Courier courier){
+        courierController.removeOrderToCourier(order, courier);}
 }

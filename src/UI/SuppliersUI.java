@@ -25,6 +25,9 @@ public class SuppliersUI {
     public void save(List<Entities.Suppliers> suppliers) {
         suppliersController.save(suppliers);}
 
+    public void saveOneObj(Suppliers supplier){
+        suppliersController.saveOneObj(supplier);}
+
     public List<Entities.Suppliers> findAll() {
         return suppliersController.findAll();}
 

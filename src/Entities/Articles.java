@@ -1,5 +1,8 @@
 package Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Articles {
     private int id;
     private String name;
@@ -7,26 +10,59 @@ public class Articles {
     private String material;
     private String type;
     private float price;
-    private Specifications[] specifications;
-    private Review[] reviews;
-    private Cart[] cart;
-    private Orders[] orders;
-    private Warehouse[] warehouse;
+    private List<Specifications> specifications= new ArrayList<>();
+    private List<Review> reviews= new ArrayList<>();
+    private List<Cart> cart= new ArrayList<>();
+    private List<Orders> orders= new ArrayList<>();
+    private List<Warehouse> warehouse= new ArrayList<>();
 
-    public Articles(int id,String name, String brand, String material, String type, float price,
-                    Specifications[] specifications, Review[] reviews, Cart[] cart,
-                    Orders[] orders, Warehouse[] warehouse) {
+    public List<Specifications> getSpecifications() {
+        return specifications;
+    }
+
+    public void setSpecifications(List<Specifications> specifications) {
+        this.specifications = specifications;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public List<Cart> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
+
+    public List<Warehouse> getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(List<Warehouse> warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public Articles(int id, String name, String brand, String material, String type, float price) {
         this.id= id;
         this.name = name;
         this.brand = brand;
         this.material = material;
         this.type = type;
         this.price = price;
-        this.specifications = specifications;
-        this.reviews = reviews;
-        this.cart = cart;
-        this.orders = orders;
-        this.warehouse = warehouse;
     }
 
     public int getId() {
@@ -87,4 +123,44 @@ public class Articles {
                 ", price=" + getPrice() +
                 '}';
     }
+
+    public void addSpecifications(Specifications specification){
+        specifications.add(specification);
+    }
+
+    public void removeSpecifications(Specifications specification){
+        specifications.remove(specification);
+    }
+
+    public void addReview(Review review){
+        reviews.add(review);
+    }
+
+    public void removeReview(Review review){
+        reviews.remove(review);
+    }
+
+    public void addCart(Cart cartItem){
+        cart.add(cartItem);
+    }
+
+    public void removeCart(Cart cartItem){
+        cart.remove(cartItem);
+    }
+
+    public void addWarehouse(Warehouse warehouseItem){
+        warehouse.add(warehouseItem);
+    }
+
+    public void removeWarehouse(Warehouse warehouseItem){
+        warehouse.remove(warehouseItem);
+    }
+    public void addOrders(Orders orderItem){
+        orders.add(orderItem);
+    }
+
+    public void removeOrders(Orders orderItem){
+        orders.remove(orderItem);
+    }
 }
+

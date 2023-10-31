@@ -1,5 +1,6 @@
 package Repository;
 
+import Entities.Articles;
 import Entities.Review;
 import Entities.Specifications;
 import com.google.gson.reflect.TypeToken;
@@ -18,6 +19,12 @@ public class SpecificationsRepo extends AbstractRepo {
     @Override
     public void save(List objects) {
         super.save(objects);
+    }
+
+    public void saveOneObj(Specifications specification){
+        List<Specifications> specifications =loadSpecifications();
+        specifications.add(specification);
+        save(specifications);
     }
 
     public List<Specifications> loadSpecifications() {
@@ -64,8 +71,6 @@ public class SpecificationsRepo extends AbstractRepo {
         }
     }
 
-
-
     public void update(int id, Specifications updatedSpecifications) {
         List<Specifications> specificationsList = loadSpecifications();
         boolean found = false;
@@ -86,5 +91,8 @@ public class SpecificationsRepo extends AbstractRepo {
         } else {
             System.out.println( id + " not found.");
         }
+    }
+    public void setArticle(Articles article) {
+        article = article;
     }
 }

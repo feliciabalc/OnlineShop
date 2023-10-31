@@ -1,11 +1,29 @@
 [
   {
+    "id": 1,
+    "name": "bluza",
+    "brand": "cx",
+    "material": "bumbac",
+    "type": "maneca",
+    "price": 24.0,
+    "specifications": [],
+    "reviews": [],
+    "cart": [],
+    "orders": [],
+    "warehouse": []
+  },
+  {
     "id": 2,
-    "name": "pantaloni",
-    "brand": "nike",
-    "material": "elastan",
-    "type": "scurti",
-    "price": 100.0
+    "name": "tricou",
+    "brand": "cx",
+    "material": "bumbac",
+    "type": "maneca",
+    "price": 2.0,
+    "specifications": [],
+    "reviews": [],
+    "cart": [],
+    "orders": [],
+    "warehouse": []
   },
   {
     "id": 5,
@@ -13,6 +31,24 @@
     "brand": "nike",
     "material": "tafta",
     "type": "maneca",
-    "price": 35.0
+    "price": 35.0,
+    "specifications": [],
+    "reviews": [],
+    "cart": [],
+    "orders": [],
+    "warehouse": []
+  },
+  {
+    "id": 6,
+    "name": "pantaloni",
+    "brand": "nike",
+    "material": "elastan",
+    "type": "scurti",
+    "price": 100.0,
+    "specifications": [],
+    "reviews": [],
+    "cart": [],
+    "orders": [],
+    "warehouse": []
   }
 ]

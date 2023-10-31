@@ -2,6 +2,7 @@ package Repository;
 
 import Entities.Articles;
 import Entities.Cart;
+import Entities.Specifications;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -23,6 +24,12 @@ public class CartRepo extends AbstractRepo {
     public List<Cart> loadCart() {
         Type cartListType = new TypeToken<List<Cart>>() {}.getType();
         return load(cartListType);
+    }
+
+    public void saveOneObject(Cart cart){
+        List<Cart> carts =loadCart();
+        carts.add(cart);
+        save(carts);
     }
 
     public List<Cart> findAll(){
@@ -86,6 +93,17 @@ public class CartRepo extends AbstractRepo {
         } else {
             System.out.println("Article with ID " + id + " not found.");
         }
+    }
+
+
+
+    public void addArticlesToCart(Articles article, Cart cart){
+        cart.addArticles(article);
+        saveOneObject(cart);
+    }
+
+    public void removeArticlesToCart(Articles article, Cart cart){
+        cart.removeArticles(article);
     }
 
 }

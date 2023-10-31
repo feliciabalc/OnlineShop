@@ -1,6 +1,8 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Employee {
     protected int id;
@@ -8,18 +10,15 @@ public class Employee {
     protected String role;
     protected String salary;
     protected double telefon;
-    protected Orders[] orders;
+    protected List<Orders> orders= new ArrayList<>();
     protected Warehouse warehouse;
 
-    public Employee(int id,String name, String role, String salary, double telefon, Orders[] orders,
-                     Warehouse warehouse) {
+    public Employee(int id,String name, String role, String salary, double telefon) {
         this.id = id;
         this.name = name;
         this.role = role;
         this.salary = salary;
         this.telefon = telefon;
-        this.orders = orders;
-        this.warehouse = warehouse;
     }
 
     public int getId() {
@@ -62,11 +61,11 @@ public class Employee {
         this.telefon = telefon;
     }
 
-    public Orders[] getOrders() {
+    public List<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(Orders[] orders) {
+    public void setOrders(List<Orders> orders) {
         this.orders = orders;
     }
 
@@ -86,8 +85,14 @@ public class Employee {
                 ", role='" + role + '\'' +
                 ", salary='" + salary + '\'' +
                 ", telefon=" + telefon +
-                ", orders=" + Arrays.toString(orders) +
-                ", warehouse=" + warehouse +
                 '}';
+    }
+
+    public void addOrders(Orders order){
+        orders.add(order);
+    }
+
+    public void removeOrders(Orders order){
+        orders.remove(order);
     }
 }

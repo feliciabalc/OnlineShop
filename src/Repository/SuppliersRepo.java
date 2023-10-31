@@ -2,6 +2,7 @@ package Repository;
 
 import Entities.Review;
 import Entities.Suppliers;
+import Entities.Warehouse;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -18,6 +19,12 @@ public class SuppliersRepo extends AbstractRepo {
     @Override
     public void save(List objects) {
         super.save(objects);
+    }
+
+    public void saveOneObj(Suppliers supplier){
+        List<Suppliers> suppliers =loadSuppliers();
+        suppliers.add(supplier);
+        save(suppliers);
     }
 
     public List<Suppliers> loadSuppliers() {
@@ -85,5 +92,8 @@ public class SuppliersRepo extends AbstractRepo {
         } else {
             System.out.println( id + " not found.");
         }
+    }
+    public void setWarehouse(Warehouse warehouse) {
+        warehouse = warehouse;
     }
 }

@@ -31,7 +31,7 @@ public class ShopUI {
 
             } else if (input==3) {
                 System.out.println("Exiting...");
-                break;
+                //break;
             }
             System.out.println("Invalid choice!");
         }

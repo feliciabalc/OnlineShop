@@ -2,6 +2,7 @@ package UI;
 
 import Controller.SpecificationsController;
 import Entities.Articles;
+import Entities.Specifications;
 
 import java.util.List;
 
@@ -19,6 +20,9 @@ public class SpecificationsUI {
     public void setSpecificationsController(SpecificationsController specificationsController) {
         this.specificationsController = specificationsController;
     }
+
+    public void saveOneObj(Specifications specification){ specificationsController.saveOneObj(specification);}
+
     public List<Entities.Specifications> loadSpecifications(){
         return specificationsController.loadSpecifications();}
 

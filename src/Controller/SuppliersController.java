@@ -1,5 +1,6 @@
 package Controller;
 import Entities.Suppliers;
+import Entities.Warehouse;
 import Repository.SuppliersRepo;
 
 import java.util.ArrayList;
@@ -26,8 +27,16 @@ public class SuppliersController {
     }
 
     public void save(List<Suppliers> suppliers) {
+        Suppliers sup1= new Suppliers(1,"Silviu",0766.98762,"tricouri");
+        Suppliers sup2= new Suppliers(2,"Dragomir",0766.93462,"bluze");
+        Suppliers sup3= new Suppliers(3,"Vlad",0766.94444,"pantaloni");
+        suppliers.add(sup1);
+        suppliers.add(sup2);
+        suppliers.add(sup3);
         suppliersRepo.save(suppliers);
     }
+
+    public void saveOneObj(Suppliers supplier){ suppliersRepo.saveOneObj(supplier);}
 
     public List<Suppliers> findAll() {
         return suppliersRepo.loadSuppliers();
@@ -77,6 +86,9 @@ public class SuppliersController {
         }
         return filteredSuppliers;
 
+    }
+    public void setWarehouse(Warehouse warehouse) {
+        suppliersRepo.setWarehouse(warehouse);
     }
 }
 

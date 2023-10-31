@@ -8,13 +8,11 @@ public class Review {
     private Client client;
     private Articles article;
 
-    public Review(int id,String stars, String comment, String date, Client client, Articles article) {
+    public Review(int id,String stars, String comment, String date) {
         this.id = id;
         this.stars = stars;
         this.comment = comment;
         this.date = date;
-        this.client = client;
-        this.article = article;
     }
 
     public int getId() {
@@ -72,8 +70,6 @@ public class Review {
                 ", stars='" + stars + '\'' +
                 ", comment='" + comment + '\'' +
                 ", date='" + date + '\'' +
-                ", client=" + client +
-                ", article=" + article +
                 '}';
     }
 }

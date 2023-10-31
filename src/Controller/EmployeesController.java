@@ -29,7 +29,18 @@ public class EmployeesController {
         return employeesRepo.loadEmployee();
     }
 
+    public void saveOneObject(Employee employee){
+        employeesRepo.saveOneObject(employee);
+    }
+
     public void save(List<Employee> employees) {
+
+        Employee emp1= new Employee(1,"Sorin","Impacheteaza","1500", 0768.23456);
+        Employee emp2= new Employee(2,"Matei","Impacheteaza","1500", 0768.23466);
+        Employee emp3= new Employee(3,"Paul","Impacheteaza","2500", 0768.23433);
+        employees.add(emp1);
+        employees.add(emp2);
+        employees.add(emp3);
         employeesRepo.save(employees);
     }
 
@@ -99,10 +110,10 @@ public class EmployeesController {
         for (int i = 0; i < employeeList.size(); i++) {
             Employee employee = employeeList.get(i);
             if (employee.getId() == id) {
-                Orders[] orders=employee.getOrders();
-                for(int j= 0; j<= orders.length; j++)
-                    if(orders[j]==order){
-                        orders[j] = newOrder;
+                List<Orders> orders=employee.getOrders();
+                for(int j= 0; j<= orders.size(); j++)
+                    if(orders.get(j)==order){
+                        orders.set(j, newOrder);
                         found = true;
                         break;
             }}
@@ -124,6 +135,13 @@ public class EmployeesController {
         }
         return filteredEmployee;
 
+    }
+
+    public void addOrderToEmployee(Orders order, Employee employee){
+       employeesRepo.addOrderToEmployee(order,employee);
+    }
+
+    public void removeOrderToEmployee(Orders order, Employee employee){ employeesRepo.removeOrderToEmployee(order,employee);
     }
 }
 

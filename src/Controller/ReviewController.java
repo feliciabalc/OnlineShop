@@ -1,4 +1,6 @@
 package Controller;
+import Entities.Articles;
+import Entities.Client;
 import Entities.Review;
 import Repository.ReviewRepo;
 
@@ -26,8 +28,16 @@ public class ReviewController {
     }
 
     public void save(List<Review> review) {
+        Review rev1=new Review(1,"5 stars","de calitate","10.10.2023");
+        Review rev2=new Review(2,"5 stars","foarte bun","13.10.2023");
+        Review rev3=new Review(3,"4 stars","excelent","11.10.2023");
+        review.add(rev1);
+        review.add(rev2);
+        review.add(rev3);
         reviewRepo.save(review);
     }
+
+    public void saveOneObj(Review review){ reviewRepo.saveOneObj(review);}
 
     public List<Review> findAll() {
         return reviewRepo.loadReview();
@@ -45,8 +55,6 @@ public class ReviewController {
     public void updateTheReview(int id, Review review) {
         reviewRepo.update(id, review);
     }
-
-
 
     public void updateComment(int id, String comment){
         List<Review> reviewList = loadReview();
@@ -108,5 +116,13 @@ public class ReviewController {
         }
         return filteredReview;
 
+    }
+
+    public void setClient(Client client) {
+        reviewRepo.setClient(client);
+    }
+
+    public void setArticle(Articles article) {
+        reviewRepo.setArticle(article);
     }
 }

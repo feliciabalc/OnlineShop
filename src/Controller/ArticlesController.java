@@ -1,5 +1,5 @@
 package Controller;
-import Entities.Articles;
+import Entities.*;
 import Repository.ArticlesRepo;
 
 import java.util.ArrayList;
@@ -22,12 +22,24 @@ public class ArticlesController {
     }
 
 
+
+
+
+
     public static List<Articles> load() {
         return articlesRepo.loadArticles();
     }
 
     public static void save(List<Articles> articles) {
+        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
+        Articles a2 = new Articles(2,"tricou", "cx", "bumbac", "maneca", 2);
+        Articles a3 = new Articles(5,"top", "nike", "tafta", "maneca", 35);
+        Articles a4 = new Articles(6,"pantaloni", "nike", "elastan","scurti", 100);
+        articles.add(a1);
+        articles.add(a2);
+        articles.add(a3);
         articlesRepo.save(articles);
+
     }
 
     public List<Articles> findAll() {
@@ -59,6 +71,55 @@ public class ArticlesController {
 
 
     }
+    public void saveOneObject(Articles article){
+        articlesRepo.saveOneObject(article);
+    }
+
+
+    public void addSpecificationsToArticle(Articles article, Specifications specification){
+        articlesRepo.addSpecificationsToArticle(article, specification);
+    }
+
+    public void removeSpecificationsToArticle(Articles article, Specifications specification){
+        articlesRepo.removeSpecificationsToArticle(article, specification);
+    }
+
+    public void addCartToArticle(Articles article, Cart cart){
+       articlesRepo.addCartToArticle(article, cart);
+    }
+
+    public void removeCartToArticle(Articles article, Cart cart){
+        articlesRepo.removeCartToArticle(article, cart);
+    }
+
+    public void addOrderToArticle(Articles article, Orders order){
+       articlesRepo.addOrderToArticle(article, order);
+    }
+
+    public void removeOrderToArticle(Articles article, Orders order){
+       articlesRepo.removeOrderToArticle(article, order);
+    }
+
+    public void addReviewToArticle(Articles article, Review review){
+        articlesRepo.addReviewToArticle(article, review);
+    }
+
+    public void removeReviewToArticle(Articles article, Review review){
+        articlesRepo.removeReviewToArticle(article, review);
+    }
+
+    public void addWarehouseToArticle(Articles article, Warehouse warehouse){
+        articlesRepo.addWarehouseToArticle(article, warehouse);
+    }
+
+    public void removeWarehouseToArticle(Articles article, Warehouse warehouse){
+        articlesRepo.addWarehouseToArticle(article, warehouse);
+    }
+
+
+
+
+
 
     public List<Articles> filteredByMaterial(String material) {
         List<Articles> articles = load();
@@ -139,5 +200,5 @@ public class ArticlesController {
             System.out.println("Article with ID " + id + " not found.");
         }
     }
-    //pune add
+
 }

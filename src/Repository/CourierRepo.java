@@ -1,6 +1,7 @@
 package Repository;
 import Entities.Employee;
 import Entities.Courier;
+import Entities.Orders;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -15,6 +16,12 @@ public class CourierRepo extends AbstractRepo {
     public void save(List objects) {
         super.save(objects);
     }
+    public void saveOneObject(Courier courier){
+        List<Courier> couriers =loadCourier();
+        couriers.add(courier);
+        save(couriers);
+    }
+
 
     public List<Courier> loadCourier() {
         Type courierListType = new TypeToken<List<Courier>>() {}.getType();
@@ -82,6 +89,16 @@ public class CourierRepo extends AbstractRepo {
         } else {
             System.out.println( id + " not found.");
         }
+    }
+
+    public void addOrderToCurier(Orders order, Courier courier){
+        courier.addOrders(order);
+        saveOneObject(courier);
+    }
+
+    public void removeOrderToCourier(Orders order, Courier courier){
+        courier.removeOrders(order);
+        saveOneObject(courier);
     }
 
 }

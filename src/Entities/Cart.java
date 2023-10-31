@@ -1,18 +1,27 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Cart {
     private int id;
     private double quantity;
     private Client client;
-    private Articles[] articles;
+    private List<Articles> articles= new ArrayList<>();
 
-    public Cart(int id,double quantity, Client client, Articles[] articles) {
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client newClient) {
+        this.client = newClient;
+    }
+
+
+    public Cart(int id, double quantity) {
         this.id = id;
         this.quantity = quantity;
-        this.client = client;
-        this.articles = articles;
     }
 
     public int getId() {
@@ -31,21 +40,26 @@ public class Cart {
         this.quantity = quantity;
     }
 
-    public Client getClient() {
-        return client;
-    }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Articles[] getArticles() {
+    public List<Articles> getArticles() {
         return articles;
     }
 
-    public void setArticles(Articles[] articles) {
+    public void setArticles(List<Articles> articles) {
         this.articles = articles;
     }
+
+
+
+    public void addArticles(Articles article){
+        articles.add(article);
+    }
+
+    public void removeArticles(Articles article){
+        articles.remove(article);
+    }
+
+
 
     @Override
     public String toString() {
@@ -53,7 +67,6 @@ public class Cart {
                 "id=" + id +
                 ", quantity=" + quantity +
                 ", client=" + client +
-                ", articles=" + Arrays.toString(articles) +
                 '}';
     }
 }

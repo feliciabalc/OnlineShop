@@ -1,6 +1,8 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Orders {
     private int id;
@@ -9,23 +11,19 @@ public class Orders {
     private  String paymentMethod;
     private String address;
     private String date;
-    private Employee[] employees;
+    private List<Employee> employees=new ArrayList<>();
     private Client client;
     private Courier courier;
-    private Articles[] articles;
+    private List<Articles> articles= new ArrayList<>();
 
     public Orders(int id, double orderNumber, float totalAmount, String paymentMethod, String address,
-                  String date, Employee[] employees, Client client, Courier courier, Articles[] articles) {
+                  String date) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.totalAmount = totalAmount;
         this.paymentMethod = paymentMethod;
         this.address = address;
         this.date = date;
-        this.employees = employees;
-        this.client = client;
-        this.courier = courier;
-        this.articles = articles;
     }
 
     public int getId() {
@@ -76,14 +74,6 @@ public class Orders {
         this.date = date;
     }
 
-    public Employee[] getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Employee[] employees) {
-        this.employees = employees;
-    }
-
     public Client getClient() {
         return client;
     }
@@ -100,11 +90,19 @@ public class Orders {
         this.courier = courier;
     }
 
-    public Articles[] getArticles() {
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Articles> getArticles() {
         return articles;
     }
 
-    public void setArticles(Articles[] articles) {
+    public void setArticles(List<Articles> articles) {
         this.articles = articles;
     }
 
@@ -117,10 +115,22 @@ public class Orders {
                 ", paymentMethod='" + paymentMethod + '\'' +
                 ", address='" + address + '\'' +
                 ", date='" + date + '\'' +
-                ", employee=" + Arrays.toString(employees) +
-                ", client=" + client +
-                ", courier=" + courier +
-                ", articles=" + Arrays.toString(articles) +
                 '}';
+    }
+
+    public void addEmployee(Employee employee){
+        employees.add(employee);
+    }
+
+    public void removeEmployee(Employee employee){
+        employees.remove(employee);
+    }
+
+    public void addArticle(Articles article){
+        articles.add(article);
+    }
+
+    public void removeArticle(Articles article){
+        articles.remove(article);
     }
 }

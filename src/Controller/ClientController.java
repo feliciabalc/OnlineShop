@@ -1,6 +1,8 @@
 package Controller;
 import Entities.Cart;
 import Entities.Client;
+import Entities.Orders;
+import Entities.Review;
 import Repository.ClientRepo;
 
 import java.util.ArrayList;
@@ -26,9 +28,18 @@ public class ClientController {
         return clientRepo.loadClient();
     }
 
-    public void save(List<Client> client) {
-        clientRepo.save(client);
+    public void save(List<Client> clients) {
+        Client client1= new Client(1,"Ion", "piupiu 23", 0897.6535);
+        Client client2= new Client(2,"Mark", "dunarii 1", 0844.6535);
+        Client client3= new Client(3,"Sergiu", "copacului 4", 0899.6535);
+        clients.add(client1);
+        clients.add(client2);
+        clients.add(client3);
+        clientRepo.save(clients);
     }
+
+    public void saveOneObject(Client client){
+        clientRepo.saveOneObject(client);}
 
     public List<Client> findAll() {
         return clientRepo.loadClient();
@@ -99,4 +110,16 @@ public class ClientController {
         return filteredClient;
 
     }
+    public void addReviewToClient(Review review, Client client){
+        clientRepo.addReviewToClient(review, client);
+    }
+
+    public void removeReviewToClient(Review review, Client client){
+        clientRepo.removeReviewToClient(review, client);}
+
+    public void addOrderToClient(Orders order, Client client){
+        clientRepo.addOrderToClient(order, client);}
+
+    public void removeOrderToClient(Orders order, Client client){
+        clientRepo.removeOrderToClient(order, client);}
 }
