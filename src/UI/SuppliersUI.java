@@ -22,11 +22,14 @@ public class SuppliersUI {
     public List<Entities.Suppliers> loadSuppliers() {
         return suppliersController.loadSuppliers();}
 
-    public void save(List<Entities.Suppliers> suppliers) {
-        suppliersController.save(suppliers);}
+    public void save() {
+        suppliersController.save();}
 
     public void saveOneObj(Suppliers supplier){
         suppliersController.saveOneObj(supplier);}
+
+    public void deleteObj(Suppliers suppliers){
+        suppliersController.deleteObj(suppliers);}
 
     public List<Entities.Suppliers> findAll() {
         return suppliersController.findAll();}

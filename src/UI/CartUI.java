@@ -30,11 +30,13 @@ public class CartUI {
     public void removeArticlesToCart(Articles article, Cart cart){
         cartController.removeArticlesToCart(article, cart);}
 
-    public void save(List<Cart> carts) {
-        cartController.save(carts);}
+    public void save() {
+        cartController.save();}
 
     public void saveOneObj(Cart cart){
         cartController.saveOneObj(cart);}
+
+    public void deleteObj(Cart cart){ cartController.deleteObj(cart);}
 
     public List<Cart> findAll() {
         return cartController.findAll();}

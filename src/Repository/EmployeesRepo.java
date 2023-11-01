@@ -1,6 +1,7 @@
 package Repository;
 
 import Entities.Client;
+import Entities.Courier;
 import Entities.Employee;
 import Entities.Orders;
 import com.google.gson.reflect.TypeToken;
@@ -21,8 +22,18 @@ public class EmployeesRepo extends AbstractRepo {
 
     public void saveOneObject(Employee employee){
         List<Employee> employees =loadEmployee();
-        employees.add(employee);
+        for(Employee item : employees)
+            if(item.getId()== employee.getId())
+                item = employee;
+            else
+                employees.add(employee);
         save(employees);
+    }
+
+    public void deleteObj(Employee employee){
+        List<Employee> allEmployee =loadEmployee();
+        allEmployee.remove(employee);
+        save(allEmployee);
     }
 
     public List<Employee> loadEmployee() {

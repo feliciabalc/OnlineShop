@@ -38,19 +38,25 @@ public class CartController {
         cartRepo.removeArticlesToCart(article, cart);
     }
 
-    public void save(List<Cart> carts) {
+    public void save() {
         Cart cart1= new Cart(1,5) ;
         Cart cart2= new Cart(1,2) ;
         Cart cart3= new Cart(1,34) ;
         Cart cart4= new Cart(1,9) ;
+        List<Cart> carts = new ArrayList<>();
         carts.add(cart1);
         carts.add(cart2);
         carts.add(cart3);
         carts.add(cart4);
         cartRepo.save(carts);
+
+        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
+        cart1.addArticles(a1);
     }
 
     public void saveOneObj(Cart cart){ cartRepo.saveOneObject(cart);}
+
+    public void deleteObj(Cart cart){ cartRepo.deleteObj(cart);}
 
     public List<Cart> findAll() {
         return cartRepo.loadCart();
@@ -84,7 +90,7 @@ public class CartController {
             }
         }
         if (found) {
-            save(cartList);
+            save();
             System.out.println("Cart with ID " + id + " has been updated.");
         } else {
             System.out.println("Cart with ID " + id + " not found.");
@@ -107,7 +113,7 @@ public class CartController {
             }
         }
         if (found) {
-            save(cartList);
+            save();
             System.out.println("Courier with ID " + id + " has been updated.");
         } else {
             System.out.println("Courier with ID " + id + " not found.");

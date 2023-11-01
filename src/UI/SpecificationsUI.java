@@ -23,11 +23,13 @@ public class SpecificationsUI {
 
     public void saveOneObj(Specifications specification){ specificationsController.saveOneObj(specification);}
 
+    public void deleteObj(Specifications specifications){ specificationsController.deleteObj(specifications);}
+
     public List<Entities.Specifications> loadSpecifications(){
         return specificationsController.loadSpecifications();}
 
-    public void save(List<Entities.Specifications> specifications) {
-        specificationsController.save(specifications);
+    public void save() {
+        specificationsController.save();
     }
     public List<Entities.Specifications> findAll() {
         return specificationsController.findAll();}

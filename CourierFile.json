@@ -1,0 +1,31 @@
+[
+  {
+    "Shipping_Address": "Gruia",
+    "id": 1,
+    "name": "Ion",
+    "role": "curier",
+    "salary": "1200",
+    "telefon": 31460.0,
+    "orders": [
+      {
+        "id": 1,
+        "orderNumber": 12.0,
+        "totalAmount": 120.0,
+        "paymentMethod": "cash",
+        "address": "Gruia 15",
+        "date": "10.12.2022",
+        "employees": [],
+        "articles": []
+      }
+    ]
+  },
+  {
+    "Shipping_Address": "Dornei",
+    "id": 2,
+    "name": "Ionut",
+    "role": "curier",
+    "salary": "1200",
+    "telefon": 753.4568,
+    "orders": []
+  }
+]

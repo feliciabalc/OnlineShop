@@ -25,13 +25,16 @@ public class EmployeeUI {
         return employeeController.loadEmployees();
     }
 
-    public void save(List<Employee> employees) {
-        employeeController.save(employees);
+    public void save() {
+        employeeController.save();
     }
 
     public void saveOneObject(Employee employee){
         employeeController.saveOneObject(employee);
     }
+
+    public void deleteObj(Employee employee){
+        employeeController.deleteObj(employee);}
 
     public List<Employee> findAll() {
         return employeeController.findAll();

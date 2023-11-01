@@ -26,17 +26,24 @@ public class SuppliersController {
         return suppliersRepo.loadSuppliers();
     }
 
-    public void save(List<Suppliers> suppliers) {
+    public void save() {
         Suppliers sup1= new Suppliers(1,"Silviu",0766.98762,"tricouri");
         Suppliers sup2= new Suppliers(2,"Dragomir",0766.93462,"bluze");
         Suppliers sup3= new Suppliers(3,"Vlad",0766.94444,"pantaloni");
+        List<Suppliers> suppliers = new ArrayList<>();
         suppliers.add(sup1);
         suppliers.add(sup2);
         suppliers.add(sup3);
+
+        Warehouse war1= new Warehouse(1,"R&F","Gruia 58");
+        sup1.setWarehouse(war1);
+
         suppliersRepo.save(suppliers);
     }
 
     public void saveOneObj(Suppliers supplier){ suppliersRepo.saveOneObj(supplier);}
+
+    public void deleteObj(Suppliers suppliers){ suppliersRepo.deleteObj(suppliers);}
 
     public List<Suppliers> findAll() {
         return suppliersRepo.loadSuppliers();
@@ -70,7 +77,7 @@ public class SuppliersController {
             }
         }
         if (found) {
-            save(suppliersList);
+            save();
             System.out.println("Suppliers with ID " + id + " has been updated.");
         } else {
             System.out.println("Suppliers with ID " + id + " not found.");

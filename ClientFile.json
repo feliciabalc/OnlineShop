@@ -1,14 +1,49 @@
 [
   {
     "id": 1,
-    "name": "Ana",
-    "address": "Horea",
-    "telefon": 752.343786
+    "name": "Ion",
+    "address": "piupiu 23",
+    "telefon": 897.6535,
+    "orders": [
+      {
+        "id": 1,
+        "orderNumber": 12.0,
+        "totalAmount": 120.0,
+        "paymentMethod": "cash",
+        "address": "Gruia 15",
+        "date": "10.12.2022",
+        "employees": [],
+        "articles": []
+      }
+    ],
+    "cart": {
+      "id": 1,
+      "quantity": 5.0,
+      "articles": []
+    },
+    "reviews": [
+      {
+        "id": 1,
+        "stars": "5 stars",
+        "comment": "de calitate",
+        "date": "10.10.2023"
+      }
+    ]
   },
   {
-    "id": 5,
-    "name": "Matei",
-    "address": "Gruia",
-    "telefon": 7524.43786
+    "id": 2,
+    "name": "Mark",
+    "address": "dunarii 1",
+    "telefon": 844.6535,
+    "orders": [],
+    "reviews": []
+  },
+  {
+    "id": 3,
+    "name": "Mark",
+    "address": "copacului 4",
+    "telefon": 899.6535,
+    "orders": [],
+    "reviews": []
   }
 ]

@@ -30,17 +30,16 @@ abstract public class AbstractRepo<T> {
 
 
 
-    public void save(List<T> objects){
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create(); //prettiprinting pt a aduga linii si pt indentare; creez instanta Gson cu GsonBuilder
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))){
-            String convertTOjson =gson.toJson(objects);
-            writer.println(convertTOjson);
-
+    public void save(List<T> objects) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
+            String convertToJson = gson.toJson(objects);
+            writer.println(convertToJson);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
 
 

@@ -28,18 +28,31 @@ public class ClientController {
         return clientRepo.loadClient();
     }
 
-    public void save(List<Client> clients) {
+    public void save() {
         Client client1= new Client(1,"Ion", "piupiu 23", 0897.6535);
         Client client2= new Client(2,"Mark", "dunarii 1", 0844.6535);
-        Client client3= new Client(3,"Sergiu", "copacului 4", 0899.6535);
+        Client client3= new Client(3,"Mark", "copacului 4", 0899.6535);
+        List<Client> clients = new ArrayList<>();
         clients.add(client1);
         clients.add(client2);
         clients.add(client3);
+
+        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
+        client1.addOrders(o1);
+
+        Review rev1=new Review(1,"5 stars","de calitate","10.10.2023");
+        client1.addReview(rev1);
+
+        Cart cart1= new Cart(1,5) ;
+        client1.setCart(cart1);
+
         clientRepo.save(clients);
     }
 
     public void saveOneObject(Client client){
         clientRepo.saveOneObject(client);}
+
+    public void deleteObj(Client client){ clientRepo.deleteObj(client);}
 
     public List<Client> findAll() {
         return clientRepo.loadClient();
@@ -73,7 +86,7 @@ public class ClientController {
             }
         }
         if (found) {
-            save(clientsList);
+            save();
             System.out.println("Client with ID " + id + " has been updated.");
         } else {
             System.out.println("Client with ID " + id + " not found.");
@@ -93,7 +106,7 @@ public class ClientController {
             }
         }
         if (found) {
-            save(clientList);
+            save();
             System.out.println("Courier with ID " + id + " has been updated.");
         } else {
             System.out.println("Courier with ID " + id + " not found.");

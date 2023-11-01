@@ -25,8 +25,18 @@ public class ClientRepo extends AbstractRepo {
 
     public void saveOneObject(Client client){
         List<Client> clients =loadClient();
-        clients.add(client);
+        for(Client item : clients)
+            if(item.getId()== client.getId())
+                item = client;
+            else
+                clients.add(client);
         save(clients);
+    }
+
+    public void deleteObj(Client client){
+        List<Client> allClient =loadClient();
+        allClient.remove(client);
+        save(allClient);
     }
 
     public List<Client> findAll(){

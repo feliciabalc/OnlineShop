@@ -27,17 +27,23 @@ public class ReviewController {
         return reviewRepo.loadReview();
     }
 
-    public void save(List<Review> review) {
+    public void save() {
         Review rev1=new Review(1,"5 stars","de calitate","10.10.2023");
         Review rev2=new Review(2,"5 stars","foarte bun","13.10.2023");
         Review rev3=new Review(3,"4 stars","excelent","11.10.2023");
+        List<Review> review = new ArrayList<>();
         review.add(rev1);
         review.add(rev2);
         review.add(rev3);
+
+        Client client1= new Client(1,"Ion", "piupiu 23", 0897.6535);
+        rev1.setClient(client1);
         reviewRepo.save(review);
     }
 
     public void saveOneObj(Review review){ reviewRepo.saveOneObj(review);}
+
+    public void deleteObj(Review review){ reviewRepo.deleteObj(review);}
 
     public List<Review> findAll() {
         return reviewRepo.loadReview();
@@ -69,7 +75,7 @@ public class ReviewController {
             }
         }
         if (found) {
-            save(reviewList);
+            save();
             System.out.println("Review with ID " + id + " has been updated.");
         } else {
             System.out.println("Review with ID " + id + " not found.");
@@ -89,7 +95,7 @@ public class ReviewController {
             }
         }
         if (found) {
-            save(reviewList);
+            save();
             System.out.println("Review with ID " + id + " has been updated.");
         } else {
             System.out.println("Review with ID " + id + " not found.");

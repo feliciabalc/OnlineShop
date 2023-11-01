@@ -1,7 +1,6 @@
 package Repository;
 
-import Entities.Orders;
-import Entities.Warehouse;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -18,6 +17,22 @@ public class WarehouseRepo extends AbstractRepo {
     @Override
     public void save(List objects) {
         super.save(objects);
+    }
+
+    public void saveOneObj(Warehouse warehouse){
+        List<Warehouse> warehouses =loadWarehouse();
+        for(Warehouse item : warehouses)
+            if(item.getId()== warehouse.getId())
+                item = warehouse;
+            else
+                warehouses.add(warehouse);
+        save(warehouses);
+    }
+
+    public void deleteObj(Warehouse warehouse){
+        List<Warehouse> allWarehouse =loadWarehouse();
+        allWarehouse.remove(warehouse);
+        save(allWarehouse);
     }
 
     public List<Warehouse> loadWarehouse() {
@@ -65,8 +80,6 @@ public class WarehouseRepo extends AbstractRepo {
         }
     }
 
-
-
     public void update(int id, Warehouse updatedWarehouse) {
         List<Warehouse> warehouseList = loadWarehouse();
         boolean found = false;
@@ -88,4 +101,43 @@ public class WarehouseRepo extends AbstractRepo {
         }
     }
 
+    public void addArticlesToWarehouse(Articles article, Warehouse warehouse){
+        warehouse.addArticles(article);
+        saveOneObj(warehouse);
+    }
+
+    public void removeArticlesToWarehouse(Articles article, Warehouse warehouse){
+        warehouse.removeArticle(article);
+        saveOneObj(warehouse);
+    }
+
+    public void addEmployeeToWarehouse(Employee employee, Warehouse warehouse){
+        warehouse.addEmployee(employee);
+        saveOneObj(warehouse);
+    }
+
+    public void removeEmployeeToWarehouse(Employee employee, Warehouse warehouse){
+        warehouse.removeEmployee(employee);
+        saveOneObj(warehouse);
+    }
+
+    public void addSupplierToWarehouse(Suppliers supplier, Warehouse warehouse){
+        warehouse.addSuppliers(supplier);
+        saveOneObj(warehouse);
+    }
+
+    public void removeSupplierToWarehouse(Suppliers supplier, Warehouse warehouse){
+        warehouse.removeSuppliers(supplier);
+        saveOneObj(warehouse);
+    }
+
+    public void addCourierToWarehouse(Courier courier, Warehouse warehouse){
+        warehouse.addCourier(courier);
+        saveOneObj(warehouse);
+    }
+
+    public void removeCourierToWarehouse(Courier courier, Warehouse warehouse){
+        warehouse.removeCourier(courier);
+        saveOneObj(warehouse);
+    }
 }

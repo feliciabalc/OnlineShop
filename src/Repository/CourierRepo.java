@@ -1,4 +1,5 @@
 package Repository;
+import Entities.Client;
 import Entities.Employee;
 import Entities.Courier;
 import Entities.Orders;
@@ -18,10 +19,19 @@ public class CourierRepo extends AbstractRepo {
     }
     public void saveOneObject(Courier courier){
         List<Courier> couriers =loadCourier();
-        couriers.add(courier);
+        for(Courier item : couriers)
+            if(item.getId()== courier.getId())
+                item = courier;
+            else
+                couriers.add(courier);
         save(couriers);
     }
 
+    public void deleteObj(Courier courier){
+        List<Courier> allCourier =loadCourier();
+        allCourier.remove(courier);
+        save(allCourier);
+    }
 
     public List<Courier> loadCourier() {
         Type courierListType = new TypeToken<List<Courier>>() {}.getType();

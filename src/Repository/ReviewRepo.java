@@ -24,8 +24,18 @@ public class ReviewRepo extends AbstractRepo {
 
     public void saveOneObj(Review review){
         List<Review> reviews =loadReview();
-        reviews.add(review);
+        for(Review item : reviews)
+            if(item.getId()== review.getId())
+                item = review;
+            else
+                reviews.add(review);
         save(reviews);
+    }
+
+    public void deleteObj(Review review){
+        List<Review> allReview =loadReview();
+        allReview.remove(review);
+        save(allReview);
     }
 
     public List<Review> loadReview() {

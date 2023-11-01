@@ -23,8 +23,8 @@ public class ArticlesUI {
     public List<Articles> loadArticles() {
         return articlesController.load();}
 
-    public void saveArticles(List<Articles> articles) {
-        articlesController.save(articles);}
+    public void saveArticles() {
+        articlesController.save();}
 
     public List<Articles> findAll(){
         return articlesController.findAll();}
@@ -56,12 +56,11 @@ public class ArticlesUI {
     public void updatePrice(int id, String price){
         articlesController.updateName(id,price);}
 
-
-
     public void saveOneObject(Articles article){
         articlesController.saveOneObject(article);
     }
 
+    public void deleteObj(Articles article){ articlesController.deleteObj(article);}
 
     public void addSpecificationsToArticle(Articles article, Specifications specification){
         articlesController.addSpecificationsToArticle(article, specification);

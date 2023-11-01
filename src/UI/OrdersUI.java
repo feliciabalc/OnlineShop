@@ -24,11 +24,13 @@ public class OrdersUI {
     public List<Orders> loadOrders() {
         return ordersController.loadOrders();}
 
-    public void save(List<Orders> orders) {
-        ordersController.save(orders);}
+    public void save() {
+        ordersController.save();}
 
     public void saveOneObj(Orders order ){
         ordersController.saveOneObj(order);}
+
+    public void deleteObj(Orders orders){ ordersController.deleteObj(orders);}
 
     public List<Orders> findAll() {
         return ordersController.findAll();}

@@ -96,7 +96,23 @@ public class ArticlesRepo extends AbstractRepo {
 
     public void saveOneObject(Articles article){
         List<Articles> allArticles =loadArticles();
-        allArticles.add(article);
+        boolean found = false;
+        for (Articles item : allArticles) {
+            if (item.getId() == article.getId()) {
+                item = article;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            allArticles.add(article);
+        }
+        save(allArticles);
+    }
+
+    public void deleteObj(Articles article){
+        List<Articles> allArticles =loadArticles();
+        allArticles.remove(article);
         save(allArticles);
     }
 

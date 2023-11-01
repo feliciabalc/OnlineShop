@@ -1,26 +1,23 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Warehouse {
     private int id;
     private String name;
     private String address;
-    private Articles[] articles;
-    private Employee[] employees;
-    private Suppliers[] suppliers;
-    private Courier[] couriers;
+    private List<Articles> articles= new ArrayList<>();
+    private List<Employee> employees= new ArrayList<>();
+    private List<Suppliers> suppliers= new ArrayList<>();
+    private List<Courier> couriers= new ArrayList<>();
 
 
-    public Warehouse(int id,String name, String address, Articles[] articles, Employee[] employees,
-                     Suppliers[] suppliers, Courier[] couriers) {
+    public Warehouse(int id,String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.articles = articles;
-        this.employees = employees;
-        this.suppliers = suppliers;
-        this.couriers = couriers;
     }
 
     public int getId() {
@@ -47,37 +44,45 @@ public class Warehouse {
         this.address = address;
     }
 
-    public Articles[] getArticles() {
+    public void addArticles(Articles article){
+        articles.add(article);}
+
+    public void removeArticle(Articles article){
+        articles.remove(article);}
+
+    public void addEmployee(Employee employee){
+        employees.add(employee);}
+
+    public void removeEmployee(Employee employee){
+        employees.remove(employee);}
+
+    public void addSuppliers(Suppliers supplier){
+        suppliers.add(supplier);}
+
+    public void removeSuppliers(Suppliers supplier){
+        suppliers.remove(supplier);}
+
+    public void addCourier(Courier courier){
+        couriers.add(courier);}
+
+    public List<Articles> getArticles() {
         return articles;
     }
 
-    public void setArticles(Articles[] articles) {
-        this.articles = articles;
-    }
-
-    public Employee[] getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Employee[] employees) {
-        this.employees = employees;
-    }
-
-    public Suppliers[] getSuppliers() {
+    public List<Suppliers> getSuppliers() {
         return suppliers;
     }
 
-    public void setSuppliers(Suppliers[] suppliers) {
-        this.suppliers = suppliers;
-    }
-
-    public Courier[] getCouriers() {
+    public List<Courier> getCouriers() {
         return couriers;
     }
 
-    public void setCouriers(Courier[] couriers) {
-        this.couriers = couriers;
-    }
+    public void removeCourier(Courier courier){
+        couriers.remove(courier);}
 
     @Override
     public String toString() {
@@ -85,10 +90,6 @@ public class Warehouse {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", articles=" + Arrays.toString(articles) +
-                ", employees=" + Arrays.toString(employees) +
-                ", suppliers=" + Arrays.toString(suppliers) +
-                ", couriers=" + Arrays.toString(employees) +
                 '}';
     }
 }

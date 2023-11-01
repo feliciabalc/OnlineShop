@@ -6,10 +6,45 @@
     "material": "bumbac",
     "type": "maneca",
     "price": 24.0,
-    "specifications": [],
-    "reviews": [],
-    "cart": [],
-    "orders": [],
+    "specifications": [
+      {
+        "id": 1,
+        "size": [
+          "S",
+          "M"
+        ],
+        "color": "rosu",
+        "quantity": 25.0,
+        "availability": true
+      }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "stars": "5 stars",
+        "comment": "de calitate",
+        "date": "10.10.2023"
+      }
+    ],
+    "cart": [
+      {
+        "id": 1,
+        "quantity": 5.0,
+        "articles": []
+      }
+    ],
+    "orders": [
+      {
+        "id": 1,
+        "orderNumber": 12.0,
+        "totalAmount": 120.0,
+        "paymentMethod": "cash",
+        "address": "Gruia 15",
+        "date": "10.12.2022",
+        "employees": [],
+        "articles": []
+      }
+    ],
     "warehouse": []
   },
   {
@@ -32,19 +67,6 @@
     "material": "tafta",
     "type": "maneca",
     "price": 35.0,
-    "specifications": [],
-    "reviews": [],
-    "cart": [],
-    "orders": [],
-    "warehouse": []
-  },
-  {
-    "id": 6,
-    "name": "pantaloni",
-    "brand": "nike",
-    "material": "elastan",
-    "type": "scurti",
-    "price": 100.0,
     "specifications": [],
     "reviews": [],
     "cart": [],

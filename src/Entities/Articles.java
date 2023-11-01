@@ -113,14 +113,15 @@ public class Articles {
         this.price = price;
     }
 
+    @Override
     public String toString() {
         return "Articles{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", brand='" + getBrand() + '\'' +
-                ", material='" + getMaterial() + '\'' +
-                ", type='" + getType() + '\'' +
-                ", price=" + getPrice() +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", material='" + material + '\'' +
+                ", type='" + type + '\'' +
+                ", price=" + price +
                 '}';
     }
 

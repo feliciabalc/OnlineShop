@@ -22,10 +22,12 @@ public class ReviewUI {
     public List<Review> loadReview() {
         return reviewController.loadReview();}
 
-    public void save(List<Review> review) {
-        reviewController.save(review);}
+    public void save() {
+        reviewController.save();}
 
     public void saveOneObj(Review review){ reviewController.saveOneObj(review);}
+
+    public void deleteObj(Review review){ reviewController.deleteObj(review);}
 
     public List<Review> findAll() {
         return reviewController.findAll();}

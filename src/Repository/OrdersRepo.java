@@ -24,8 +24,18 @@ public class OrdersRepo extends AbstractRepo {
 
     public void saveOneObj(Orders order){
         List<Orders> orders =loadOrders();
-        orders.add(order);
+        for(Orders item : orders)
+            if(item.getId()== order.getId())
+                item = order;
+            else
+                orders.add(order);
         save(orders);
+    }
+
+    public void deleteObj(Orders orders){
+        List<Orders> allOrders =loadOrders();
+        allOrders.remove(orders);
+        save(allOrders);
     }
 
     public List<Orders> loadOrders() {

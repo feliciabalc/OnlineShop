@@ -1,6 +1,7 @@
 package Repository;
 
 import Entities.Review;
+import Entities.Specifications;
 import Entities.Suppliers;
 import Entities.Warehouse;
 import com.google.gson.reflect.TypeToken;
@@ -23,8 +24,18 @@ public class SuppliersRepo extends AbstractRepo {
 
     public void saveOneObj(Suppliers supplier){
         List<Suppliers> suppliers =loadSuppliers();
-        suppliers.add(supplier);
+        for(Suppliers item : suppliers)
+            if(item.getId()== supplier.getId())
+                item = supplier;
+            else
+                suppliers.add(supplier);
         save(suppliers);
+    }
+
+    public void deleteObj(Suppliers suppliers){
+        List<Suppliers> allSuppliers =loadSuppliers();
+        allSuppliers.remove(suppliers);
+        save(allSuppliers);
     }
 
     public List<Suppliers> loadSuppliers() {

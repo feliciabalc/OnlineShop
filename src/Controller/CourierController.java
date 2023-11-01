@@ -30,13 +30,23 @@ public class CourierController {
         return courierRepo.loadCourier();
     }
 
-    public void save(List<Courier> couriers) {
+    public void save() {
+        Courier c1 = new Courier(1, "Ion", "curier", "1200", 075344, "Gruia");
+        Courier c2 = new Courier(2, "Ionut", "curier", "1200", 0753.4568, "Dornei");
+        List<Courier> couriers = new ArrayList<>();
+        couriers.add(c1);
+        couriers.add(c2);
+        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
+        c1.addOrders(o1);
+
         courierRepo.save(couriers);
     }
 
     public void saveOneObject(Courier courier){
         courierRepo.saveOneObject(courier);
     }
+
+    public void deleteObj(Courier courier){ courierRepo.deleteObj(courier);}
 
     public List<Courier> findAll() {
         return courierRepo.loadCourier();
@@ -70,7 +80,7 @@ public class CourierController {
             }
         }
         if (found) {
-            save(courierList);
+            save();
             System.out.println("Courier with ID " + id + " has been updated.");
         } else {
             System.out.println("Courier with ID " + id + " not found.");
@@ -90,7 +100,7 @@ public class CourierController {
             }
         }
         if (found) {
-            save(courierList);
+            save();
             System.out.println("Courier with ID " + id + " has been updated.");
         } else {
             System.out.println("Courier with ID " + id + " not found.");
@@ -110,7 +120,7 @@ public class CourierController {
             }
         }
         if (found) {
-            save(courierList);
+            save();
             System.out.println("Courier with ID " + id + " has been updated.");
         } else {
             System.out.println("Courier with ID " + id + " not found.");
@@ -134,7 +144,7 @@ public class CourierController {
             }
         }
         if (found) {
-            save(courierList);
+            save();
             System.out.println("Order has been updated.");
         } else {
             System.out.println("Order not found.");

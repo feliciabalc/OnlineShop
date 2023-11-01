@@ -3,6 +3,7 @@ package Controller;
 import Entities.Articles;
 import Entities.Employee;
 import Entities.Orders;
+import Entities.Warehouse;
 import Repository.EmployeesRepo;
 
 import java.util.ArrayList;
@@ -33,14 +34,24 @@ public class EmployeesController {
         employeesRepo.saveOneObject(employee);
     }
 
-    public void save(List<Employee> employees) {
+    public void deleteObj(Employee employee){ employeesRepo.deleteObj(employee);}
+
+    public void save() {
 
         Employee emp1= new Employee(1,"Sorin","Impacheteaza","1500", 0768.23456);
         Employee emp2= new Employee(2,"Matei","Impacheteaza","1500", 0768.23466);
         Employee emp3= new Employee(3,"Paul","Impacheteaza","2500", 0768.23433);
+        List<Employee> employees= new ArrayList<>();
         employees.add(emp1);
         employees.add(emp2);
         employees.add(emp3);
+
+        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
+        emp1.addOrders(o1);
+
+        Warehouse war1= new Warehouse(1,"R&F","Gruia 58");
+        emp1.setWarehouse(war1);
+
         employeesRepo.save(employees);
     }
 
@@ -76,7 +87,7 @@ public class EmployeesController {
             }
         }
         if (found) {
-            save(employeeList);
+            save();
             System.out.println("Employee with ID " + id + " has been updated.");
         } else {
             System.out.println("Employee with ID " + id + " not found.");
@@ -96,7 +107,7 @@ public class EmployeesController {
             }
         }
         if (found) {
-            save(employeeList);
+            save();
             System.out.println("Employee with ID " + id + " has been updated.");
         } else {
             System.out.println("Employee with ID " + id + " not found.");
@@ -119,7 +130,7 @@ public class EmployeesController {
             }}
         }
         if (found) {
-            save(employeeList);
+            save();
             System.out.println("Courier with ID " + id + " has been updated.");
         } else {
             System.out.println("Courier with ID " + id + " not found.");

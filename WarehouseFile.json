@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "R\u0026F",
+    "address": "Gruia 58",
+    "articles": [
+      {
+        "id": 1,
+        "name": "bluza",
+        "brand": "cx",
+        "material": "bumbac",
+        "type": "maneca",
+        "price": 24.0,
+        "specifications": [],
+        "reviews": [],
+        "cart": [],
+        "orders": [],
+        "warehouse": []
+      },
+      {
+        "id": 2,
+        "name": "tricou",
+        "brand": "cx",
+        "material": "bumbac",
+        "type": "maneca",
+        "price": 2.0,
+        "specifications": [],
+        "reviews": [],
+        "cart": [],
+        "orders": [],
+        "warehouse": []
+      }
+    ],
+    "employees": [],
+    "suppliers": [],
+    "couriers": []
+  },
+  {
+    "id": 1,
+    "name": "GoBi",
+    "address": "Gruia 56",
+    "articles": [],
+    "employees": [],
+    "suppliers": [],
+    "couriers": []
+  },
+  {
+    "id": 1,
+    "name": "RaFy",
+    "address": "Dornei 31",
+    "articles": [],
+    "employees": [],
+    "suppliers": [],
+    "couriers": []
+  }
+]

@@ -23,8 +23,18 @@ public class SpecificationsRepo extends AbstractRepo {
 
     public void saveOneObj(Specifications specification){
         List<Specifications> specifications =loadSpecifications();
-        specifications.add(specification);
+        for(Specifications item : specifications)
+            if(item.getId()== specification.getId())
+                item = specification;
+            else
+                specifications.add(specification);
         save(specifications);
+    }
+
+    public void deleteObj(Specifications specifications){
+        List<Specifications> allSpecifications =loadSpecifications();
+        allSpecifications.remove(specifications);
+        save(allSpecifications);
     }
 
     public List<Specifications> loadSpecifications() {

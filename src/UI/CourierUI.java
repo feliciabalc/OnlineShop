@@ -23,12 +23,14 @@ public class CourierUI {
     public List<Courier> loadCourier() {
         return courierController.loadCourier();}
 
-    public void save(List<Courier> couriers) {
-        courierController.save(couriers);}
+    public void save() {
+        courierController.save();}
 
     public void saveOneObject(Courier courier){
         courierController.saveOneObject(courier);
     }
+
+    public void deleteObj(Courier courier){ courierController.deleteObj(courier);}
 
     public List<Courier> findAll() {
         return courierController.findAll();}

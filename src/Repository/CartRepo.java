@@ -27,9 +27,19 @@ public class CartRepo extends AbstractRepo {
     }
 
     public void saveOneObject(Cart cart){
-        List<Cart> carts =loadCart();
-        carts.add(cart);
-        save(carts);
+        List<Cart> allCarts =loadCart();
+        for(Cart item : allCarts)
+            if(item.getId()== cart.getId())
+                item = cart;
+            else
+                allCarts.add(cart);
+            save(allCarts);
+    }
+
+    public void deleteObj(Cart cart){
+        List<Cart> allCart =loadCart();
+        allCart.remove(cart);
+        save(allCart);
     }
 
     public List<Cart> findAll(){
@@ -104,6 +114,7 @@ public class CartRepo extends AbstractRepo {
 
     public void removeArticlesToCart(Articles article, Cart cart){
         cart.removeArticles(article);
+        saveOneObject(cart);
     }
 
 }

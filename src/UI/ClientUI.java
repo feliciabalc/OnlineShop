@@ -28,13 +28,15 @@ public class ClientUI {
         return clientController.loadClient();
     }
 
-    public void save(List<Client> client) {
-        clientController.save(client);
+    public void save() {
+        clientController.save();
     }
 
     public void saveOneObject(Client client) {
         clientController.saveOneObject(client);
     }
+
+    public void deleteObj(Client client){ clientController.deleteObj(client);}
 
     public List<Client> findAll() {
         return clientController.findAll();

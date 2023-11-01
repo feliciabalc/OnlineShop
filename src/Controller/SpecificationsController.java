@@ -26,17 +26,22 @@ public class SpecificationsController {
         return specificationsRepo.loadSpecifications();
     }
 
-    public void save(List<Specifications> specifications) {
+    public void save() {
         Specifications sp1=new Specifications(1, new String[]{"S", "M"},"rosu",25,true);
         Specifications sp2=new Specifications(2, new String[]{"S", "L"},"crem",4,true);
         Specifications sp3=new Specifications(3, new String[]{"S", "M","XL"},"verde",13,true);
+        List<Specifications> specifications = new ArrayList<>();
         specifications.add(sp1);
         specifications.add(sp2);
         specifications.add(sp3);
+        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
+        sp1.setArticle(a1);
         specificationsRepo.save(specifications);}
 
 
     public void saveOneObj(Specifications specification){ specificationsRepo.saveOneObj(specification);}
+
+    public void deleteObj(Specifications specifications){ specificationsRepo.deleteObj(specifications);}
 
     public List<Specifications> findAll() {
         return specificationsRepo.loadSpecifications();
@@ -69,7 +74,7 @@ public class SpecificationsController {
             }
         }
         if (found) {
-            save(specificationsList);
+            save();
             System.out.println("Specifications with ID " + id + " has been updated.");
         } else {
             System.out.println("Specifications with ID " + id + " not found.");
@@ -89,7 +94,7 @@ public class SpecificationsController {
             }
         }
         if (found) {
-            save(specificationsList);
+            save();
             System.out.println("Specifications with ID " + id + " has been updated.");
         } else {
             System.out.println("Specifications with ID " + id + " not found.");
@@ -114,7 +119,7 @@ public class SpecificationsController {
             }
         }
         if (found) {
-            save(specificationsList);
+            save();
             System.out.println("Specifications has been updated.");
         } else {
             System.out.println("Specifications not found.");
