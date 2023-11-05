@@ -5,17 +5,16 @@ import Repository.CourierRepo;
 import Repository.EmployeesRepo;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class EmployeesController {
+public class WorkersController {
     private EmployeesRepo employeesRepo;
 
     private WorkersFactory workersFactory;
 
     private CourierRepo courierRepo;
 
-    public EmployeesController(EmployeesRepo employeesRepo, CourierRepo courierRepo, WorkersFactory workersFactory) {
+    public WorkersController(EmployeesRepo employeesRepo, CourierRepo courierRepo, WorkersFactory workersFactory) {
         this.employeesRepo = employeesRepo;
         this.courierRepo = courierRepo;
         this.workersFactory = workersFactory;
@@ -55,22 +54,22 @@ public class EmployeesController {
 
     public void save() {
 
-        Employee emp1= new Employee(1,"Sorin","1500", 0768.23456);
-        emp1.setRole("impacheteaza");
-        Employee emp2= new Employee(2,"Matei","1500", 0768.23466);
-        Employee emp3= new Employee(3,"Paul","2500", 0768.23433);
-        List<Employee> employees= new ArrayList<>();
-        employees.add(emp1);
-        employees.add(emp2);
-        employees.add(emp3);
+        saveOneObject(1, "Sorin","1500", 0768.23456, "packing");
+        saveOneObject(2,"Matei","1500", 0768.23466, "billing");
+        saveOneObject(3,"Paul","2500", 0768.23433, "cleaning");
+        saveOneObject(1, "Ion",  "1200", 075344, "Courier");
+        saveOneObject(2, "Ionut",  "1200", 0753.4568,"Courier");
+
 
         Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
-        emp1.addOrders(o1);
+        Employee e1 = employeesRepo.findById(1);
+        e1.addOrders(o1);
+        Courier c1 = courierRepo.findById(1);
+        c1.addOrders(o1);
 
         Warehouse war1= new Warehouse(1,"R&F","Gruia 58");
-        emp1.setWarehouse(war1);
+        e1.setWarehouse(war1);
 
-        employeesRepo.save(employees);
     }
 
     public List<Employee> findAllEmployees() {
@@ -137,6 +136,9 @@ public class EmployeesController {
 
     public void removeOrderToCourier(Orders order, Courier courier){
         courierRepo.removeOrderToCourier(order, courier);}
+
+    public void updateteTelefon(int id, double telefon){
+        courierRepo.updateteTelefon(id,telefon);}
 
 }
 

@@ -1,23 +1,24 @@
 package UI;
 
-import Controller.EmployeesController;
+import Controller.WorkersController;
+import Entities.Courier;
 import Entities.Employee;
 import Entities.Orders;
 
 import java.util.List;
 
-public class EmployeeUI {
-    private EmployeesController employeeController;
+public class WorkersUI {
+    private WorkersController employeeController;
 
-    public EmployeeUI(EmployeesController employeeController) {
+    public WorkersUI(WorkersController employeeController) {
         this.employeeController = employeeController;
     }
 
-    public EmployeesController getEmployeeController() {
+    public WorkersController getEmployeeController() {
         return employeeController;
     }
 
-    public void setEmployeeController(EmployeesController employeeController) {
+    public void setEmployeeController(WorkersController employeeController) {
         this.employeeController = employeeController;
     }
 
@@ -35,15 +36,15 @@ public class EmployeeUI {
         employeeController.deleteObj(employee);}
 
     public List<Employee> findAll() {
-        return employeeController.findAll();
+        return employeeController.findAllEmployees();
     }
 
     public Employee findById(int Id) {
-        return employeeController.findById(Id);
+        return employeeController.findEmployeeById(Id);
     }
 
     public void delete(int id) {
-        employeeController.delete(id);
+        employeeController.deleteEmployee(id);
     }
 
     public void updateTheEmployees(int id, Employee employees) {
@@ -72,6 +73,36 @@ public class EmployeeUI {
     public void removeOrderToEmployee(Orders order, Employee employee){
         employeeController.removeOrderToEmployee(order,employee);
     }
+
+    public List<Courier> loadCourier() {
+        return employeeController.loadCourier();}
+
+
+    public void deleteObj(Courier courier){ employeeController.deleteObj(courier);}
+
+    public List<Courier> findAllCouriers() {
+        return employeeController.findAllCouriers();}
+
+    public Courier findCourierById(int Id) {
+        return employeeController.findCourierById(Id);}
+
+    public void deleteCourierById(int id){
+        employeeController.deleteCourier(id);}
+
+
+
+
+    public void updateteTelefon(int id, double telefon){
+        employeeController.updateteTelefon(id,telefon);}
+
+
+
+
+    public void addOrderToCourier(Orders order, Courier courier){
+        employeeController.addOrderToCurier(order, courier);}
+
+    public void removeOrderToCourier(Orders order, Courier courier){
+        employeeController.removeOrderToCourier(order, courier);}
 
 
 }

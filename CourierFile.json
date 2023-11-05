@@ -4,24 +4,20 @@
     "name": "Ion",
     "salary": "1200",
     "telefon": 31460.0,
-    "orders": [
-      {
-        "id": 1,
-        "orderNumber": 12.0,
-        "totalAmount": 120.0,
-        "paymentMethod": "cash",
-        "address": "Gruia 15",
-        "date": "10.12.2022",
-        "employees": [],
-        "articles": []
-      }
-    ]
+    "orders": []
   },
   {
     "id": 2,
     "name": "Ionut",
     "salary": "1200",
     "telefon": 753.4568,
+    "orders": []
+  },
+  {
+    "id": 20,
+    "name": "Maria",
+    "salary": "4500",
+    "telefon": 789.3457,
     "orders": []
   }
 ]

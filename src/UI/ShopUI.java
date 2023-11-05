@@ -2,7 +2,6 @@ package UI;
 import Controller.*;
 import Entities.*;
 import Repository.*;
-import UI.ArticlesUI;
 
 import java.util.Scanner;
 
@@ -17,14 +16,10 @@ public class ShopUI {
     ClientUI clientUI = new ClientUI(clientController);
 
     CourierRepo courierRepo = new CourierRepo("CourierFile.json");
-    CourierController courierController= new CourierController(courierRepo);
-    CourierUI courierUI = new CourierUI(courierController);
-
-
     EmployeesRepo er = new EmployeesRepo("EmployeesFile.json");
     WorkersFactory workersFactory = new WorkersFactory();
-    EmployeesController ec = new EmployeesController(er, courierRepo, workersFactory);
-    EmployeeUI employeeUI = new EmployeeUI(ec);
+    WorkersController ec = new WorkersController(er, courierRepo, workersFactory);
+    WorkersUI workersUI = new WorkersUI(ec);
 
 
     CartRepo cr = new CartRepo("CartFile.json");
@@ -65,9 +60,9 @@ public class ShopUI {
         warehouseUI.save();
         reviewUI.save();
         ordersUI.save();
-        employeeUI.save();
+        workersUI.save();
         suppliersUI.save();
-        courierUI.save();
+        workersUI.save();
         specificationsUI.save();
 
         System.out.println("Welcome to our shop!");
@@ -107,11 +102,11 @@ public class ShopUI {
         ///pune in while
         int input2 = Integer.parseInt(myObj.nextLine());
         if (input2 == 1) {
-            System.out.println(employeeUI.findAll());
+            System.out.println(workersUI.findAll());
         } else if (input2 == 2) {
             System.out.println(suppliersUI.findAll());
         } else if (input2 == 3) {
-            System.out.println(courierUI.findAll());
+            System.out.println(workersUI.findAll());
         } else if (input2 == 4) {
             System.out.println("Give me id, name, brand, material, type and price for the article");
             int id = Integer.parseInt(myObj.nextLine());
@@ -154,7 +149,7 @@ public class ShopUI {
         int input2 = Integer.parseInt(myObj.nextLine());
 
         if (input2 == 1) {
-            articlesUI.findAll();
+            articlesUI.displayAllArticles();
         } else if (input2 == 2) {
             System.out.println("Please enter your id");
             int id = Integer.parseInt(myObj.nextLine());

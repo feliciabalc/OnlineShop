@@ -1,9 +1,8 @@
 import Controller.ArticlesController;
 import Controller.ClientController;
-import Controller.EmployeesController;
+import Controller.WorkersController;
 import Entities.Articles;
 import Entities.Client;
-import Entities.Employee;
 import Entities.WorkersFactory;
 import Repository.ArticlesRepo;
 import Repository.ClientRepo;
@@ -35,12 +34,12 @@ public class Tests {
        EmployeesRepo employeesRepo = new EmployeesRepo("EmployeesFile.json");
        CourierRepo courierRepo = new CourierRepo("CourierFile.json");
        WorkersFactory workersFactory = new WorkersFactory();
-       EmployeesController employeesController = new EmployeesController(employeesRepo, courierRepo, workersFactory);
+       WorkersController workersController = new WorkersController(employeesRepo, courierRepo, workersFactory);
 
-       employeesController.saveOneObject(10, "Ion", "13009", 12345.6789, "OrdersManagement");
-       assert(employeesController.findById(10) != null);
+       workersController.saveOneObject(10, "Ion", "13009", 12345.6789, "OrdersManagement");
+       assert(workersController.findEmployeeById(10) != null);
 
-       employeesController.saveOneObject(20, "Maria", "4500", 0789.3457, "Courier");
+       workersController.saveOneObject(20, "Maria", "4500", 0789.3457, "Courier");
        assert(courierRepo.findById(20)!=null);
 
    }
