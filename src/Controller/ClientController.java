@@ -74,53 +74,15 @@ public class ClientController {
 
 
     public void updateAddress(int id, String address){
-        List<Client> clientsList = loadClient();
-        boolean found = false;
-
-        for (int i = 0; i < clientsList.size(); i++) {
-            Client clients = clientsList.get(i);
-            if (clients.getId() == id) {
-                clients.setAddress(address);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Client with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Client with ID " + id + " not found.");
-        }
+        clientRepo.updateAddress(id, address);
     }
 
     public void updateteCart(int id, Cart cart){
-        List<Client> clientList = loadClient();
-        boolean found = false;
-
-        for (int i = 0; i < clientList.size(); i++) {
-            Client client = clientList.get(i);
-            if (client.getId() == id) {
-                client.setCart(cart);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Courier with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Courier with ID " + id + " not found.");
-        }
+        clientRepo.updateteCart(id, cart);
     }
 
     public List<Client> filteredByName(String name) {
-        List<Client> clients = loadClient();
-        List<Client> filteredClient = new ArrayList<>();
-        for (Client item : clients) {
-            if (item.getName() == name)
-                filteredClient.add(item);
-        }
-        return filteredClient;
+        return clientRepo.filteredByName(name);
 
     }
     public void addReviewToClient(Review review, Client client){

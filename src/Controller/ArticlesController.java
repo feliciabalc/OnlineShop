@@ -71,14 +71,7 @@ public class ArticlesController {
 
 
     public List<Articles> filteredByBrand(String brand) {
-        List<Articles> articles = load();
-        List<Articles> filteredArticles = new ArrayList<>();
-        for (Articles item : articles) {
-            if (item.getBrand() == brand)
-                filteredArticles.add(item);
-        }
-        return filteredArticles;
-
+        return articlesRepo.filteredByBrand(brand);
 
     }
     public void saveOneObject(Articles article){
@@ -134,83 +127,27 @@ public class ArticlesController {
 
 
     public List<Articles> filteredByMaterial(String material) {
-        List<Articles> articles = load();
-        List<Articles> filteredArticles = new ArrayList<>();
-        for (Articles item : articles) {
-            if (item.getMaterial() == material)
-                filteredArticles.add(item);
-        }
-        return filteredArticles;
+        return articlesRepo.filteredByMaterial(material);
 
 
     }
-    Comparator<Articles> artComparator = new Comparator<Articles>() {
-        @Override
-        public int compare(Articles a1, Articles a2) {
-            int comparisonResult = (int) (a1.getPrice() - a2.getPrice());
 
-            return comparisonResult;
-        }
-    };
     public List<Articles> sortPriceAsc() {
-        List<Articles> articles = load();
-        articles.sort(artComparator);
-        return articles;
+        return articlesRepo.sortPriceAsc();
     }
 
-    Comparator<Articles> artComparatorDesc = new Comparator<Articles>() {
-        @Override
-        public int compare(Articles a1, Articles a2) {
-            int comparisonResult = (int) (a1.getPrice() - a2.getPrice());
 
-            return comparisonResult*-1;
-        }
-    };
 
     public List<Articles> sortPriceDesc() {
-        List<Articles> articles = load();
-        articles.sort(artComparatorDesc);
-        return articles;
+        return articlesRepo.sortPriceDesc();
     }
 
     public void updateName(int id, String name){
-        List<Articles> articlesList = load();
-        boolean found = false;
-
-        for (int i = 0; i < articlesList.size(); i++) {
-            Articles article = articlesList.get(i);
-            if (article.getId() == id) {
-                article.setName(name);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Article with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Article with ID " + id + " not found.");
-        }
+        articlesRepo.updateName(id, name);
     }
 
     public void updatePrice(int id, float price){
-        List<Articles> articlesList = load();
-        boolean found = false;
-
-        for (int i = 0; i < articlesList.size(); i++) {
-            Articles article = articlesList.get(i);
-            if (article.getId() == id) {
-                article.setPrice(price);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Article with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Article with ID " + id + " not found.");
-        }
+        articlesRepo.updatePrice(id, price);
     }
 
 }

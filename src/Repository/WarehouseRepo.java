@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class WarehouseRepo extends AbstractRepo {
     public WarehouseRepo(String fileName) {
@@ -140,4 +141,89 @@ public class WarehouseRepo extends AbstractRepo {
         warehouse.removeCourier(courier);
         saveOneObj(warehouse);
     }
+
+    public void deleteArticles(int id,Articles article) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Articles> articleList= warehouse.getArticles();
+                for( int j=0; j<articleList.size();j++){
+                    if(articleList.get(j) ==article){
+                        articleList.remove(article);
+                        break;
+                    }
+                }
+            }
+        }
+        save(warehouseList);
+        System.out.println("Article has been deleted.");
+    }
+
+    public void deleteEmployees(int id,Employee employee) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Employee> employeeList= warehouse.getEmployees();
+                for( int j=0; j<employeeList.size();j++){
+                    if(employeeList.get(j) ==employee){
+                        employeeList.remove(employee);
+                        break;
+                    }
+                }
+            }
+        }
+        save(warehouseList);
+        System.out.println("Employee has been deleted.");
+    }
+
+    public void deleteSupplier(int id, Supplier supplier) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Suppliers> supplierList= warehouse.getSuppliers();
+                for( int j=0; j<supplierList.size();j++){
+                    if(supplierList.get(j) ==supplier){
+                        supplierList.remove(supplier);
+                        break;
+                    }
+                }
+            }
+        }
+        save(warehouseList);
+        System.out.println("Item has been deleted.");
+    }
+
+    public void deleteCourier(int id,Courier courier) {
+        List<Warehouse> warehouseList = loadWarehouse();
+        for(int i=0;i<warehouseList.size();i++){
+            Warehouse warehouse = warehouseList.get(i);
+            if (warehouse.getId() == id) {
+                List<Courier> courierList= warehouse.getCouriers();
+                for( int j=0; j<courierList.size();j++){
+                    if(courierList.get(j) ==courier){
+                        courierList.remove(courier);
+                        break;
+                    }
+                }
+            }
+        }
+        save(warehouseList);
+        System.out.println("Courier has been deleted.");
+    }
+
+
+    public List<Warehouse> filteredByAddress(String address) {
+        List<Warehouse> warehouse = loadWarehouse();
+        List<Warehouse> filteredWarehouse = new ArrayList<>();
+        for (Warehouse item : warehouse) {
+            if (item.getAddress() == address)
+                filteredWarehouse.add(item);
+        }
+        return filteredWarehouse;
+
+    }
+
 }

@@ -4,6 +4,8 @@ import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -116,6 +118,18 @@ public class ArticlesRepo extends AbstractRepo {
         save(allArticles);
     }
 
+    public List<Articles> filteredByBrand(String brand) {
+        List<Articles> articles = loadArticles();
+        List<Articles> filteredArticles = new ArrayList<>();
+        for (Articles item : articles) {
+            if (item.getBrand() == brand)
+                filteredArticles.add(item);
+        }
+        return filteredArticles;
+
+
+    }
+
 
     public void addSpecificationsToArticle(Articles article, Specifications specification){
         article.addSpecifications(specification);
@@ -168,13 +182,92 @@ public class ArticlesRepo extends AbstractRepo {
     }
 
 
+    public List<Articles> filteredByMaterial(String material) {
+        List<Articles> articles = loadArticles();
+        List<Articles> filteredArticles = new ArrayList<>();
+        for (Articles item : articles) {
+            if (item.getMaterial() == material)
+                filteredArticles.add(item);
+        }
+        return filteredArticles;
 
 
+    }
+    Comparator<Articles> artComparator = new Comparator<Articles>() {
+        @Override
+        public int compare(Articles a1, Articles a2) {
+            int comparisonResult = (int) (a1.getPrice() - a2.getPrice());
 
+            return comparisonResult;
+        }
+    };
+    public List<Articles> sortPriceAsc() {
+        List<Articles> articles = loadArticles();
+        articles.sort(artComparator);
+        return articles;
+    }
 
+    Comparator<Articles> artComparatorDesc = new Comparator<Articles>() {
+        @Override
+        public int compare(Articles a1, Articles a2) {
+            int comparisonResult = (int) (a1.getPrice() - a2.getPrice());
 
+            return comparisonResult*-1;
+        }
+    };
 
+    public List<Articles> sortPriceDesc() {
+        List<Articles> articles = loadArticles();
+        articles.sort(artComparatorDesc);
+        return articles;
+    }
 
+    public void updateName(int id, String name){
+        List<Articles> articlesList = loadArticles();
+        boolean found = false;
 
+        for (int i = 0; i < articlesList.size(); i++) {
+            Articles article = articlesList.get(i);
+            if (article.getId() == id) {
+                article.setName(name);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(articlesList);
+            System.out.println("Article with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Article with ID " + id + " not found.");
+        }
+    }
+
+    public void updatePrice(int id, float price){
+        List<Articles> articlesList = loadArticles();
+        boolean found = false;
+
+        for (int i = 0; i < articlesList.size(); i++) {
+            Articles article = articlesList.get(i);
+            if (article.getId() == id) {
+                article.setPrice(price);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(articlesList);
+            System.out.println("Article with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Article with ID " + id + " not found.");
+        }
+    }
 
 }
+
+
+
+
+
+
+
+

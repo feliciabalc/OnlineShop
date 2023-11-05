@@ -6,6 +6,7 @@ import Entities.Orders;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.Iterator;
 import java.util.List;
 
 public class CourierRepo extends AbstractRepo {
@@ -17,15 +18,21 @@ public class CourierRepo extends AbstractRepo {
     public void save(List objects) {
         super.save(objects);
     }
-    public void saveOneObject(Courier courier){
-        List<Courier> couriers =loadCourier();
-        for(Courier item : couriers)
-            if(item.getId()== courier.getId())
-                item = courier;
-            else
-                couriers.add(courier);
+    public void saveOneObject(Courier courier) {
+        List<Courier> couriers = loadCourier();
+        Iterator<Courier> iterator = couriers.iterator();
+
+        while (iterator.hasNext()) {
+            Courier item = iterator.next();
+            if (item.getId() == courier.getId()) {
+                iterator.remove();
+            }
+        }
+
+        couriers.add(courier);
         save(couriers);
     }
+
 
     public void deleteObj(Courier courier){
         List<Courier> allCourier =loadCourier();
@@ -80,26 +87,6 @@ public class CourierRepo extends AbstractRepo {
 
 
 
-    public void update(int id, Courier updatedCourier) {
-        List<Courier> courierList = loadCourier();
-        boolean found = false;
-
-        for (int i = 0; i < courierList.size(); i++) {
-            Courier courier = courierList.get(i);
-            if (courier.getId() == id) {
-                courier.setShipping_Address(updatedCourier.getShipping_Address());
-                found = true;
-                break;
-            }
-        }
-
-        if (found) {
-            save(courierList);
-            System.out.println( id + " has been updated.");
-        } else {
-            System.out.println( id + " not found.");
-        }
-    }
 
     public void addOrderToCurier(Orders order, Courier courier){
         courier.addOrders(order);
@@ -109,6 +96,72 @@ public class CourierRepo extends AbstractRepo {
     public void removeOrderToCourier(Orders order, Courier courier){
         courier.removeOrders(order);
         saveOneObject(courier);
+    }
+
+    public void updateSalary(int id, String salary){
+        List<Courier> courierList = loadCourier();
+        boolean found = false;
+
+        for (int i = 0; i < courierList.size(); i++) {
+            Courier courier = courierList.get(i);
+            if (courier.getId() == id) {
+                courier.setSalary(salary);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(courierList);
+            System.out.println("Courier with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Courier with ID " + id + " not found.");
+        }
+    }
+
+    public void updateteTelefon(int id, double telefon){
+        List<Courier> courierList = loadCourier();
+        boolean found = false;
+
+        for (int i = 0; i < courierList.size(); i++) {
+            Courier courier = courierList.get(i);
+            if (courier.getId() == id) {
+                courier.setTelefon(telefon);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(courierList);
+            System.out.println("Courier with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Courier with ID " + id + " not found.");
+        }
+    }
+
+
+
+    public void updateteOrders(int id, Orders order, Orders newOrder) {
+        List<Courier> courierList = loadCourier();
+        boolean found = false;
+
+        for (int i = 0; i < courierList.size(); i++) {
+            Courier courier = courierList.get(i);
+            if (courier.getId() == id) {
+                List<Orders> orders = courier.getOrders();
+                for (int j = 0; j <=orders.size(); j++)
+                    if (orders.get(j) == order) {
+                        orders.set(j, newOrder);
+                        found = true;
+                        break;
+                    }
+            }
+        }
+        if (found) {
+            save(courierList);
+            System.out.println("Order has been updated.");
+        } else {
+            System.out.println("Order not found.");
+        }
     }
 
 }

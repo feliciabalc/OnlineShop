@@ -1,8 +1,6 @@
 package UI;
 import Controller.*;
-import Entities.Articles;
-import Entities.Client;
-import Entities.Review;
+import Entities.*;
 import Repository.*;
 import UI.ArticlesUI;
 
@@ -14,15 +12,6 @@ public class ShopUI {
     ArticlesController ac = new ArticlesController(ar);
     ArticlesUI articlesUI= new ArticlesUI(ac);
 
-    EmployeesRepo er = new EmployeesRepo("EmployeesFile.json");
-    EmployeesController ec = new EmployeesController(er);
-    EmployeeUI employeeUI = new EmployeeUI(ec);
-
-
-    CartRepo cr = new CartRepo("CartFile.json");
-    CartController cc = new CartController(cr);
-    CartUI cartUI= new CartUI(cc);
-
     ClientRepo clientRepo = new ClientRepo("ClientFile.json");
     ClientController clientController = new ClientController(clientRepo);
     ClientUI clientUI = new ClientUI(clientController);
@@ -30,6 +19,18 @@ public class ShopUI {
     CourierRepo courierRepo = new CourierRepo("CourierFile.json");
     CourierController courierController= new CourierController(courierRepo);
     CourierUI courierUI = new CourierUI(courierController);
+
+
+    EmployeesRepo er = new EmployeesRepo("EmployeesFile.json");
+    WorkersFactory workersFactory = new WorkersFactory();
+    EmployeesController ec = new EmployeesController(er, courierRepo, workersFactory);
+    EmployeeUI employeeUI = new EmployeeUI(ec);
+
+
+    CartRepo cr = new CartRepo("CartFile.json");
+    CartController cc = new CartController(cr);
+    CartUI cartUI= new CartUI(cc);
+
 
     OrdersRepo ordersRepo = new OrdersRepo("OrdersFile.json");
     OrdersController ordersController = new OrdersController(ordersRepo);

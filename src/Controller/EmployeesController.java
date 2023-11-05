@@ -1,9 +1,7 @@
 package Controller;
 
-import Entities.Articles;
-import Entities.Employee;
-import Entities.Orders;
-import Entities.Warehouse;
+import Entities.*;
+import Repository.CourierRepo;
 import Repository.EmployeesRepo;
 
 import java.util.ArrayList;
@@ -13,9 +11,17 @@ import java.util.List;
 public class EmployeesController {
     private EmployeesRepo employeesRepo;
 
-    public EmployeesController(EmployeesRepo employeesRepo) {
+    private WorkersFactory workersFactory;
+
+    private CourierRepo courierRepo;
+
+    public EmployeesController(EmployeesRepo employeesRepo, CourierRepo courierRepo, WorkersFactory workersFactory) {
         this.employeesRepo = employeesRepo;
+        this.courierRepo = courierRepo;
+        this.workersFactory = workersFactory;
     }
+
+
 
     public EmployeesRepo getEmployeesRepo() {
         return employeesRepo;
@@ -30,17 +36,29 @@ public class EmployeesController {
         return employeesRepo.loadEmployee();
     }
 
-    public void saveOneObject(Employee employee){
-        employeesRepo.saveOneObject(employee);
+    public List<Courier> loadCourier() {
+        return courierRepo.loadCourier();
+    }
+
+
+    public void saveOneObject(int id, String name, String salary, double telefon, String rol){
+        if ("Courier".equals(rol)) {
+            Courier courier = workersFactory.createCourier(id, name, salary, telefon);
+            courierRepo.saveOneObject(courier);
+        }else {
+            Employee employee = workersFactory.createEmployee(id, name, salary, telefon);
+            employee.setRole(rol);
+             employeesRepo.saveOneObject(employee);}
     }
 
     public void deleteObj(Employee employee){ employeesRepo.deleteObj(employee);}
 
     public void save() {
 
-        Employee emp1= new Employee(1,"Sorin","Impacheteaza","1500", 0768.23456);
-        Employee emp2= new Employee(2,"Matei","Impacheteaza","1500", 0768.23466);
-        Employee emp3= new Employee(3,"Paul","Impacheteaza","2500", 0768.23433);
+        Employee emp1= new Employee(1,"Sorin","1500", 0768.23456);
+        emp1.setRole("impacheteaza");
+        Employee emp2= new Employee(2,"Matei","1500", 0768.23466);
+        Employee emp3= new Employee(3,"Paul","2500", 0768.23433);
         List<Employee> employees= new ArrayList<>();
         employees.add(emp1);
         employees.add(emp2);
@@ -55,16 +73,16 @@ public class EmployeesController {
         employeesRepo.save(employees);
     }
 
-    public List<Employee> findAll() {
+    public List<Employee> findAllEmployees() {
         return employeesRepo.loadEmployee();
     }
 
-    public Employee findById(int Id) {
+    public Employee findEmployeeById(int Id) {
 
         return employeesRepo.findById(Id);
     }
 
-    public void delete(int id) {
+    public void deleteEmployee(int id) {
         employeesRepo.delete(id);
     }
 
@@ -75,76 +93,19 @@ public class EmployeesController {
 
 
     public void updateSalary(int id, String salary){
-        List<Employee> employeeList = loadEmployees();
-        boolean found = false;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee = employeeList.get(i);
-            if (employee.getId() == id) {
-                employee.setSalary(salary);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Employee with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Employee with ID " + id + " not found.");
-        }
+        employeesRepo.updateSalary(id, salary);
     }
 
     public void updateteRole(int id, String role){
-        List<Employee> employeeList = loadEmployees();
-        boolean found = false;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee = employeeList.get(i);
-            if (employee.getId() == id) {
-                employee.setRole(role);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Employee with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Employee with ID " + id + " not found.");
-        }
+        employeesRepo.updateteRole(id, role);
     }
 
     public void updateteOrders(int id, Orders order, Orders newOrder){
-        List<Employee> employeeList = loadEmployees();
-        boolean found = false;
-
-        for (int i = 0; i < employeeList.size(); i++) {
-            Employee employee = employeeList.get(i);
-            if (employee.getId() == id) {
-                List<Orders> orders=employee.getOrders();
-                for(int j= 0; j<= orders.size(); j++)
-                    if(orders.get(j)==order){
-                        orders.set(j, newOrder);
-                        found = true;
-                        break;
-            }}
-        }
-        if (found) {
-            save();
-            System.out.println("Courier with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Courier with ID " + id + " not found.");
-        }
+        employeesRepo.updateteOrders(id, order, newOrder);
     }
 
     public List<Employee> filteredByRole(String role) {
-        List<Employee> employee = loadEmployees();
-        List<Employee> filteredEmployee = new ArrayList<>();
-        for (Employee item : employee) {
-            if (item.getRole() == role)
-                filteredEmployee.add(item);
-        }
-        return filteredEmployee;
+        return employeesRepo.filteredByRole(role);
 
     }
 
@@ -154,5 +115,28 @@ public class EmployeesController {
 
     public void removeOrderToEmployee(Orders order, Employee employee){ employeesRepo.removeOrderToEmployee(order,employee);
     }
+
+
+    public void deleteObj(Courier courier){ courierRepo.deleteObj(courier);}
+
+    public List<Courier> findAllCouriers() {
+        return courierRepo.loadCourier();
+    }
+
+    public Courier findCourierById(int Id) {
+
+        return courierRepo.findById(Id);
+    }
+
+    public void deleteCourier(int id) {
+        courierRepo.delete(id);
+    }
+
+    public void addOrderToCurier(Orders order, Courier courier){
+        courierRepo.addOrderToCurier(order, courier);}
+
+    public void removeOrderToCourier(Orders order, Courier courier){
+        courierRepo.removeOrderToCourier(order, courier);}
+
 }
 

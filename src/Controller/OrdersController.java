@@ -36,7 +36,7 @@ public class OrdersController {
         Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
         Orders o2 = new Orders(2, 13 ,100, "card", "Dornei 10", "24.05.2023");
         Orders o3 = new Orders(3, 15, 98, "card", "Horea 10", "14.09.2023");
-        Employee emp1= new Employee(1,"Sorin","Impacheteaza","1500", 0768.23456);
+        Employee emp1= new Employee(1,"Sorin","1500", 0768.23456);
         List<Orders> orders = new ArrayList<>();
         orders.add(o1);
         orders.add(o2);
@@ -69,54 +69,16 @@ public class OrdersController {
 
 
     public void updateAddress(int id, String address){
-        List<Orders> ordersList = loadOrders();
-        boolean found = false;
-
-        for (int i = 0; i < ordersList.size(); i++) {
-            Orders orders = ordersList.get(i);
-            if (orders.getId() == id) {
-                orders.setAddress(address);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Order with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Order with ID " + id + " not found.");
-        }
+        ordersRepo.updateAddress(id, address);
     }
 
     public void updatetePaymentMethod(int id, String paymentMethod){
-        List<Orders> ordersList = loadOrders();
-        boolean found = false;
-
-        for (int i = 0; i < ordersList.size(); i++) {
-            Orders orders = ordersList.get(i);
-            if (orders.getId() == id) {
-                orders.setPaymentMethod(paymentMethod);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Orders with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Orders with ID " + id + " not found.");
-        }
+        ordersRepo.updatetePaymentMethod(id, paymentMethod);
     }
 
 
     public List<Orders> filteredByDate(String date) {
-        List<Orders> orders = loadOrders();
-        List<Orders> filteredOrders = new ArrayList<>();
-        for (Orders item : orders) {
-            if (item.getDate() == date)
-                filteredOrders.add(item);
-        }
-        return filteredOrders;
+       return ordersRepo.filteredByDate(date);
 
     }
 

@@ -26,9 +26,6 @@ public class CourierUI {
     public void save() {
         courierController.save();}
 
-    public void saveOneObject(Courier courier){
-        courierController.saveOneObject(courier);
-    }
 
     public void deleteObj(Courier courier){ courierController.deleteObj(courier);}
 
@@ -41,8 +38,6 @@ public class CourierUI {
     public void delete(int id){
         courierController.delete(id);}
 
-    public void updateTheCourier(int id, Courier courier){
-        courierController.updateTheCourier(id,courier);}
 
     public void updateSalary(int id, String salary){
         courierController.updateSalary(id,salary);}
@@ -50,14 +45,12 @@ public class CourierUI {
     public void updateteTelefon(int id, double telefon){
         courierController.updateteTelefon(id,telefon);}
 
-    public void updateteShippingAddress(int id, String address) {
-        courierController.updateteShippingAddress(id,address);}
+
 
     public void updateteOrders(int id, Orders order, Orders newOrder) {
         courierController.updateteOrders(id,order,newOrder);}
 
-    public List<Courier> filteredByShippingAddress(String shippingAddress) {
-        return courierController.filteredByShippingAddress(shippingAddress);}
+
 
     public void addOrderToCourier(Orders order, Courier courier){
         courierController.addOrderToCurier(order, courier);}

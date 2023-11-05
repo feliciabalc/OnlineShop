@@ -13,7 +13,7 @@ public class Employee {
     protected List<Orders> orders= new ArrayList<>();
     protected Warehouse warehouse;
 
-    public Employee(int id,String name, String role, String salary, double telefon) {
+    public Employee(int id,String name, String salary, double telefon) {
         this.id = id;
         this.name = name;
         this.role = role;

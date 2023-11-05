@@ -29,9 +29,7 @@ public class EmployeeUI {
         employeeController.save();
     }
 
-    public void saveOneObject(Employee employee){
-        employeeController.saveOneObject(employee);
-    }
+    public void saveOneObject(int id, String name, String salary, double telefon, String rol){employeeController.saveOneObject(id, name, salary, telefon, rol);}
 
     public void deleteObj(Employee employee){
         employeeController.deleteObj(employee);}

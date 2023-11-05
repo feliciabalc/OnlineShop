@@ -65,33 +65,11 @@ public class SuppliersController {
 
 
     public void updateArticleType(int id, String articleType){
-        List<Suppliers> suppliersList = loadSuppliers();
-        boolean found = false;
-
-        for (int i = 0; i < suppliersList.size(); i++) {
-            Suppliers suppliers = suppliersList.get(i);
-            if (suppliers.getId() == id) {
-                suppliers.setArticleType(articleType);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Suppliers with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Suppliers with ID " + id + " not found.");
-        }
+        suppliersRepo.updateArticleType(id, articleType);
     }
 
     public List<Suppliers> filteredByName(String name) {
-        List<Suppliers> suppliers = loadSuppliers();
-        List<Suppliers> filteredSuppliers = new ArrayList<>();
-        for (Suppliers item : suppliers) {
-            if (item.getName() == name)
-                filteredSuppliers.add(item);
-        }
-        return filteredSuppliers;
+        return suppliersRepo.filteredByName(name);
 
     }
     public void setWarehouse(Warehouse warehouse) {

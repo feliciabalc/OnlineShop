@@ -1,9 +1,7 @@
 [
   {
-    "Shipping_Address": "Gruia",
     "id": 1,
     "name": "Ion",
-    "role": "curier",
     "salary": "1200",
     "telefon": 31460.0,
     "orders": [
@@ -20,10 +18,8 @@
     ]
   },
   {
-    "Shipping_Address": "Dornei",
     "id": 2,
     "name": "Ionut",
-    "role": "curier",
     "salary": "1200",
     "telefon": 753.4568,
     "orders": []

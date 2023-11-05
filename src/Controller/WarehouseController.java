@@ -67,86 +67,24 @@ public class WarehouseController {
     }
 
     public void deleteArticles(int id,Articles article) {
-        List<Warehouse> warehouseList = loadWarehouse();
-        for(int i=0;i<warehouseList.size();i++){
-            Warehouse warehouse = warehouseList.get(i);
-            if (warehouse.getId() == id) {
-                List<Articles> articleList= warehouse.getArticles();
-                for( int j=0; j<articleList.size();j++){
-                    if(articleList.get(j) ==article){
-                        articleList.remove(article);
-                        break;
-                    }
-                }
-            }
-        }
-        save();
-        System.out.println("Article has been deleted.");
+        warehouseRepo.deleteArticles(id, article);
     }
 
     public void deleteEmployees(int id,Employee employee) {
-        List<Warehouse> warehouseList = loadWarehouse();
-        for(int i=0;i<warehouseList.size();i++){
-            Warehouse warehouse = warehouseList.get(i);
-            if (warehouse.getId() == id) {
-                List<Employee> employeeList= warehouse.getEmployees();
-                for( int j=0; j<employeeList.size();j++){
-                    if(employeeList.get(j) ==employee){
-                        employeeList.remove(employee);
-                        break;
-                    }
-                }
-            }
-        }
-        save();
-        System.out.println("Employee has been deleted.");
+        warehouseRepo.deleteEmployees(id, employee);
     }
 
     public void deleteSupplier(int id,Supplier supplier) {
-        List<Warehouse> warehouseList = loadWarehouse();
-        for(int i=0;i<warehouseList.size();i++){
-            Warehouse warehouse = warehouseList.get(i);
-            if (warehouse.getId() == id) {
-                List<Suppliers> supplierList= warehouse.getSuppliers();
-                for( int j=0; j<supplierList.size();j++){
-                    if(supplierList.get(j) ==supplier){
-                        supplierList.remove(supplier);
-                        break;
-                    }
-                }
-            }
-        }
-        save();
-        System.out.println("Item has been deleted.");
+       warehouseRepo.deleteSupplier(id, supplier);
     }
 
     public void deleteCourier(int id,Courier courier) {
-        List<Warehouse> warehouseList = loadWarehouse();
-        for(int i=0;i<warehouseList.size();i++){
-            Warehouse warehouse = warehouseList.get(i);
-            if (warehouse.getId() == id) {
-                List<Courier> courierList= warehouse.getCouriers();
-                for( int j=0; j<courierList.size();j++){
-                    if(courierList.get(j) ==courier){
-                        courierList.remove(courier);
-                        break;
-                    }
-                }
-            }
-        }
-        save();
-        System.out.println("Courier has been deleted.");
+        warehouseRepo.deleteCourier(id, courier);
     }
 
 
     public List<Warehouse> filteredByAddress(String address) {
-        List<Warehouse> warehouse = loadWarehouse();
-        List<Warehouse> filteredWarehouse = new ArrayList<>();
-        for (Warehouse item : warehouse) {
-            if (item.getAddress() == address)
-                filteredWarehouse.add(item);
-        }
-        return filteredWarehouse;
+       return warehouseRepo.filteredByAddress(address);
 
     }
 

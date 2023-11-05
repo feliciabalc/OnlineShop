@@ -7,6 +7,8 @@ import Entities.Orders;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class EmployeesRepo extends AbstractRepo {
@@ -20,15 +22,21 @@ public class EmployeesRepo extends AbstractRepo {
         super.save(objects);
     }
 
-    public void saveOneObject(Employee employee){
-        List<Employee> employees =loadEmployee();
-        for(Employee item : employees)
-            if(item.getId()== employee.getId())
-                item = employee;
-            else
-                employees.add(employee);
+    public void saveOneObject(Employee employee) {
+        List<Employee> employees = loadEmployee();
+        Iterator<Employee> iterator = employees.iterator();
+
+        while (iterator.hasNext()) {
+            Employee item = iterator.next();
+            if (item.getId() == employee.getId()) {
+                iterator.remove(); // Remove the existing item from the list
+            }
+        }
+
+        employees.add(employee); // Add the new employee to the list
         save(employees);
     }
+
 
     public void deleteObj(Employee employee){
         List<Employee> allEmployee =loadEmployee();
@@ -115,6 +123,80 @@ public class EmployeesRepo extends AbstractRepo {
     public void removeOrderToEmployee(Orders order, Employee employee){
         employee.removeOrders(order);
         saveOneObject(employee);
+    }
+
+    public void updateSalary(int id, String salary){
+        List<Employee> employeeList = loadEmployee();
+        boolean found = false;
+
+        for (int i = 0; i < employeeList.size(); i++) {
+            Employee employee = employeeList.get(i);
+            if (employee.getId() == id) {
+                employee.setSalary(salary);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(employeeList);
+            System.out.println("Employee with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Employee with ID " + id + " not found.");
+        }
+    }
+
+    public void updateteRole(int id, String role){
+        List<Employee> employeeList = loadEmployee();
+        boolean found = false;
+
+        for (int i = 0; i < employeeList.size(); i++) {
+            Employee employee = employeeList.get(i);
+            if (employee.getId() == id) {
+                employee.setRole(role);
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            save(employeeList);
+            System.out.println("Employee with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Employee with ID " + id + " not found.");
+        }
+    }
+
+    public void updateteOrders(int id, Orders order, Orders newOrder){
+        List<Employee> employeeList = loadEmployee();
+        boolean found = false;
+
+        for (int i = 0; i < employeeList.size(); i++) {
+            Employee employee = employeeList.get(i);
+            if (employee.getId() == id) {
+                List<Orders> orders=employee.getOrders();
+                for(int j= 0; j<= orders.size(); j++)
+                    if(orders.get(j)==order){
+                        orders.set(j, newOrder);
+                        found = true;
+                        break;
+                    }}
+        }
+        if (found) {
+            save(employeeList);
+            System.out.println("Courier with ID " + id + " has been updated.");
+        } else {
+            System.out.println("Courier with ID " + id + " not found.");
+        }
+    }
+
+    public List<Employee> filteredByRole(String role) {
+        List<Employee> employee = loadEmployee();
+        List<Employee> filteredEmployee = new ArrayList<>();
+        for (Employee item : employee) {
+            if (item.getRole() == role)
+                filteredEmployee.add(item);
+        }
+        return filteredEmployee;
+
     }
 
 }

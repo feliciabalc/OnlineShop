@@ -78,45 +78,9 @@ public class CartController {
 
 
     public void updateQuantity(int id, double quantity){
-        List<Cart> cartList = loadCart();
-        boolean found = false;
-
-        for (int i = 0; i < cartList.size(); i++) {
-            Cart cart = cartList.get(i);
-            if (cart.getQuantity() == quantity) {
-                cart.setQuantity(quantity);
-                found = true;
-                break;
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Cart with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Cart with ID " + id + " not found.");
-        }
+        cartRepo.updateQuantity(id, quantity);
     }
     public void updateteArticles(int id, Articles article, Articles newArticle) {
-        List<Cart> cartList = loadCart();
-        boolean found = false;
-
-        for (int i = 0; i < cartList.size(); i++) {
-            Cart cart = cartList.get(i);
-            if (cart.getId() == id) {
-                List<Articles> articles = cart.getArticles();
-                for (int j = 0; j <= articles.size(); j++)
-                    if (articles.get(j) == article) {
-                        articles.set(j, newArticle);
-                        found = true;
-                        break;
-                    }
-            }
-        }
-        if (found) {
-            save();
-            System.out.println("Courier with ID " + id + " has been updated.");
-        } else {
-            System.out.println("Courier with ID " + id + " not found.");
-        }
+        cartRepo.updateteArticles(id, article, newArticle);
     }
 }
