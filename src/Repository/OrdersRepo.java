@@ -1,14 +1,12 @@
 package Repository;
 
-import Entities.Articles;
-import Entities.Courier;
-import Entities.Employee;
-import Entities.Orders;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class OrdersRepo extends AbstractRepo {
@@ -22,17 +20,35 @@ public class OrdersRepo extends AbstractRepo {
         super.save(objects);
     }
 
-    public void saveOneObj(Orders order){
-        List<Orders> orders =loadOrders();
-        for(Orders item : orders)
-            if(item.getId()== order.getId())
-                item = order;
-            else
+    public void saveOneObj(Orders order) {
+        ClientOrderObserver clientObserver = new ClientOrderObserver(order.getClient());
+        order.addObserver(clientObserver);
+        order.notifyObservers();
+        List<Orders> orders = loadOrders();
+        boolean found = false;
+
+        Iterator<Orders> iterator = orders.iterator();
+        while (iterator.hasNext()) {
+            Orders item = iterator.next();
+            if (item.getId() == order.getId()) {
+                iterator.remove();
                 orders.add(order);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            orders.add(order);
+        }
+
         save(orders);
     }
 
+
     public void deleteObj(Orders orders){
+        ClientOrderObserver clientObserver = new ClientOrderObserver(orders.getClient());
+        orders.removeObserver();
         List<Orders> allOrders =loadOrders();
         allOrders.remove(orders);
         save(allOrders);
@@ -97,6 +113,7 @@ public class OrdersRepo extends AbstractRepo {
                 order.setPaymentMethod(updatedOrders.getPaymentMethod());
                 order.setAddress(updatedOrders.getAddress());
                 order.setDate(updatedOrders.getDate());
+                order.notifyObservers();
                 found = true;
                 break;
             }
@@ -121,11 +138,13 @@ public class OrdersRepo extends AbstractRepo {
 
     public void addArticleToOrder(Articles article, Orders order){
         order.addArticle(article);
+        order.notifyObservers();
         saveOneObj(order);
     }
 
     public void removeArticleToOrder(Articles article, Orders order){
         order.removeArticle(article);
+        order.notifyObservers();
         saveOneObj(order);
     }
 
@@ -136,6 +155,7 @@ public class OrdersRepo extends AbstractRepo {
         for (int i = 0; i < ordersList.size(); i++) {
             Orders orders = ordersList.get(i);
             if (orders.getId() == id) {
+                orders.notifyObservers();
                 orders.setAddress(address);
                 found = true;
                 break;
@@ -156,6 +176,7 @@ public class OrdersRepo extends AbstractRepo {
         for (int i = 0; i < ordersList.size(); i++) {
             Orders orders = ordersList.get(i);
             if (orders.getId() == id) {
+                orders.notifyObservers();
                 orders.setPaymentMethod(paymentMethod);
                 found = true;
                 break;
@@ -167,6 +188,7 @@ public class OrdersRepo extends AbstractRepo {
         } else {
             System.out.println("Orders with ID " + id + " not found.");
         }
+
     }
 
 
@@ -179,6 +201,10 @@ public class OrdersRepo extends AbstractRepo {
         }
         return filteredOrders;
 
+    }
+
+    public OrderObserver getObserver(){
+        return getObserver();
     }
 
 

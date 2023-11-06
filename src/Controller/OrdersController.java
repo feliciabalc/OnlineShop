@@ -1,8 +1,5 @@
 package Controller;
-import Entities.Articles;
-import Entities.Client;
-import Entities.Employee;
-import Entities.Orders;
+import Entities.*;
 import Repository.OrdersRepo;
 
 import java.util.ArrayList;
@@ -98,5 +95,9 @@ public class OrdersController {
 
     public void removeArticleToOrder(Articles article, Orders order){
         ordersRepo.removeArticleToOrder(article, order);
+    }
+
+    public OrderObserver getObserver(){
+        return ordersRepo.getObserver();
     }
 }

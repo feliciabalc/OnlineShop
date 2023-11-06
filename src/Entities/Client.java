@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Client {
+public class Client{
     private int id;
     private  String  name;
     private String  address;
@@ -101,4 +101,6 @@ public class Client {
                 ", telefon=" + telefon +
                 '}';
     }
+
+
 }

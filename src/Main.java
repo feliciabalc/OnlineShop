@@ -10,6 +10,7 @@ public class Main {
         t1.testFillters();
         t1.testSortAsc();
         t1.testFactory();
+        t1.testObserver();
 
         //continua main
         //ne trebe meoda de a plasa comanda

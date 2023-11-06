@@ -26,6 +26,25 @@ public class Orders {
         this.date = date;
     }
 
+    private ClientOrderObserver observer;
+
+    public void addObserver(ClientOrderObserver addObserver) {
+        this.observer = addObserver;
+    }
+
+    public void removeObserver() {
+        this.observer = null;
+    }
+
+    public void notifyObservers() {
+
+            observer.update(this);
+    }
+
+    public OrderObserver getObserver() {
+        return observer;
+    }
+
     public int getId() {
         return id;
     }

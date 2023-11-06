@@ -3,11 +3,9 @@ import Controller.ClientController;
 import Controller.WorkersController;
 import Entities.Articles;
 import Entities.Client;
+import Entities.Orders;
 import Entities.WorkersFactory;
-import Repository.ArticlesRepo;
-import Repository.ClientRepo;
-import Repository.CourierRepo;
-import Repository.EmployeesRepo;
+import Repository.*;
 
 import java.util.List;
 
@@ -42,5 +40,17 @@ public class Tests {
        workersController.saveOneObject(20, "Maria", "4500", 0789.3457, "Courier");
        assert(courierRepo.findById(20)!=null);
 
+   }
+
+   public void testObserver(){
+       Orders order = new Orders(21, 111234, 115, "Card", "Gruia", "06/11/2023");
+       Client client = new Client(30, "Maria","Horea", 12345.67890 );
+       order.setClient(client);
+
+       OrdersRepo ordersRepo = new OrdersRepo("OrdersFile.json");
+       ordersRepo.saveOneObj(order);
+
+       assert(ordersRepo.getObserver() == client);
+       ordersRepo.updatetePaymentMethod(21, "Cash");
    }
 }
