@@ -1,10 +1,7 @@
 import Controller.ArticlesController;
 import Controller.ClientController;
 import Controller.WorkersController;
-import Entities.Articles;
-import Entities.Client;
-import Entities.Orders;
-import Entities.WorkersFactory;
+import Entities.*;
 import Repository.*;
 
 import java.util.List;
@@ -43,14 +40,35 @@ public class Tests {
    }
 
    public void testObserver(){
-       Orders order = new Orders(21, 111234, 115, "Card", "Gruia", "06/11/2023");
+       Cart cart = new Cart(25, 20);
        Client client = new Client(30, "Maria","Horea", 12345.67890 );
-       order.setClient(client);
 
-       OrdersRepo ordersRepo = new OrdersRepo("OrdersFile.json");
-       ordersRepo.saveOneObj(order);
+       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json");
+       Articles article = articlesRepo.findById(5);
 
-       assert(ordersRepo.getObserver() == client);
-       ordersRepo.updatetePaymentMethod(21, "Cash");
+       ClientCartObserver clientCartObserver = new ClientCartObserver(client);
+       cart.setClient(client);
+       cart.addArticles(article);
+
+       CartRepo cartRepo = new CartRepo("CartFile.json");
+       cartRepo.saveOneObject(cart);
+
+       assert(cartRepo.getObservers(cart) == clientCartObserver);
+       cartRepo.updatePriceArticle(25, 10, 30);
    }
+
+    public void testStrategy() {
+        OrdersRepo ordersRepo = new OrdersRepo("OrdersFile.json");
+        Orders order = ordersRepo.findById(1);
+
+        if ("Cash".equals(order.getPaymentMethod())) {
+            order.setPaymentStrategy(new CashOnDelieveryStrategy());
+        } else {
+            order.setPaymentStrategy(new CreditCardPaymentStrategy("1234.5678")); // Set the credit card number
+        }
+        order.processPayment();
+    }
+
+
+
 }

@@ -1,9 +1,6 @@
 package Controller;
 
-import Entities.Articles;
-import Entities.Cart;
-import Entities.Employee;
-import Entities.Orders;
+import Entities.*;
 import Repository.CartRepo;
 
 import java.util.ArrayList;
@@ -82,5 +79,9 @@ public class CartController {
     }
     public void updateteArticles(int id, Articles article, Articles newArticle) {
         cartRepo.updateteArticles(id, article, newArticle);
+    }
+
+    public List<ClientCartObserver> getObservers(Cart cart){
+        return cartRepo.getObservers(cart);
     }
 }

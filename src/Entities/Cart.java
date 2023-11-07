@@ -10,6 +10,12 @@ public class Cart {
     private Client client;
     private List<Articles> articles= new ArrayList<>();
 
+    private List<ClientCartObserver> observers = new ArrayList<>();
+
+    public List<ClientCartObserver> getObservers(Cart cart) {
+        return cart.observers;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -22,6 +28,7 @@ public class Cart {
     public Cart(int id, double quantity) {
         this.id = id;
         this.quantity = quantity;
+
     }
 
     public int getId() {
@@ -69,4 +76,19 @@ public class Cart {
                 ", client=" + client +
                 '}';
     }
+
+    public void addObserver(ClientCartObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(ClientCartObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers(){
+        for(CartObserver obs: observers)
+            obs.update(this);
+    }
+
+
 }

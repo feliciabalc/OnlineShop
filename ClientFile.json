@@ -19,7 +19,8 @@
     "cart": {
       "id": 1,
       "quantity": 5.0,
-      "articles": []
+      "articles": [],
+      "observers": []
     },
     "reviews": [
       {

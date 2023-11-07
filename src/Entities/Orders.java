@@ -15,6 +15,20 @@ public class Orders {
     private Client client;
     private Courier courier;
     private List<Articles> articles= new ArrayList<>();
+    private PaymentStrategy paymentStrategy;
+
+
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public void processPayment() {
+        paymentStrategy.processPayment(this);
+    }
+
+    public PaymentStrategy getPaymentStrategy() {
+        return paymentStrategy;
+    }
 
     public Orders(int id, double orderNumber, float totalAmount, String paymentMethod, String address,
                   String date) {
@@ -26,24 +40,7 @@ public class Orders {
         this.date = date;
     }
 
-    private ClientOrderObserver observer;
 
-    public void addObserver(ClientOrderObserver addObserver) {
-        this.observer = addObserver;
-    }
-
-    public void removeObserver() {
-        this.observer = null;
-    }
-
-    public void notifyObservers() {
-
-            observer.update(this);
-    }
-
-    public OrderObserver getObserver() {
-        return observer;
-    }
 
     public int getId() {
         return id;

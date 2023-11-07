@@ -44,33 +44,5 @@
     "date": "14.09.2023",
     "employees": [],
     "articles": []
-  },
-  {
-    "id": 21,
-    "orderNumber": 111234.0,
-    "totalAmount": 115.0,
-    "paymentMethod": "Cash",
-    "address": "Gruia",
-    "date": "06/11/2023",
-    "employees": [],
-    "client": {
-      "id": 30,
-      "name": "Maria",
-      "address": "Horea",
-      "telefon": 12345.6789,
-      "orders": [],
-      "reviews": []
-    },
-    "articles": [],
-    "observer": {
-      "client": {
-        "id": 30,
-        "name": "Maria",
-        "address": "Horea",
-        "telefon": 12345.6789,
-        "orders": [],
-        "reviews": []
-      }
-    }
   }
 ]

@@ -97,7 +97,12 @@ public class OrdersController {
         ordersRepo.removeArticleToOrder(article, order);
     }
 
-    public OrderObserver getObserver(){
-        return ordersRepo.getObserver();
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        ordersRepo.setPaymentStrategy(paymentStrategy);
     }
+
+    public void processPayment() {
+        ordersRepo.processPayment();
+    }
+
 }

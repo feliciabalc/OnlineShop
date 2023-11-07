@@ -2,21 +2,64 @@
   {
     "id": 1,
     "quantity": 5.0,
-    "articles": []
+    "articles": [],
+    "observers": []
   },
   {
     "id": 1,
     "quantity": 2.0,
-    "articles": []
+    "articles": [],
+    "observers": []
   },
   {
     "id": 1,
     "quantity": 34.0,
-    "articles": []
+    "articles": [],
+    "observers": []
   },
   {
     "id": 1,
     "quantity": 9.0,
-    "articles": []
+    "articles": [],
+    "observers": []
+  },
+  {
+    "id": 25,
+    "quantity": 20.0,
+    "client": {
+      "id": 30,
+      "name": "Maria",
+      "address": "Horea",
+      "telefon": 12345.6789,
+      "orders": [],
+      "reviews": []
+    },
+    "articles": [
+      {
+        "id": 5,
+        "name": "top",
+        "brand": "nike",
+        "material": "tafta",
+        "type": "maneca",
+        "price": 35.0,
+        "specifications": [],
+        "reviews": [],
+        "cart": [],
+        "orders": [],
+        "warehouse": []
+      }
+    ],
+    "observers": [
+      {
+        "client": {
+          "id": 30,
+          "name": "Maria",
+          "address": "Horea",
+          "telefon": 12345.6789,
+          "orders": [],
+          "reviews": []
+        }
+      }
+    ]
   }
 ]
