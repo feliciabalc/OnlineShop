@@ -1,11 +1,11 @@
 package UI;
 
 import Controller.OrdersController;
-import Entities.Articles;
-import Entities.Employee;
-import Entities.Orders;
+import Entities.*;
+import Repository.ClientRepo;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class OrdersUI {
     private OrdersController ordersController;
@@ -27,8 +27,34 @@ public class OrdersUI {
     public void save() {
         ordersController.save();}
 
-    public void saveOneObj(Orders order ){
-        ordersController.saveOneObj(order);}
+    public  Orders addOneOrder() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Give me your id: ");
+            int id = Integer.parseInt(scanner.nextLine());
+            ClientRepo clientRepo = new ClientRepo("ClientFile.json");
+            Client client = clientRepo.findById(id);
+            System.out.println("Enter the order id: ");
+            int orderId = Integer.parseInt(scanner.nextLine());
+            System.out.println("Enter the order number: ");
+            int orderNr = Integer.parseInt(scanner.nextLine());
+            System.out.println("Enter the total amount of your order: ");
+            float amount = Float.parseFloat(scanner.nextLine());
+            System.out.println("What payment method do you choose: ");
+            String paymentMethod = scanner.nextLine();
+            System.out.println("Enter your address: ");
+            String address = scanner.nextLine();
+            System.out.println("Enter the date: ");
+            String date = scanner.nextLine();
+            Orders order = new Orders(orderId, orderNr, amount, paymentMethod,address,date);
+            order.setClient(client);
+            ordersController.saveOneObj(order);
+            return order;
+
+    }catch (NumberFormatException e){
+        handleUserInputError();}
+        return null;
+    }
 
     public void deleteObj(Orders orders){ ordersController.deleteObj(orders);}
 
@@ -67,4 +93,9 @@ public class OrdersUI {
     public void removeArticleToOrder(Articles article, Orders order){
         ordersController.removeArticleToOrder(article, order);
     }
+        public void handleUserInputError() {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Invalid input. Please try again.");
+            scanner.nextLine(); // Consume the invalid input
+        }
     }

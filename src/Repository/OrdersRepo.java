@@ -22,13 +22,26 @@ public class OrdersRepo extends AbstractRepo {
 
     public void saveOneObj(Orders order) {
         List<Orders> orders = loadOrders();
-        for(Orders item : orders)
-            if(item.getId()== order.getId())
-                item = order;
-            else
+        boolean found = false;
+
+        Iterator<Orders> iterator = orders.iterator();
+        while (iterator.hasNext()) {
+            Orders existingOrder = iterator.next();
+            if (existingOrder.getId() == order.getId()) {
+                iterator.remove(); // Use iterator to remove the order
                 orders.add(order);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            orders.add(order);
+        }
+
         save(orders);
     }
+
 
 
     public void deleteObj(Orders orders){

@@ -48,6 +48,7 @@ public class ShopUI {
     WarehouseUI warehouseUI= new WarehouseUI(warehouseController);
 
 
+    OrderBillingSystem orderBillingSystem = OrderBillingSystem.getInstance();
 
 
     public void startMenu() {
@@ -97,43 +98,43 @@ public class ShopUI {
         //update, sort...
 
         Scanner myObj = new Scanner(System.in);
-
-
-        ///pune in while
         int input2 = Integer.parseInt(myObj.nextLine());
-        if (input2 == 1) {
-            System.out.println(workersUI.findAll());
-        } else if (input2 == 2) {
-            System.out.println(suppliersUI.findAll());
-        } else if (input2 == 3) {
-            System.out.println(workersUI.findAll());
-        } else if (input2 == 4) {
-            System.out.println("Give me id, name, brand, material, type and price for the article");
-            int id = Integer.parseInt(myObj.nextLine());
-            String name = String.valueOf(myObj.nextLine());
-            String material = String.valueOf(myObj.nextLine());
-            String type = String.valueOf(myObj.nextLine());
-            String brand = String.valueOf(myObj.nextLine());
-            float price = Float.parseFloat((myObj.nextLine()));
-            Articles newArticle = new Articles(id, name, brand, material, type, price);
-            articlesUI.saveOneObject(newArticle);
 
 
-        } else if (input2 == 5) {
 
-        } else if (input2 == 6) {
+            if (input2 == 1) {
+                System.out.println(workersUI.findAll());
+            } else if (input2 == 2) {
+                System.out.println(suppliersUI.findAll());
+            } else if (input2 == 3) {
+                System.out.println(workersUI.findAll());
+            } else if (input2 == 4) {
+                System.out.println("Give me id, name, brand, material, type and price for the article");
+                int id = Integer.parseInt(myObj.nextLine());
+                String name = String.valueOf(myObj.nextLine());
+                String material = String.valueOf(myObj.nextLine());
+                String type = String.valueOf(myObj.nextLine());
+                String brand = String.valueOf(myObj.nextLine());
+                float price = Float.parseFloat((myObj.nextLine()));
+                Articles newArticle = new Articles(id, name, brand, material, type, price);
+                articlesUI.saveOneObject(newArticle);
 
-        } else if (input2 == 7) {
 
-        } else if (input2 == 8) {
+            } else if (input2 == 5) {
 
-        } else if (input2 == 9) {
+            } else if (input2 == 6) {
 
-        } else if (input2 == 10) {
+            } else if (input2 == 7) {
 
-        } else {
-            System.out.println("Invalid input. Please try again.");
-        }
+            } else if (input2 == 8) {
+
+            } else if (input2 == 9) {
+
+            } else if (input2 == 10) {
+
+            } else {
+                System.out.println("Invalid input. Please try again.");
+            }
     }
 
     public void clientMenu() {
@@ -144,43 +145,46 @@ public class ShopUI {
         System.out.println("4. Write review");
         System.out.println("5.Add article to my order");
         System.out.println("5.Add article to my cart");
-        System.out.println("Choose an option: ");
+        System.out.println("6.Place an order");
+        System.out.println("7. Update address");
         Scanner myObj = new Scanner(System.in);
         int input2 = Integer.parseInt(myObj.nextLine());
 
-        if (input2 == 1) {
-            articlesUI.displayAllArticles();
-        } else if (input2 == 2) {
-            System.out.println("Please enter your id");
-            int id = Integer.parseInt(myObj.nextLine());
-            Client client = clientUI.findById(id);
-            System.out.println(client.getCart());
-        } else if (input2 == 3) {
-            System.out.println("Please enter your id");
-            int id = Integer.parseInt(myObj.nextLine());
-            Client client = clientUI.findById(id);
-            System.out.println(client.getOrders());
-        } else if (input2 == 4) {
-            System.out.println("Give me id, number of stars, comment, date, your id and also the id of the reviewed article");
-            int id = Integer.parseInt(myObj.nextLine());
-            String stars = String.valueOf(myObj.nextLine());
-            String comment = String.valueOf(myObj.nextLine());
-            String date = String.valueOf(myObj.nextLine());
-            int ClientId = Integer.parseInt(myObj.nextLine());
-            int ArticleId = Integer.valueOf(Integer.parseInt(myObj.nextLine()));
-            Review newR = new Review(id, stars, comment, date);
-
-            Articles article = articlesUI.findById(ArticleId);
-            Client client = clientUI.findById(ClientId);
-            newR.setArticle(article);
-            newR.setClient(client);
 
 
-        } else if (input2 == 5) {
-            ////
+            if (input2 == 1) {
+                articlesUI.displayAllArticles();
+            } else if (input2 == 2) {
+                System.out.println("Please enter your id");
+                int id = Integer.parseInt(myObj.nextLine());
+                Client client = clientUI.findById(id);
+                System.out.println(client.getCart());
+            } else if (input2 == 3) {
+                System.out.println("Please enter your id");
+                int id = Integer.parseInt(myObj.nextLine());
+                Client client = clientUI.findById(id);
+                System.out.println(client.getOrders());
+            } else if (input2 == 4) {
+               reviewUI.addReview();;
+
+
+            } else if (input2 == 5) {
+                ////
+
+            }else if (input2 == 6){
+                Scanner scanner = new Scanner(System.in);
+                Orders order = ordersUI.addOneOrder();
+                if ("Cash".equals(order.getPaymentMethod())) {
+                    order.setPaymentStrategy(new CashOnDelieveryStrategy());
+                } else {
+                    System.out.println("Please enter your card number: ");
+                    String cardNr = scanner.nextLine();
+                    order.setPaymentStrategy(new CreditCardPaymentStrategy(cardNr)); // Set the credit card number
+                }
+                order.processPayment();
+                orderBillingSystem.generateBill(order);
+            }
+
 
         }
-
-
-    }
 }

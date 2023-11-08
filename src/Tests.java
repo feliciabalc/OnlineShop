@@ -40,7 +40,9 @@ public class Tests {
    }
 
    public void testObserver(){
-       Cart cart = new Cart(25, 20);
+       CartRepo cartRepo = new CartRepo("CartFile.json");
+       Cart cart = cartRepo.findById(1);
+
        Client client = new Client(30, "Maria","Horea", 12345.67890 );
 
        ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json");
@@ -48,13 +50,9 @@ public class Tests {
 
        ClientCartObserver clientCartObserver = new ClientCartObserver(client);
        cart.setClient(client);
-       cart.addArticles(article);
-
-       CartRepo cartRepo = new CartRepo("CartFile.json");
-       cartRepo.saveOneObject(cart);
 
        assert(cartRepo.getObservers(cart) == clientCartObserver);
-       cartRepo.updatePriceArticle(25, 10, 30);
+       cartRepo.updatePriceArticle(1, 1, 30);
    }
 
     public void testStrategy() {

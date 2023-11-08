@@ -5,9 +5,11 @@ import Entities.Cart;
 import Entities.Client;
 import Entities.Orders;
 import Entities.Review;
+import Repository.CartRepo;
 import Repository.ClientRepo;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ClientUI {
     private ClientController clientController;
@@ -55,15 +57,29 @@ public class ClientUI {
     }
 
     public void updateAddress(int id, String address) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter you id: ");
+        int idClient= Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter you new address: ");
+        String newAddress = scanner.nextLine();
         clientController.updateAddress(id, address);
     }
 
     public void updateteCart(int id, Cart cart) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the cart id: ");
+        int idCart= Integer.parseInt(scanner.nextLine());
+        CartRepo cartRepo = new CartRepo("CartFile.json");
+        System.out.println("Please enter the new quantity: " );
+        double quantity = Double.parseDouble(scanner.nextLine());
         clientController.updateteCart(id, cart);
     }
 
     public List<Client> filteredByName(String name) {
-        return clientController.filteredByName(name);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the name you want the client to be filtered by: ");
+        String givenName = scanner.nextLine();
+        return clientController.filteredByName(givenName);
     }
 
 
@@ -78,4 +94,7 @@ public class ClientUI {
 
     public void removeOrderToClient(Orders order, Client client){
         clientController.removeOrderToClient(order, client);}
+
+
+
 }

@@ -193,9 +193,9 @@ public class CartRepo extends AbstractRepo {
                 for (int j = 0; j < articles.size(); j++) {
                     Articles articles1 = articles.get(j);
                     if (articles1.getId() == articleId) {
+                        found = true;
                         articles1.setPrice(newPrice);
                         cart.notifyObservers();
-                        found = true;
                     }
                 }
             }

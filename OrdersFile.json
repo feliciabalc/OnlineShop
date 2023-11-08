@@ -44,5 +44,47 @@
     "date": "14.09.2023",
     "employees": [],
     "articles": []
+  },
+  {
+    "id": 25,
+    "orderNumber": 1234.0,
+    "totalAmount": 1245.0,
+    "paymentMethod": "Card",
+    "address": "dornei",
+    "date": "23/8/24",
+    "employees": [],
+    "client": {
+      "id": 1,
+      "name": "Ion",
+      "address": "piupiu 23",
+      "telefon": 897.6535,
+      "orders": [
+        {
+          "id": 1,
+          "orderNumber": 12.0,
+          "totalAmount": 120.0,
+          "paymentMethod": "cash",
+          "address": "Gruia 15",
+          "date": "10.12.2022",
+          "employees": [],
+          "articles": []
+        }
+      ],
+      "cart": {
+        "id": 1,
+        "quantity": 5.0,
+        "articles": [],
+        "observers": []
+      },
+      "reviews": [
+        {
+          "id": 1,
+          "stars": "5 stars",
+          "comment": "de calitate",
+          "date": "10.10.2023"
+        }
+      ]
+    },
+    "articles": []
   }
 ]

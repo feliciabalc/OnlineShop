@@ -14,7 +14,6 @@ public class Main {
         t1.testStrategy();
 
         //continua main
-        //ne trebe meoda de a plasa comanda
         //intreaba-l pe bogdan daca sa lasam crearea obiectelor in controller sau in main
         //pune shopUi in while
         //fa in main sa ii dai un id si sa mearga in repo sa ia orderul cu id ul respectiv ca parametru pt singleton

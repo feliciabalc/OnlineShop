@@ -2,46 +2,14 @@
   {
     "id": 1,
     "quantity": 5.0,
-    "articles": [],
-    "observers": []
-  },
-  {
-    "id": 1,
-    "quantity": 2.0,
-    "articles": [],
-    "observers": []
-  },
-  {
-    "id": 1,
-    "quantity": 34.0,
-    "articles": [],
-    "observers": []
-  },
-  {
-    "id": 1,
-    "quantity": 9.0,
-    "articles": [],
-    "observers": []
-  },
-  {
-    "id": 25,
-    "quantity": 20.0,
-    "client": {
-      "id": 30,
-      "name": "Maria",
-      "address": "Horea",
-      "telefon": 12345.6789,
-      "orders": [],
-      "reviews": []
-    },
     "articles": [
       {
-        "id": 5,
-        "name": "top",
-        "brand": "nike",
-        "material": "tafta",
+        "id": 1,
+        "name": "bluza",
+        "brand": "cx",
+        "material": "bumbac",
         "type": "maneca",
-        "price": 35.0,
+        "price": 30.0,
         "specifications": [],
         "reviews": [],
         "cart": [],
@@ -49,17 +17,24 @@
         "warehouse": []
       }
     ],
-    "observers": [
-      {
-        "client": {
-          "id": 30,
-          "name": "Maria",
-          "address": "Horea",
-          "telefon": 12345.6789,
-          "orders": [],
-          "reviews": []
-        }
-      }
-    ]
+    "observers": []
+  },
+  {
+    "id": 10,
+    "quantity": 2.0,
+    "articles": [],
+    "observers": []
+  },
+  {
+    "id": 15,
+    "quantity": 34.0,
+    "articles": [],
+    "observers": []
+  },
+  {
+    "id": 16,
+    "quantity": 9.0,
+    "articles": [],
+    "observers": []
   }
 ]

@@ -168,7 +168,7 @@ public class ClientRepo extends AbstractRepo {
         List<Client> clients = loadClient();
         List<Client> filteredClient = new ArrayList<>();
         for (Client item : clients) {
-            if (item.getName() == name)
+            if (item.getName().contains(name))
                 filteredClient.add(item);
         }
         return filteredClient;
