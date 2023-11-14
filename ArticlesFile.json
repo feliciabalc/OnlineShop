@@ -9,44 +9,30 @@
     "specifications": [
       {
         "id": 1,
-        "size": [
-          "S",
-          "M"
-        ],
-        "color": "rosu",
-        "quantity": 25.0,
-        "availability": true
+        "quantity": 0.0,
+        "availability": false
       }
     ],
-    "reviews": [
-      {
-        "id": 1,
-        "stars": "5 stars",
-        "comment": "de calitate",
-        "date": "10.10.2023"
-      }
-    ],
+    "reviews": [],
     "cart": [
       {
-        "id": 1,
-        "quantity": 5.0,
-        "articles": [],
-        "observers": []
+        "id": 2,
+        "quantity": 0.0
       }
     ],
     "orders": [
       {
         "id": 1,
-        "orderNumber": 12.0,
-        "totalAmount": 120.0,
-        "paymentMethod": "cash",
-        "address": "Gruia 15",
-        "date": "10.12.2022",
-        "employees": [],
-        "articles": []
+        "orderNumber": 0.0,
+        "totalAmount": 0.0
       }
     ],
-    "warehouse": []
+    "warehouse": [
+      {
+        "id": 1,
+        "name": "bluza"
+      }
+    ]
   },
   {
     "id": 2,
@@ -56,8 +42,17 @@
     "type": "maneca",
     "price": 2.0,
     "specifications": [],
-    "reviews": [],
-    "cart": [],
+    "reviews": [
+      {
+        "id": 1
+      }
+    ],
+    "cart": [
+      {
+        "id": 1,
+        "quantity": 0.0
+      }
+    ],
     "orders": [],
     "warehouse": []
   },

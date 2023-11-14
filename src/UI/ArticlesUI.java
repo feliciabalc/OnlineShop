@@ -169,47 +169,45 @@ public class ArticlesUI {
         }
     }
 
-
-
     public void saveOneObject(Articles article){
         articlesController.saveOneObject(article);
     }
 
 
-    public void addSpecificationsToArticle(Articles article, Specifications specification){
-        articlesController.addSpecificationsToArticle(article, specification);
+    public void addSpecificationsToArticle(Articles article, int id){
+        articlesController.addSpecificationsToArticle(article, id);
     }
 
-    public void addCartToArticle(Articles article, Cart cart){
-        articlesController.addCartToArticle(article, cart);
+    public void addCartToArticle(Articles article, int id){
+        articlesController.addCartToArticle(article, id);
     }
 
-    public void removeCartToArticle(Articles article, Cart cart){
-        articlesController.removeCartToArticle(article, cart);
+    public void removeCartToArticle(Articles article, int id){
+        articlesController.removeCartToArticle(article, id);
     }
 
-    public void addOrderToArticle(Articles article, Orders order){
-        articlesController.addOrderToArticle(article, order);
+    public void addOrderToArticle(Articles article, int id){
+        articlesController.addOrderToArticle(article, id);
     }
 
-    public void removeOrderToArticle(Articles article, Orders order){
-        articlesController.removeOrderToArticle(article, order);
+    public void removeOrderToArticle(Articles article, int id){
+        articlesController.removeOrderToArticle(article, id);
     }
 
-    public void addReviewToArticle(Articles article, Review review){
-        articlesController.addReviewToArticle(article, review);
+    public void addReviewToArticle(Articles article, int id){
+        articlesController.addReviewToArticle(article, id);
     }
 
-    public void removeReviewToArticle(Articles article, Review review){
-        articlesController.removeReviewToArticle(article, review);
+    public void removeReviewToArticle(Articles article, int id){
+        articlesController.removeReviewToArticle(article, id);
     }
 
-    public void addWarehouseToArticle(Articles article, Warehouse warehouse){
-        articlesController.addWarehouseToArticle(article, warehouse);
+    public void addWarehouseToArticle(Articles article, int id){
+        articlesController.addWarehouseToArticle(article, id);
     }
 
-    public void removeWarehouseToArticle(Articles article, Warehouse warehouse){
-        articlesController.addWarehouseToArticle(article, warehouse);
+    public void removeWarehouseToArticle(Articles article, int id){
+        articlesController.addWarehouseToArticle(article, id);
     }
 
     public void handleUserInputError() {
@@ -217,8 +215,4 @@ public class ArticlesUI {
         System.out.println("Invalid input. Please try again.");
         scanner.nextLine(); // Consume the invalid input
     }
-
-
-
-
 }

@@ -28,7 +28,9 @@ abstract public class AbstractRepo<T> {
     }
 
 
-
+    public String getFile(){
+        return fileName;
+    }
 
     public void save(List<T> objects) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

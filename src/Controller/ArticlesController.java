@@ -32,22 +32,17 @@ public class ArticlesController {
         articles.add(a2);
         articles.add(a3);
 
-        Specifications sp1=new Specifications(1, new String[]{"S", "M"},"rosu",25,true);
-        a1.addSpecifications(sp1);
+        articlesRepo.addSpecificationsToArticle(a1,1);
 
-        Review rev1=new Review(1,"5 stars","de calitate","10.10.2023");
-        a1.addReview(rev1);
+        articlesRepo.addReviewToArticle(a2,1);
 
-        Cart cart1= new Cart(1,5) ;
-        Cart cart2= new Cart(1,2) ;
-        a1.addCart(cart1);
+        articlesRepo.addCartToArticle(a2,1);
+        articlesRepo.addCartToArticle(a1,2);
 
-        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
-        a1.addOrders(o1);
+        articlesRepo.addOrderToArticle(a1,1);
 
-        Warehouse war1= new Warehouse(1,"R&F","Gruia 58");
+        articlesRepo.addWarehouseToArticle(a1, 1);
 
-        System.out.println("printing");
         articlesRepo.save(articles);
 
     }
@@ -81,44 +76,44 @@ public class ArticlesController {
     public void deleteObj(Articles article){ articlesRepo.deleteObj(article);}
 
 
-    public void addSpecificationsToArticle(Articles article, Specifications specification){
-        articlesRepo.addSpecificationsToArticle(article, specification);
+    public void addSpecificationsToArticle(Articles article, int id){
+        articlesRepo.addSpecificationsToArticle(article, id);
     }
 
-    public void removeSpecificationsToArticle(Articles article, Specifications specification){
-        articlesRepo.removeSpecificationsToArticle(article, specification);
+    public void removeSpecificationsToArticle(Articles article, int id){
+        articlesRepo.removeSpecificationsToArticle(article, id);
     }
 
-    public void addCartToArticle(Articles article, Cart cart){
-       articlesRepo.addCartToArticle(article, cart);
+    public void addCartToArticle(Articles article, int id){
+       articlesRepo.addCartToArticle(article, id);
     }
 
-    public void removeCartToArticle(Articles article, Cart cart){
-        articlesRepo.removeCartToArticle(article, cart);
+    public void removeCartToArticle(Articles article, int id){
+        articlesRepo.removeCartToArticle(article, id);
     }
 
-    public void addOrderToArticle(Articles article, Orders order){
-       articlesRepo.addOrderToArticle(article, order);
+    public void addOrderToArticle(Articles article, int id){
+       articlesRepo.addOrderToArticle(article, id);
     }
 
-    public void removeOrderToArticle(Articles article, Orders order){
-       articlesRepo.removeOrderToArticle(article, order);
+    public void removeOrderToArticle(Articles article, int id){
+       articlesRepo.removeOrderToArticle(article, id);
     }
 
-    public void addReviewToArticle(Articles article, Review review){
-        articlesRepo.addReviewToArticle(article, review);
+    public void addReviewToArticle(Articles article, int id){
+        articlesRepo.addReviewToArticle(article, id);
     }
 
-    public void removeReviewToArticle(Articles article, Review review){
-        articlesRepo.removeReviewToArticle(article, review);
+    public void removeReviewToArticle(Articles article, int id){
+        articlesRepo.removeReviewToArticle(article, id);
     }
 
-    public void addWarehouseToArticle(Articles article, Warehouse warehouse){
-        articlesRepo.addWarehouseToArticle(article, warehouse);
+    public void addWarehouseToArticle(Articles article, int id){
+        articlesRepo.addWarehouseToArticle(article, id);
     }
 
-    public void removeWarehouseToArticle(Articles article, Warehouse warehouse){
-        articlesRepo.addWarehouseToArticle(article, warehouse);
+    public void removeWarehouseToArticle(Articles article, int id){
+        articlesRepo.addWarehouseToArticle(article, id);
     }
 
 

@@ -169,7 +169,7 @@ public class ShopUI {
 
 
             } else if (input2 == 5) {
-                ////
+
 
             }else if (input2 == 6){
                 Scanner scanner = new Scanner(System.in);

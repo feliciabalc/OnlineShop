@@ -131,52 +131,72 @@ public class ArticlesRepo extends AbstractRepo {
     }
 
 
-    public void addSpecificationsToArticle(Articles article, Specifications specification){
+    public void addSpecificationsToArticle(Articles article, int id){
+        SpecificationsRepo specificationsRepo=new SpecificationsRepo(getFile());
+        Specifications specification = specificationsRepo.findById(id);
         article.addSpecifications(specification);
         saveOneObject(article);
     }
 
-    public void removeSpecificationsToArticle(Articles article, Specifications specification){
+    public void removeSpecificationsToArticle(Articles article, int id){
+        SpecificationsRepo specificationsRepo=new SpecificationsRepo(getFile());
+        Specifications specification = specificationsRepo.findById(id);
         article.removeSpecifications(specification);
         saveOneObject(article);
     }
 
-    public void addCartToArticle(Articles article, Cart cart){
+    public void addCartToArticle(Articles article, int id){
+        CartRepo cartRepo = new CartRepo(getFile());
+        Cart cart = cartRepo.findById(id);
         article.addCart(cart);
         saveOneObject(article);
     }
 
-    public void removeCartToArticle(Articles article, Cart cart){
+    public void removeCartToArticle(Articles article, int id){
+        CartRepo cartRepo = new CartRepo(getFile());
+        Cart cart = cartRepo.findById(id);
         article.removeCart(cart);
         saveOneObject(article);
     }
 
-    public void addOrderToArticle(Articles article, Orders order){
+    public void addOrderToArticle(Articles article, int id){
+        OrdersRepo ordersRepo= new OrdersRepo(getFile());
+        Orders order=ordersRepo.findById(id);
         article.addOrders(order);
         saveOneObject(article);
     }
 
-    public void removeOrderToArticle(Articles article, Orders order){
+    public void removeOrderToArticle(Articles article, int id){
+        OrdersRepo ordersRepo= new OrdersRepo(getFile());
+        Orders order=ordersRepo.findById(id);
         article.removeOrders(order);
         saveOneObject(article);
     }
 
-    public void addReviewToArticle(Articles article, Review review){
+    public void addReviewToArticle(Articles article, int id){
+        ReviewRepo reviewRepo= new ReviewRepo(getFile());
+        Review review= reviewRepo.findById(id);
         article.addReview(review);
         saveOneObject(article);
     }
 
-    public void removeReviewToArticle(Articles article, Review review){
+    public void removeReviewToArticle(Articles article, int id){
+        ReviewRepo reviewRepo= new ReviewRepo(getFile());
+        Review review= reviewRepo.findById(id);
         article.removeReview(review);
         saveOneObject(article);
     }
 
-    public void addWarehouseToArticle(Articles article, Warehouse warehouse){
+    public void addWarehouseToArticle(Articles article, int id){
+        WarehouseRepo warehouseRepo= new WarehouseRepo(getFile());
+        Warehouse warehouse=warehouseRepo.findById(id);
         article.addWarehouse(warehouse);
         saveOneObject(article);
     }
 
-    public void removeWarehouseToArticle(Articles article, Warehouse warehouse){
+    public void removeWarehouseToArticle(Articles article, int id){
+        WarehouseRepo warehouseRepo= new WarehouseRepo(getFile());
+        Warehouse warehouse=warehouseRepo.findById(id);
         article.removeWarehouse(warehouse);
         saveOneObject(article);
     }

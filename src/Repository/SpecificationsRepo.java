@@ -16,6 +16,11 @@ public class SpecificationsRepo extends AbstractRepo {
         super(fileName);
     }
 
+    public String getFile(){
+        return super.getFile();
+    }
+
+
     @Override
     public void save(List objects) {
         super.save(objects);
