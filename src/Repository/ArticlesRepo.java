@@ -9,10 +9,22 @@ import java.util.Comparator;
 import java.util.List;
 
 
+
 public class ArticlesRepo extends AbstractRepo {
-    public ArticlesRepo(String fileName) {
+    private SpecificationsRepo specificationsRepo;
+    private ReviewRepo reviewRepo;
+    private CartRepo cartRepo;
+    private OrdersRepo ordersRepo;
+    private WarehouseRepo warehouseRepo;
+
+    public ArticlesRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
 
         super(fileName);
+        this.specificationsRepo=new SpecificationsRepo(specificationFilename,ClientFile,fileName,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
+        this.reviewRepo = new ReviewRepo(reviewFilename,ClientFile,specificationFilename,fileName,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
+        this.cartRepo=new CartRepo(cartFilename,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,fileName,supplierFile,orderFile);
+        this.ordersRepo=new OrdersRepo(orderFile,ClientFile,fileName,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile);
+        this.warehouseRepo=new WarehouseRepo(warehouseFile, ClientFile,reviewFilename,specificationFilename,fileName,orderFile,courierFile,employeeFile,cartFilename,supplierFile);
     }
 
 
@@ -23,9 +35,39 @@ public class ArticlesRepo extends AbstractRepo {
 
 
 
+
     public List<Articles> loadArticles() {
         Type articlesListType = new TypeToken<List<Articles>>() {}.getType();
-        return load(articlesListType);
+        List<Articles> articles = load(articlesListType);
+        for(Articles article : articles) {
+            List<Specifications> specificationsList = article.getSpecifications();
+            for(int i = 0; i< specificationsList.size(); i++) {
+                Specifications specification = specificationsRepo.findById(specificationsList.get(i).getId());
+                specificationsList.set(i, specification);
+            }
+            List<Review> reviewList = article.getReviews();
+            for(int j=0; j<reviewList.size(); j++){
+                Review review = reviewRepo.findById(reviewList.get(j).getId());
+                reviewList.set(j,review);
+            }
+            List<Cart> cartList = article.getCart();
+            if(cartList.size()!=0){
+                for(int k=0; k<cartList.size();k++){
+                    Cart cart= cartRepo.findById(cartList.get(k).getId());
+                    cartList.set(k,cart);
+                }}
+            List<Orders> ordersList = article.getOrders();
+            for(int l=0; l<ordersList.size();l++){
+                Orders order = ordersRepo.findById(ordersList.get(l).getId());
+                ordersList.set(l,order);
+            }
+            List<Warehouse> warehouseList = article.getWarehouse();
+            for(int m=0; m<warehouseList.size();m++){
+                Warehouse warehouse = warehouseRepo.findById(warehouseList.get(m).getId());
+                warehouseList.set(m,warehouse);
+            }
+        }
+        return articles;
     }
 
     public List<Articles> findAll(){
@@ -132,70 +174,61 @@ public class ArticlesRepo extends AbstractRepo {
 
 
     public void addSpecificationsToArticle(Articles article, int id){
-        SpecificationsRepo specificationsRepo=new SpecificationsRepo(getFile());
         Specifications specification = specificationsRepo.findById(id);
         article.addSpecifications(specification);
         saveOneObject(article);
     }
 
     public void removeSpecificationsToArticle(Articles article, int id){
-        SpecificationsRepo specificationsRepo=new SpecificationsRepo(getFile());
         Specifications specification = specificationsRepo.findById(id);
         article.removeSpecifications(specification);
         saveOneObject(article);
     }
 
     public void addCartToArticle(Articles article, int id){
-        CartRepo cartRepo = new CartRepo(getFile());
         Cart cart = cartRepo.findById(id);
-        article.addCart(cart);
-        saveOneObject(article);
+        if (cart != null) {
+            article.addCart(cart);
+            saveOneObject(article);}
     }
 
     public void removeCartToArticle(Articles article, int id){
-        CartRepo cartRepo = new CartRepo(getFile());
         Cart cart = cartRepo.findById(id);
         article.removeCart(cart);
         saveOneObject(article);
     }
 
     public void addOrderToArticle(Articles article, int id){
-        OrdersRepo ordersRepo= new OrdersRepo(getFile());
         Orders order=ordersRepo.findById(id);
         article.addOrders(order);
         saveOneObject(article);
     }
 
     public void removeOrderToArticle(Articles article, int id){
-        OrdersRepo ordersRepo= new OrdersRepo(getFile());
         Orders order=ordersRepo.findById(id);
         article.removeOrders(order);
         saveOneObject(article);
     }
 
     public void addReviewToArticle(Articles article, int id){
-        ReviewRepo reviewRepo= new ReviewRepo(getFile());
         Review review= reviewRepo.findById(id);
         article.addReview(review);
         saveOneObject(article);
     }
 
     public void removeReviewToArticle(Articles article, int id){
-        ReviewRepo reviewRepo= new ReviewRepo(getFile());
         Review review= reviewRepo.findById(id);
         article.removeReview(review);
         saveOneObject(article);
     }
 
     public void addWarehouseToArticle(Articles article, int id){
-        WarehouseRepo warehouseRepo= new WarehouseRepo(getFile());
         Warehouse warehouse=warehouseRepo.findById(id);
         article.addWarehouse(warehouse);
         saveOneObject(article);
     }
 
     public void removeWarehouseToArticle(Articles article, int id){
-        WarehouseRepo warehouseRepo= new WarehouseRepo(getFile());
         Warehouse warehouse=warehouseRepo.findById(id);
         article.removeWarehouse(warehouse);
         saveOneObject(article);

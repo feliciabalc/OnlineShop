@@ -10,9 +10,18 @@ import java.util.Iterator;
 import java.util.List;
 
 public class OrdersRepo extends AbstractRepo {
-    public OrdersRepo(String fileName) {
+   private CourierRepo courierRepo;
+   private EmployeesRepo employeeRepo;
+   private ClientRepo clientRepo;
+   private ArticlesRepo articlesRepo;
+
+    public OrdersRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String ArticlesFile) {
 
         super(fileName);
+        this.courierRepo=new CourierRepo(courierFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,ArticlesFile);
+        this.employeeRepo= new EmployeesRepo(employeeFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile, employeeFile,cartFilename,supplierFile,ArticlesFile);
+        this.clientRepo= new ClientRepo(ClientFile,ArticlesFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,fileName);
+        this.articlesRepo=new ArticlesRepo(ArticlesFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,fileName);
     }
 
     @Override
@@ -121,24 +130,40 @@ public class OrdersRepo extends AbstractRepo {
         }
     }
 
-    public void addEmployeeToOrder(Employee employee, Orders order){
+    public void addEmployeeToOrder(Orders order,int id){
+        Employee employee=employeeRepo.findById(id);
         order.addEmployee(employee);
         saveOneObj(order);
     }
 
-    public void removeEmployeeToOrder(Employee employee, Orders order){
+    public void removeEmployeeToOrder(Orders order,int id){
+        Employee employee=employeeRepo.findById(id);
         order.removeEmployee(employee);
         saveOneObj(order);
     }
 
-    public void addArticleToOrder(Articles article, Orders order){
+    public void addArticleToOrder(Orders order,int id){
+        Articles article=articlesRepo.findById(id);
         order.addArticle(article);
         saveOneObj(order);
     }
 
-    public void removeArticleToOrder(Articles article, Orders order){
+    public void removeArticleToOrder(Orders order,int id){
+        Articles article=articlesRepo.findById(id);
         order.removeArticle(article);
         saveOneObj(order);
+    }
+
+    public Client getClient(Orders order, int id){
+        Client client = clientRepo.findById(id);
+        order.setClient(client);
+        return order.getClient();
+    }
+
+    public Courier getCourier(Orders order, int id){
+        Courier courier = courierRepo.findById(id);
+        order.setCourier(courier);
+        return order.getCourier();
     }
 
     public void updateAddress(int id, String address){

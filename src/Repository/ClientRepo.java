@@ -9,9 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientRepo extends AbstractRepo {
-    public ClientRepo(String fileName) {
+    private ReviewRepo reviewRepo;
+    private CartRepo cartRepo;
+    private OrdersRepo ordersRepo;
+
+
+    public ClientRepo(String fileName, String ArticlesFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
 
         super(fileName);
+        this.reviewRepo = new ReviewRepo(reviewFilename,fileName,specificationFilename,ArticlesFile,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
+        this.cartRepo = new CartRepo(cartFilename,fileName,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,ArticlesFile,supplierFile,cartFilename);
+        this.ordersRepo = new OrdersRepo(orderFile,fileName,ArticlesFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile);
     }
 
     @Override
@@ -104,22 +112,26 @@ public class ClientRepo extends AbstractRepo {
         }
     }
 
-    public void addReviewToClient(Review review, Client client){
+    public void addReviewToClient(Client client, int id){
+        Review review = reviewRepo.findById(id);
         client.addReview(review);
         saveOneObject(client);
     }
 
-    public void removeReviewToClient(Review review, Client client){
+    public void removeReviewToClient(Client client, int id){
+        Review review = reviewRepo.findById(id);
         client.removeReview(review);
         saveOneObject(client);
     }
 
-    public void addOrderToClient(Orders order, Client client){
+    public void addOrderToClient(Client client, int id){
+        Orders order = ordersRepo.findById(id);
         client.addOrders(order);
         saveOneObject(client);
     }
 
-    public void removeOrderToClient(Orders order, Client client){
+    public void removeOrderToClient(Client client, int id){
+        Orders order = ordersRepo.findById(id);
         client.removeOrders(order);
         saveOneObject(client);
     }
@@ -173,6 +185,12 @@ public class ClientRepo extends AbstractRepo {
         }
         return filteredClient;
 
+    }
+
+    public Cart setCart(Client client, int id){
+        Cart cart = cartRepo.findById(id);
+        client.setCart(cart);
+        return client.getCart();
     }
 
 

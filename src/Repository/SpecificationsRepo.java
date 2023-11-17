@@ -1,6 +1,7 @@
 package Repository;
 
 import Entities.Articles;
+import Entities.Client;
 import Entities.Review;
 import Entities.Specifications;
 import com.google.gson.reflect.TypeToken;
@@ -11,9 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpecificationsRepo extends AbstractRepo {
-    public SpecificationsRepo(String fileName) {
+    private ArticlesRepo articlesRepo;
+
+    public SpecificationsRepo(String fileName, String ClientFile, String ArticlesFile, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
 
         super(fileName);
+        this.articlesRepo=new ArticlesRepo(ArticlesFile, ClientFile,fileName,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
     }
 
     public String getFile(){
@@ -199,5 +203,11 @@ public class SpecificationsRepo extends AbstractRepo {
             }}
         return filteredSpecifications;
 
+    }
+
+    public Articles getArticle(Specifications specifications, int id){
+        Articles article = articlesRepo.findById(id);
+        specifications.setArticle(article);
+        return specifications.getArticle();
     }
 }

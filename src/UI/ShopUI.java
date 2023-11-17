@@ -6,8 +6,17 @@ import Repository.*;
 import java.util.Scanner;
 
 public class ShopUI {
+    String orderFile ="OrdersFile.json";
+    String specificationFile = "SpecificationsFile.json";
+    String cartFile = "CartFile.json";
+    String warehouseFile = "WarehouseFile.json";
+    String reviewFile = "ReviewFile.json";
 
-    ArticlesRepo ar = new ArticlesRepo("ArticlesFile.json");
+    SpecificationsRepo specificationsRepo = new SpecificationsRepo(specificationFile);
+    SpecificationsController specificationsController = new SpecificationsController(specificationsRepo);
+    SpecificationsUI specificationsUI=new SpecificationsUI(specificationsController);
+
+    ArticlesRepo ar = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
     ArticlesController ac = new ArticlesController(ar);
     ArticlesUI articlesUI= new ArticlesUI(ac);
 
@@ -34,10 +43,6 @@ public class ShopUI {
     ReviewRepo reviewRepo = new ReviewRepo("ReviewFile.json");
     ReviewController reviewController = new ReviewController(reviewRepo);
     ReviewUI reviewUI= new ReviewUI(reviewController);
-
-    SpecificationsRepo specificationsRepo = new SpecificationsRepo("SpecificationsFile.json");
-    SpecificationsController specificationsController = new SpecificationsController(specificationsRepo);
-    SpecificationsUI specificationsUI=new SpecificationsUI(specificationsController);
 
     SuppliersRepo suppliersRepo = new SuppliersRepo("SuppliersFile.json");
     SuppliersController suppliersController = new SuppliersController(suppliersRepo);

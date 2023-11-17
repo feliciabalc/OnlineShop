@@ -1,11 +1,13 @@
 package UI;
 
+import Controller.ArticlesController;
 import Controller.ReviewController;
 import Entities.Articles;
 import Entities.Client;
 import Entities.Review;
 import Repository.ArticlesRepo;
 import Repository.ClientRepo;
+import Repository.SpecificationsRepo;
 
 import java.util.List;
 import java.util.Scanner;
@@ -41,7 +43,13 @@ public class ReviewUI {
         int ArticleId = Integer.valueOf(Integer.parseInt(scanner.nextLine()));
         Review newR = new Review(id, stars, comment, date);
 
-        ArticlesRepo articlesRepo = new ArticlesRepo("ReviewFile.json");
+
+        String orderFile ="OrdersFile.json";
+        String specificationFile = "SpecificationsFile.json";
+        String cartFile = "CartFile.json";
+        String warehouseFile = "WarehouseFile.json";
+        String reviewFile = "ReviewFile.json";
+        ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
         ClientRepo clientRepo = new ClientRepo("ClientFile.json");
         Articles article = articlesRepo.findById(ArticleId);
         Client client = clientRepo.findById(ClientId);

@@ -37,14 +37,9 @@ public class ClientController {
         clients.add(client2);
         clients.add(client3);
 
-        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
-        client1.addOrders(o1);
-
-        Review rev1=new Review(1,"5 stars","de calitate","10.10.2023");
-        client1.addReview(rev1);
-
-        Cart cart1= new Cart(1,5) ;
-        client1.setCart(cart1);
+        clientRepo.addOrderToClient(client1, 1);
+        clientRepo.addReviewToClient(client2,1);
+        clientRepo.setCart(client1,1);
 
         clientRepo.save(clients);
     }
@@ -85,16 +80,16 @@ public class ClientController {
         return clientRepo.filteredByName(name);
 
     }
-    public void addReviewToClient(Review review, Client client){
-        clientRepo.addReviewToClient(review, client);
+    public void addReviewToClient( Client client, int id){
+        clientRepo.addReviewToClient(client, id);
     }
 
-    public void removeReviewToClient(Review review, Client client){
-        clientRepo.removeReviewToClient(review, client);}
+    public void removeReviewToClient(Client client, int id){
+        clientRepo.removeReviewToClient( client, id);}
 
-    public void addOrderToClient(Orders order, Client client){
-        clientRepo.addOrderToClient(order, client);}
+    public void addOrderToClient(Client client, int id){
+        clientRepo.addOrderToClient(client, id);}
 
-    public void removeOrderToClient(Orders order, Client client){
-        clientRepo.removeOrderToClient(order, client);}
+    public void removeOrderToClient(Client client, int id){
+        clientRepo.removeOrderToClient(client, id);}
 }

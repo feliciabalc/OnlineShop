@@ -1,9 +1,6 @@
 package Repository;
 
-import Entities.Client;
-import Entities.Courier;
-import Entities.Employee;
-import Entities.Orders;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -12,9 +9,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EmployeesRepo extends AbstractRepo {
-    public EmployeesRepo(String fileName) {
+    private OrdersRepo ordersRepo;
+    private WarehouseRepo warehouseRepo;
+    public EmployeesRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String ArticlesFile, String cartFilename, String supplierFile, String orderFile) {
 
         super(fileName);
+        this.ordersRepo = new OrdersRepo(orderFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,fileName,cartFilename,supplierFile,ArticlesFile);
+        this.warehouseRepo= new WarehouseRepo(warehouseFile,ClientFile,specificationFilename,reviewFilename,courierFile,ArticlesFile,fileName,cartFilename,supplierFile,orderFile);
     }
 
     @Override
@@ -115,14 +116,22 @@ public class EmployeesRepo extends AbstractRepo {
         }
     }
 
-    public void addOrderToEmployee(Orders order, Employee employee){
+    public void addOrderToEmployee(Employee employee, int id){
+        Orders order = ordersRepo.findById(id);
         employee.addOrders(order);
         saveOneObject(employee);
     }
 
-    public void removeOrderToEmployee(Orders order, Employee employee){
+    public void removeOrderToEmployee(Employee employee, int id){
+        Orders order = ordersRepo.findById(id);
         employee.removeOrders(order);
         saveOneObject(employee);
+    }
+
+    public Warehouse getWarehouse(Employee employee, int id){
+        Warehouse warehouse = warehouseRepo.findById(id);
+        employee.setWarehouse(warehouse);
+        return employee.getWarehouse();
     }
 
     public void updateSalary(int id, String salary){

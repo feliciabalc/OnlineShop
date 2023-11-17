@@ -27,12 +27,12 @@ public class CartController {
         return cartRepo.loadCart();
     }
 
-    public void addArticlesToCart(Articles article, Cart cart){
-        cartRepo.addArticlesToCart(article, cart);
+    public void addArticlesToCart(Cart cart, int id){
+        cartRepo.addArticlesToCart(cart, id);
     }
 
-    public void removeArticlesToCart(Articles article, Cart cart){
-        cartRepo.removeArticlesToCart(article, cart);
+    public void removeArticlesToCart(Cart cart, int id){
+        cartRepo.removeArticlesToCart( cart, id);
     }
 
     public void save() {
@@ -46,8 +46,7 @@ public class CartController {
         carts.add(cart3);
         carts.add(cart4);
 
-        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
-        cart1.addArticles(a1);
+        cartRepo.addArticlesToCart(cart1, 1);
         cartRepo.save(carts);
     }
 

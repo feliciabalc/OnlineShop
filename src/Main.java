@@ -14,9 +14,7 @@ public class Main {
         t1.testStrategy();
 
         //continua main
-        //intreaba-l pe bogdan daca sa lasam crearea obiectelor in controller sau in main
         //pune shopUi in while
-        //fa in main sa ii dai un id si sa mearga in repo sa ia orderul cu id ul respectiv ca parametru pt singleton
-        //intreaba-l pe bogdan daca orders trb sa ia ca obiect interfata sau pot si clientOrderObserver
+        //fa ca in ui sa nu ai niciun repo
     }
 }

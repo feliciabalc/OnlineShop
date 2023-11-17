@@ -1,9 +1,6 @@
 package Repository;
 
-import Entities.Articles;
-import Entities.Client;
-import Entities.Orders;
-import Entities.Review;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -12,9 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewRepo extends AbstractRepo {
-    public ReviewRepo(String fileName) {
+    private ClientRepo clientRepo;
+    private ArticlesRepo articlesRepo;
+
+    public ReviewRepo(String fileName, String ClientFile, String specificationFilename, String ArticlesFile, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
 
         super(fileName);
+        this.clientRepo=new ClientRepo(ClientFile,ArticlesFile,specificationFilename,fileName,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
+        this.articlesRepo=new ArticlesRepo(ArticlesFile,ClientFile,specificationFilename,fileName,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
     }
 
     @Override
@@ -167,6 +169,17 @@ public class ReviewRepo extends AbstractRepo {
         }
         return filteredReview;
 
+    }
+    public Client getClient(Review review, int id){
+        Client client = clientRepo.findById(id);
+        review.setClient(client);
+        return review.getClient();
+    }
+
+    public Articles getArticle(Review review, int id){
+        Articles article = articlesRepo.findById(id);
+        review.setArticle(article);
+        return review.getArticle();
     }
 
 }

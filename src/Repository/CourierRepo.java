@@ -10,9 +10,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CourierRepo extends AbstractRepo {
-    public CourierRepo(String fileName) {
-
+    private OrdersRepo ordersRepo;
+    public CourierRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String ArticlesFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile){
         super(fileName);
+        this.ordersRepo = new OrdersRepo(orderFile, ClientFile,ArticlesFile,specificationFilename,reviewFilename,fileName,warehouseFile,employeeFile, cartFilename,supplierFile);
     }
     @Override
     public void save(List objects) {
@@ -88,12 +89,14 @@ public class CourierRepo extends AbstractRepo {
 
 
 
-    public void addOrderToCurier(Orders order, Courier courier){
+    public void addOrderToCurier( Courier courier, int id){
+        Orders order = ordersRepo.findById(id);
         courier.addOrders(order);
         saveOneObject(courier);
     }
 
-    public void removeOrderToCourier(Orders order, Courier courier){
+    public void removeOrderToCourier(Courier courier, int id){
+        Orders order = ordersRepo.findById(id);
         courier.removeOrders(order);
         saveOneObject(courier);
     }

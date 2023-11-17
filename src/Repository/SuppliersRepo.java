@@ -1,9 +1,6 @@
 package Repository;
 
-import Entities.Review;
-import Entities.Specifications;
-import Entities.Suppliers;
-import Entities.Warehouse;
+import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -12,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuppliersRepo extends AbstractRepo {
-    public SuppliersRepo(String fileName) {
+    private WarehouseRepo warehouseRepo;
+
+    public SuppliersRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String ArticlesFile, String orderFile) {
 
         super(fileName);
+        this.warehouseRepo=new WarehouseRepo(warehouseFile, ClientFile,reviewFilename,specificationFilename,ArticlesFile,orderFile,courierFile,employeeFile,cartFilename,fileName);
     }
 
     @Override
@@ -137,5 +137,11 @@ public class SuppliersRepo extends AbstractRepo {
         }
         return filteredSuppliers;
 
+    }
+
+    public Warehouse getWarehouse(Suppliers suppliers, int id){
+        Warehouse warehouse = warehouseRepo.findById(id);
+        suppliers.setWarehouse(warehouse);
+        return suppliers.getWarehouse();
     }
 }

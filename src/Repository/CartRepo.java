@@ -10,9 +10,15 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CartRepo extends AbstractRepo {
-    public CartRepo(String fileName) {
+
+    private ClientRepo clientRepo;
+    private ArticlesRepo articlesRepo;
+
+    public CartRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String ArticlesFile, String supplierFile, String orderFile) {
 
         super(fileName);
+        this.clientRepo= new ClientRepo(ClientFile,ArticlesFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,fileName,supplierFile,orderFile);
+        this.articlesRepo = new ArticlesRepo(ArticlesFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,fileName,supplierFile,orderFile);
     }
 
 
@@ -20,6 +26,8 @@ public class CartRepo extends AbstractRepo {
     public void save(List objects) {
         super.save(objects);
     }
+
+
     public List<Cart> loadCart() {
         Type cartListType = new TypeToken<List<Cart>>() {}.getType();
         return load(cartListType);
@@ -126,13 +134,15 @@ public class CartRepo extends AbstractRepo {
 
 
 
-    public void addArticlesToCart(Articles article, Cart cart){
+    public void addArticlesToCart(Cart cart, int id){
+        Articles article = articlesRepo.findById(id);
         cart.addArticles(article);
         saveOneObject(cart);
         cart.notifyObservers();
     }
 
-    public void removeArticlesToCart(Articles article, Cart cart){
+    public void removeArticlesToCart(Cart cart, int id){
+        Articles article = articlesRepo.findById(id);
         cart.removeArticles(article);
         saveOneObject(cart);
         cart.notifyObservers();
@@ -208,6 +218,13 @@ public class CartRepo extends AbstractRepo {
             System.out.println("Cart with ID " + id + " not found.");
         }
     }
+
+    public Client getClient(Cart cart, int id){
+        Client client = clientRepo.findById(id);
+        cart.setClient(client);
+        return cart.getClient();
+    }
+
 
    public List<ClientCartObserver> getObservers(Cart cart){
         return getObservers(cart);

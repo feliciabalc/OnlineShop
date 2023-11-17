@@ -4,6 +4,7 @@ import Controller.CartController;
 import Entities.Articles;
 import Entities.Cart;
 import Repository.ArticlesRepo;
+import Repository.SpecificationsRepo;
 
 import java.util.List;
 import java.util.Scanner;
@@ -70,7 +71,12 @@ public class CartUI {
             int id = Integer.parseInt(scanner.nextLine());
             System.out.println("Enter article ID to update:");
             int articleId = Integer.parseInt(scanner.nextLine());
-            ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json");
+            String orderFile ="OrdersFile.json";
+            String specificationFile = "SpecificationsFile.json";
+            String cartFile = "CartFile.json";
+            String warehouseFile = "WarehouseFile.json";
+            String reviewFile = "ReviewFile.json";
+            ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
             Articles article = articlesRepo.findById(articleId);
 
             System.out.println("Enter id:");

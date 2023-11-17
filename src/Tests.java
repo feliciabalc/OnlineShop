@@ -9,7 +9,12 @@ import java.util.List;
 public class Tests {
 
    public void testSortAsc(){
-       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json");
+       String orderFile ="OrdersFile.json";
+       String specificationFile = "SpecificationsFile.json";
+       String cartFile = "CartFile.json";
+       String warehouseFile = "WarehouseFile.json";
+       String reviewFile = "ReviewFile.json";
+       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
        ArticlesController ac = new ArticlesController(articlesRepo);
        List<Articles> sortedArticles=ac.sortPriceAsc();
 
@@ -45,7 +50,13 @@ public class Tests {
 
        Client client = new Client(30, "Maria","Horea", 12345.67890 );
 
-       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json");
+
+       String orderFile ="OrdersFile.json";
+       String specificationFile = "SpecificationsFile.json";
+       String cartFile = "CartFile.json";
+       String warehouseFile = "WarehouseFile.json";
+       String reviewFile = "ReviewFile.json";
+       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
        Articles article = articlesRepo.findById(5);
 
        ClientCartObserver clientCartObserver = new ClientCartObserver(client);
