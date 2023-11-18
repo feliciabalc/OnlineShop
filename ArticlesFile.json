@@ -9,19 +9,6 @@
     "specifications": [
       {
         "id": 1,
-        "article": {
-          "id": 1,
-          "name": "bluza",
-          "brand": "cx",
-          "material": "bumbac",
-          "type": "maneca",
-          "price": 24.0,
-          "specifications": [],
-          "reviews": [],
-          "cart": [],
-          "orders": [],
-          "warehouse": []
-        },
         "size": [
           "S",
           "M"
@@ -32,46 +19,7 @@
       }
     ],
     "reviews": [],
-    "cart": [],
-    "orders": [
-      {
-        "id": 1,
-        "orderNumber": 12.0,
-        "totalAmount": 120.0,
-        "paymentMethod": "cash",
-        "address": "Gruia 15",
-        "date": "10.12.2022",
-        "employees": [
-          {
-            "id": 1,
-            "name": "Sorin",
-            "salary": "1500",
-            "telefon": 768.23456,
-            "orders": []
-          }
-        ],
-        "client": {
-          "id": 1,
-          "name": "Ion",
-          "address": "piupiu 23",
-          "telefon": 897.6535,
-          "orders": [],
-          "reviews": []
-        },
-        "articles": []
-      }
-    ],
-    "warehouse": [
-      {
-        "id": 1,
-        "name": "RaFy",
-        "address": "Dornei 31",
-        "articles": [],
-        "employees": [],
-        "suppliers": [],
-        "couriers": []
-      }
-    ]
+    "orders": []
   },
   {
     "id": 2,
@@ -86,41 +34,10 @@
         "id": 1,
         "stars": "5 stars",
         "comment": "de calitate",
-        "date": "10.10.2023",
-        "client": {
-          "id": 1,
-          "name": "Ion",
-          "address": "piupiu 23",
-          "telefon": 897.6535,
-          "orders": [],
-          "reviews": []
-        }
+        "date": "10.10.2023"
       }
     ],
-    "cart": [
-      {
-        "id": 1,
-        "quantity": 5.0,
-        "articles": [
-          {
-            "id": 1,
-            "name": "bluza",
-            "brand": "cx",
-            "material": "bumbac",
-            "type": "maneca",
-            "price": 30.0,
-            "specifications": [],
-            "reviews": [],
-            "cart": [],
-            "orders": [],
-            "warehouse": []
-          }
-        ],
-        "observers": []
-      }
-    ],
-    "orders": [],
-    "warehouse": []
+    "orders": []
   },
   {
     "id": 5,
@@ -131,8 +48,6 @@
     "price": 35.0,
     "specifications": [],
     "reviews": [],
-    "cart": [],
-    "orders": [],
-    "warehouse": []
+    "orders": []
   }
 ]

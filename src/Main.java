@@ -14,7 +14,6 @@ public class Main {
         t1.testStrategy();
 
         //continua main
-        //pune shopUi in while
-        //fa ca in ui sa nu ai niciun repo
+
     }
 }

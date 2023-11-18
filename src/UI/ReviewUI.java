@@ -32,30 +32,7 @@ public class ReviewUI {
     public void save() {
         reviewController.save();}
 
-    public void addReview(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Give me id, number of stars, comment, date, your id and also the id of the reviewed article");
-        int id = Integer.parseInt(scanner.nextLine());
-        String stars = String.valueOf(scanner.nextLine());
-        String comment = String.valueOf(scanner.nextLine());
-        String date = String.valueOf(scanner.nextLine());
-        int ClientId = Integer.parseInt(scanner.nextLine());
-        int ArticleId = Integer.valueOf(Integer.parseInt(scanner.nextLine()));
-        Review newR = new Review(id, stars, comment, date);
-
-
-        String orderFile ="OrdersFile.json";
-        String specificationFile = "SpecificationsFile.json";
-        String cartFile = "CartFile.json";
-        String warehouseFile = "WarehouseFile.json";
-        String reviewFile = "ReviewFile.json";
-        ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
-        ClientRepo clientRepo = new ClientRepo("ClientFile.json");
-        Articles article = articlesRepo.findById(ArticleId);
-        Client client = clientRepo.findById(ClientId);
-        newR.setArticle(article);
-        newR.setClient(client);
-        reviewController.saveOneObj(newR);}
+    public void addReview(Review review){reviewController.saveOneObj(review);}
 
     public void deleteObj(Review review){ reviewController.deleteObj(review);}
 

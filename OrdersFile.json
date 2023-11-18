@@ -6,23 +6,6 @@
     "paymentMethod": "cash",
     "address": "Gruia 15",
     "date": "10.12.2022",
-    "employees": [
-      {
-        "id": 1,
-        "name": "Sorin",
-        "salary": "1500",
-        "telefon": 768.23456,
-        "orders": []
-      }
-    ],
-    "client": {
-      "id": 1,
-      "name": "Ion",
-      "address": "piupiu 23",
-      "telefon": 897.6535,
-      "orders": [],
-      "reviews": []
-    },
     "articles": []
   },
   {
@@ -32,7 +15,6 @@
     "paymentMethod": "card",
     "address": "Dornei 10",
     "date": "24.05.2023",
-    "employees": [],
     "articles": []
   },
   {
@@ -42,7 +24,6 @@
     "paymentMethod": "card",
     "address": "Horea 10",
     "date": "14.09.2023",
-    "employees": [],
     "articles": []
   }
 ]

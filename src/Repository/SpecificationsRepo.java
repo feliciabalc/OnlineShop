@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpecificationsRepo extends AbstractRepo {
-    private ArticlesRepo articlesRepo;
 
-    public SpecificationsRepo(String fileName, String ClientFile, String ArticlesFile, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
+
+    public SpecificationsRepo(String fileName) {
 
         super(fileName);
-        this.articlesRepo=new ArticlesRepo(ArticlesFile, ClientFile,fileName,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
+
     }
 
     public String getFile(){
@@ -111,9 +111,7 @@ public class SpecificationsRepo extends AbstractRepo {
             System.out.println( id + " not found.");
         }
     }
-    public void setArticle(Articles article) {
-        article = article;
-    }
+
 
     public void updateColor(int id, String color){
         List<Specifications> specificationsList = loadSpecifications();
@@ -161,12 +159,13 @@ public class SpecificationsRepo extends AbstractRepo {
 
         for (int i = 0; i < specificationsList.size(); i++) {
             Specifications specification = specificationsList.get(i);
-            if (specification.getArticle() == article) {
-                String[] allSizes = specification.getSize();
-                for(int j = 0; j < allSizes.length; j++){
-                    if(allSizes[j] == size)
-                        allSizes[j] = newSize;
-                }
+            for (int j = 0; j < article.getSpecifications().size(); j++) {
+                if (article.getSpecifications().get(j) == specification) {
+                    String[] allSizes = specification.getSize();
+                    for(int k = 0; k < allSizes.length; k++){
+                        if(allSizes[k] == size)
+                            allSizes[k] = newSize;
+                    }}
 
                 found = true;
                 break;
@@ -205,9 +204,5 @@ public class SpecificationsRepo extends AbstractRepo {
 
     }
 
-    public Articles getArticle(Specifications specifications, int id){
-        Articles article = articlesRepo.findById(id);
-        specifications.setArticle(article);
-        return specifications.getArticle();
-    }
+
 }

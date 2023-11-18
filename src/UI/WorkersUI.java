@@ -66,12 +66,12 @@ public class WorkersUI {
     public List<Employee> filteredByRole(String role) {
         return employeeController.filteredByRole(role);}
 
-    public void addOrderToEmployee(Orders order, Employee employee){
-        employeeController.addOrderToEmployee(order,employee);
+    public void addOrderToEmployee(Employee employee,int id){
+        employeeController.addOrderToEmployee(employee, id);
     }
 
-    public void removeOrderToEmployee(Orders order, Employee employee){
-        employeeController.removeOrderToEmployee(order,employee);
+    public void removeOrderToEmployee(Employee employee,int id){
+        employeeController.removeOrderToEmployee(employee,id);
     }
 
     public List<Courier> loadCourier() {
@@ -98,11 +98,11 @@ public class WorkersUI {
 
 
 
-    public void addOrderToCourier(Orders order, Courier courier){
-        employeeController.addOrderToCurier(order, courier);}
+    public void addOrderToCourier(Courier courier,int id){
+        employeeController.addOrderToCurier(courier,id);}
 
-    public void removeOrderToCourier(Orders order, Courier courier){
-        employeeController.removeOrderToCourier(order, courier);}
+    public void removeOrderToCourier(Courier courier,int id){
+        employeeController.removeOrderToCourier(courier,id);}
 
 
 }

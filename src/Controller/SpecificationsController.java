@@ -34,8 +34,8 @@ public class SpecificationsController {
         specifications.add(sp1);
         specifications.add(sp2);
         specifications.add(sp3);
-        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
-        sp1.setArticle(a1);
+
+
         specificationsRepo.save(specifications);}
 
 
@@ -81,8 +81,6 @@ public class SpecificationsController {
     public List<Specifications> filteredBySize(String size) {
         return specificationsRepo.filteredBySize(size);
         }
-    public void setArticle(Articles article) {
-        specificationsRepo.setArticle(article);
-    }
+
 
     }

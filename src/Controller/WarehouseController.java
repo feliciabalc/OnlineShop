@@ -36,12 +36,9 @@ public class WarehouseController {
         warehouse.add(war1);
         warehouse.add(war2);
         warehouse.add(war3);
-        Articles a1  = new Articles(1,"bluza", "cx", "bumbac", "maneca", 24);
-        Articles a2 = new Articles(2,"tricou", "cx", "bumbac", "maneca", 2);
 
-        war1.addArticles(a1);
-        war1.addArticles(a2);
-
+        warehouseRepo.addArticlesToWarehouse(war1,1);
+        warehouseRepo.addArticlesToWarehouse(war2, 2);
         warehouseRepo.save(warehouse);
     }
 
@@ -88,27 +85,27 @@ public class WarehouseController {
 
     }
 
-    public void addArticlesToWarehouse(Articles article, Warehouse warehouse){
-        warehouseRepo.addArticlesToWarehouse(article, warehouse);}
+    public void addArticlesToWarehouse(Warehouse warehouse, int id){
+        warehouseRepo.addArticlesToWarehouse(warehouse, id);}
 
-    public void removeArticlesToWarehouse(Articles article, Warehouse warehouse){
-        warehouseRepo.removeArticlesToWarehouse(article, warehouse);}
+    public void removeArticlesToWarehouse(Warehouse warehouse, int id){
+        warehouseRepo.removeArticlesToWarehouse(warehouse, id);}
 
-    public void addEmployeeToWarehouse(Employee employee, Warehouse warehouse){
-        warehouseRepo.addEmployeeToWarehouse(employee, warehouse);}
+    public void addEmployeeToWarehouse(Warehouse warehouse,int id){
+        warehouseRepo.addEmployeeToWarehouse(warehouse, id);}
 
-    public void removeEmployeeToWarehouse(Employee employee, Warehouse warehouse){
-        warehouseRepo.removeEmployeeToWarehouse(employee, warehouse);}
+    public void removeEmployeeToWarehouse(Warehouse warehouse,int id){
+        warehouseRepo.removeEmployeeToWarehouse(warehouse, id);}
 
-    public void addSupplierToWarehouse(Suppliers supplier, Warehouse warehouse){
-        warehouseRepo.addSupplierToWarehouse(supplier, warehouse);}
+    public void addSupplierToWarehouse(Warehouse warehouse,int id){
+        warehouseRepo.addSupplierToWarehouse(warehouse, id);}
 
-    public void removeSupplierToWarehouse(Suppliers supplier, Warehouse warehouse){
-        warehouseRepo.removeSupplierToWarehouse(supplier,warehouse);}
+    public void removeSupplierToWarehouse(Warehouse warehouse,int id){
+        warehouseRepo.removeSupplierToWarehouse(warehouse, id);}
 
-    public void addCourierToWarehouse(Courier courier, Warehouse warehouse){
-        warehouseRepo.addCourierToWarehouse(courier, warehouse);}
+    public void addCourierToWarehouse(Warehouse warehouse,int id){
+        warehouseRepo.addCourierToWarehouse(warehouse, id);}
 
-    public void removeCourierToWarehouse(Courier courier, Warehouse warehouse){
-        warehouseRepo.removeCourierToWarehouse(courier,warehouse);}
+    public void removeCourierToWarehouse(Warehouse warehouse,int id){
+        warehouseRepo.removeCourierToWarehouse(warehouse, id);}
 }

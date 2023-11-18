@@ -10,6 +10,9 @@ public class ClientCartObserver implements CartObserver {
 
     @Override
     public void update(Cart cart) {
-        System.out.println("Articles fron you cart has changes............Take a look....Cart with id " + cart.getId());
+        System.out.println("Articles fron you cart has changed............Take a look....Cart with id " + cart.getId());
     }
+
+
+
 }

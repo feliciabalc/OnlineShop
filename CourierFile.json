@@ -1,17 +1,27 @@
 [
   {
-    "id": 1,
-    "name": "Ion",
-    "salary": "1200",
-    "telefon": 31460.0,
-    "orders": []
-  },
-  {
     "id": 2,
     "name": "Ionut",
     "salary": "1200",
     "telefon": 753.4568,
     "orders": []
+  },
+  {
+    "id": 1,
+    "name": "Ion",
+    "salary": "1200",
+    "telefon": 31460.0,
+    "orders": [
+      {
+        "id": 2,
+        "orderNumber": 13.0,
+        "totalAmount": 100.0,
+        "paymentMethod": "card",
+        "address": "Dornei 10",
+        "date": "24.05.2023",
+        "articles": []
+      }
+    ]
   },
   {
     "id": 20,

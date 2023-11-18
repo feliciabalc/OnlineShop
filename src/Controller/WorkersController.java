@@ -61,14 +61,12 @@ public class WorkersController {
         saveOneObject(2, "Ionut",  "1200", 0753.4568,"Courier");
 
 
-        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
         Employee e1 = employeesRepo.findById(1);
-        e1.addOrders(o1);
-        Courier c1 = courierRepo.findById(1);
-        c1.addOrders(o1);
+        employeesRepo.addOrderToEmployee(e1, 1);
 
-        Warehouse war1= new Warehouse(1,"R&F","Gruia 58");
-        e1.setWarehouse(war1);
+        Courier c1 = courierRepo.findById(1);
+        courierRepo.addOrderToCurier(c1,2);
+
 
     }
 
@@ -108,11 +106,11 @@ public class WorkersController {
 
     }
 
-    public void addOrderToEmployee(Orders order, Employee employee){
-       employeesRepo.addOrderToEmployee(order,employee);
+    public void addOrderToEmployee(Employee employee, int id){
+       employeesRepo.addOrderToEmployee(employee, id);
     }
 
-    public void removeOrderToEmployee(Orders order, Employee employee){ employeesRepo.removeOrderToEmployee(order,employee);
+    public void removeOrderToEmployee(Employee employee, int id){ employeesRepo.removeOrderToEmployee(employee, id);
     }
 
 
@@ -131,11 +129,11 @@ public class WorkersController {
         courierRepo.delete(id);
     }
 
-    public void addOrderToCurier(Orders order, Courier courier){
-        courierRepo.addOrderToCurier(order, courier);}
+    public void addOrderToCurier(Courier courier, int id){
+        courierRepo.addOrderToCurier(courier, id);}
 
-    public void removeOrderToCourier(Orders order, Courier courier){
-        courierRepo.removeOrderToCourier(order, courier);}
+    public void removeOrderToCourier(Courier courier, int id){
+        courierRepo.removeOrderToCourier(courier, id);}
 
     public void updateteTelefon(int id, double telefon){
         courierRepo.updateteTelefon(id,telefon);}

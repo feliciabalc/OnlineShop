@@ -12,16 +12,46 @@
         "paymentMethod": "cash",
         "address": "Gruia 15",
         "date": "10.12.2022",
-        "employees": [],
         "articles": []
       }
     ],
     "cart": {
       "id": 1,
       "quantity": 5.0,
-      "articles": [],
+      "articles": [
+        {
+          "id": 1,
+          "name": "bluza",
+          "brand": "cx",
+          "material": "bumbac",
+          "type": "maneca",
+          "price": 24.0,
+          "specifications": [
+            {
+              "id": 1,
+              "size": [
+                "S",
+                "M"
+              ],
+              "color": "rosu",
+              "quantity": 25.0,
+              "availability": true
+            }
+          ],
+          "reviews": [],
+          "orders": []
+        }
+      ],
       "observers": []
     },
+    "reviews": []
+  },
+  {
+    "id": 2,
+    "name": "Mark",
+    "address": "dunarii 1",
+    "telefon": 844.6535,
+    "orders": [],
     "reviews": [
       {
         "id": 1,
@@ -30,14 +60,6 @@
         "date": "10.10.2023"
       }
     ]
-  },
-  {
-    "id": 2,
-    "name": "Mark",
-    "address": "dunarii 1",
-    "telefon": 844.6535,
-    "orders": [],
-    "reviews": []
   },
   {
     "id": 3,

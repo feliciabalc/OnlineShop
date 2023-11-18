@@ -5,7 +5,6 @@ public class Suppliers {
     private  String name;
     private  double telefon;
     private String articleType;
-    private Warehouse warehouse;
 
     public Suppliers(int id,String name, double telefon, String articleType) {
         this.id = id;
@@ -46,13 +45,6 @@ public class Suppliers {
         this.articleType = articleType;
     }
 
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
 
     @Override
     public String toString() {

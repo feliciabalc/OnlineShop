@@ -57,43 +57,32 @@ public class ClientUI {
     }
 
     public void updateAddress(int id, String address) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter you id: ");
-        int idClient= Integer.parseInt(scanner.nextLine());
-        System.out.println("Enter you new address: ");
-        String newAddress = scanner.nextLine();
+
         clientController.updateAddress(id, address);
     }
 
     public void updateteCart(int id, Cart cart) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the cart id: ");
-        int idCart= Integer.parseInt(scanner.nextLine());
-        CartRepo cartRepo = new CartRepo("CartFile.json");
-        System.out.println("Please enter the new quantity: " );
-        double quantity = Double.parseDouble(scanner.nextLine());
+
         clientController.updateteCart(id, cart);
     }
 
     public List<Client> filteredByName(String name) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the name you want the client to be filtered by: ");
-        String givenName = scanner.nextLine();
-        return clientController.filteredByName(givenName);
+
+        return clientController.filteredByName(name);
     }
 
 
-    public void addReviewToClient(Review review, Client client) {
-        clientController.addReviewToClient(review, client);
+    public void addReviewToClient(Client client, int id) {
+        clientController.addReviewToClient(client, id);
     }
-    public void removeReviewToClient(Review review, Client client){
-        clientController.removeReviewToClient(review, client);}
+    public void removeReviewToClient(Client client, int id){
+        clientController.removeReviewToClient(client, id);}
 
-    public void addOrderToClient(Orders order, Client client){
-        clientController.addOrderToClient(order, client);}
+    public void addOrderToClient(Client client, int id){
+        clientController.addOrderToClient(client, id);}
 
-    public void removeOrderToClient(Orders order, Client client){
-        clientController.removeOrderToClient(order, client);}
+    public void removeOrderToClient(Client client, int id){
+        clientController.removeOrderToClient(client, id);}
 
 
 

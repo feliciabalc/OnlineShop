@@ -12,9 +12,8 @@ public class Articles {
     private float price;
     private List<Specifications> specifications= new ArrayList<>();
     private List<Review> reviews= new ArrayList<>();
-    private List<Cart> cart= new ArrayList<>();
+
     private List<Orders> orders= new ArrayList<>();
-    private List<Warehouse> warehouse= new ArrayList<>();
 
     public List<Specifications> getSpecifications() {
         return specifications;
@@ -32,14 +31,6 @@ public class Articles {
         this.reviews = reviews;
     }
 
-    public List<Cart> getCart() {
-        return cart;
-    }
-
-    public void setCart(List<Cart> cart) {
-        this.cart = cart;
-    }
-
     public List<Orders> getOrders() {
         return orders;
     }
@@ -48,13 +39,6 @@ public class Articles {
         this.orders = orders;
     }
 
-    public List<Warehouse> getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(List<Warehouse> warehouse) {
-        this.warehouse = warehouse;
-    }
 
     public Articles(int id, String name, String brand, String material, String type, float price) {
         this.id= id;
@@ -141,21 +125,8 @@ public class Articles {
         reviews.remove(review);
     }
 
-    public void addCart(Cart cartItem){
-        cart.add(cartItem);
-    }
 
-    public void removeCart(Cart cartItem){
-        cart.remove(cartItem);
-    }
 
-    public void addWarehouse(Warehouse warehouseItem){
-        warehouse.add(warehouseItem);
-    }
-
-    public void removeWarehouse(Warehouse warehouseItem){
-        warehouse.remove(warehouseItem);
-    }
     public void addOrders(Orders orderItem){
         orders.add(orderItem);
     }

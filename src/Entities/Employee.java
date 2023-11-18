@@ -11,7 +11,7 @@ public class Employee {
     protected String salary;
     protected double telefon;
     protected List<Orders> orders= new ArrayList<>();
-    protected Warehouse warehouse;
+
 
     public Employee(int id,String name, String salary, double telefon) {
         this.id = id;
@@ -69,13 +69,6 @@ public class Employee {
         this.orders = orders;
     }
 
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
 
     @Override
     public String toString() {

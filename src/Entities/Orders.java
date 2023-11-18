@@ -11,9 +11,6 @@ public class Orders {
     private  String paymentMethod;
     private String address;
     private String date;
-    private List<Employee> employees=new ArrayList<>();
-    private Client client;
-    private Courier courier;
     private List<Articles> articles= new ArrayList<>();
     private PaymentStrategy paymentStrategy;
 
@@ -90,29 +87,6 @@ public class Orders {
         this.date = date;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Courier getCourier() {
-        return courier;
-    }
-
-    public void setCourier(Courier courier) {
-        this.courier = courier;
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
-    }
 
     public List<Articles> getArticles() {
         return articles;
@@ -134,13 +108,7 @@ public class Orders {
                 '}';
     }
 
-    public void addEmployee(Employee employee){
-        employees.add(employee);
-    }
 
-    public void removeEmployee(Employee employee){
-        employees.remove(employee);
-    }
 
     public void addArticle(Articles article){
         articles.add(article);

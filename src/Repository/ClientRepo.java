@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ClientRepo extends AbstractRepo {
@@ -14,12 +15,12 @@ public class ClientRepo extends AbstractRepo {
     private OrdersRepo ordersRepo;
 
 
-    public ClientRepo(String fileName, String ArticlesFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
+    public ClientRepo(String fileName, String ArticlesFile, String specificationFilename, String reviewFilename, String cartFilename, String orderFile) {
 
         super(fileName);
-        this.reviewRepo = new ReviewRepo(reviewFilename,fileName,specificationFilename,ArticlesFile,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
-        this.cartRepo = new CartRepo(cartFilename,fileName,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,ArticlesFile,supplierFile,cartFilename);
-        this.ordersRepo = new OrdersRepo(orderFile,fileName,ArticlesFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile);
+        this.reviewRepo = new ReviewRepo(reviewFilename);
+        this.cartRepo = new CartRepo(cartFilename,  specificationFilename,  ArticlesFile, reviewFilename);
+        this.ordersRepo = new OrdersRepo(orderFile, specificationFilename,  reviewFilename, ArticlesFile);
     }
 
     @Override
@@ -31,15 +32,22 @@ public class ClientRepo extends AbstractRepo {
         return load(clientListType);
     }
 
-    public void saveOneObject(Client client){
-        List<Client> clients =loadClient();
-        for(Client item : clients)
-            if(item.getId()== client.getId())
-                item = client;
-            else
-                clients.add(client);
+
+    public void saveOneObject(Client client) {
+        List<Client> clients = loadClient();
+        Iterator<Client> iterator = clients.iterator();
+
+        while (iterator.hasNext()) {
+            Client item = iterator.next();
+            if (item.getId() == client.getId()) {
+                iterator.remove(); // Remove the existing client
+            }
+        }
+
+        clients.add(client); // Add the new or updated client
         save(clients);
     }
+
 
     public void deleteObj(Client client){
         List<Client> allClient =loadClient();
@@ -187,10 +195,9 @@ public class ClientRepo extends AbstractRepo {
 
     }
 
-    public Cart setCart(Client client, int id){
+    public void setCart(Client client, int id){
         Cart cart = cartRepo.findById(id);
         client.setCart(cart);
-        return client.getCart();
     }
 
 

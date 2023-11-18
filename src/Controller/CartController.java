@@ -76,8 +76,8 @@ public class CartController {
     public void updateQuantity(int id, double quantity){
         cartRepo.updateQuantity(id, quantity);
     }
-    public void updateteArticles(int id, Articles article, Articles newArticle) {
-        cartRepo.updateteArticles(id, article, newArticle);
+    public void updateteArticles(int id, int articleId, Articles newArticle) {
+        cartRepo.updateteArticles(id,  articleId, newArticle);
     }
 
     public List<ClientCartObserver> getObservers(Cart cart){

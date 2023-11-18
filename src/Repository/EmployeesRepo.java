@@ -10,12 +10,11 @@ import java.util.List;
 
 public class EmployeesRepo extends AbstractRepo {
     private OrdersRepo ordersRepo;
-    private WarehouseRepo warehouseRepo;
-    public EmployeesRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String ArticlesFile, String cartFilename, String supplierFile, String orderFile) {
+
+    public EmployeesRepo(String fileName,String specificationFilename, String reviewFilename,  String ArticlesFile,String orderFile) {
 
         super(fileName);
-        this.ordersRepo = new OrdersRepo(orderFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,fileName,cartFilename,supplierFile,ArticlesFile);
-        this.warehouseRepo= new WarehouseRepo(warehouseFile,ClientFile,specificationFilename,reviewFilename,courierFile,ArticlesFile,fileName,cartFilename,supplierFile,orderFile);
+        this.ordersRepo = new OrdersRepo(orderFile,specificationFilename,reviewFilename,ArticlesFile);
     }
 
     @Override
@@ -44,6 +43,8 @@ public class EmployeesRepo extends AbstractRepo {
         allEmployee.remove(employee);
         save(allEmployee);
     }
+
+
 
     public List<Employee> loadEmployee() {
         Type employeeListType = new TypeToken<List<Employee>>() {}.getType();
@@ -128,11 +129,7 @@ public class EmployeesRepo extends AbstractRepo {
         saveOneObject(employee);
     }
 
-    public Warehouse getWarehouse(Employee employee, int id){
-        Warehouse warehouse = warehouseRepo.findById(id);
-        employee.setWarehouse(warehouse);
-        return employee.getWarehouse();
-    }
+
 
     public void updateSalary(int id, String salary){
         List<Employee> employeeList = loadEmployee();

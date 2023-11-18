@@ -37,11 +37,15 @@ public class ClientController {
         clients.add(client2);
         clients.add(client3);
 
+
+
         clientRepo.addOrderToClient(client1, 1);
         clientRepo.addReviewToClient(client2,1);
         clientRepo.setCart(client1,1);
 
         clientRepo.save(clients);
+
+
     }
 
     public void saveOneObject(Client client){

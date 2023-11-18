@@ -1,13 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Sorin",
-    "role": "packing",
-    "salary": "1500",
-    "telefon": 768.23456,
-    "orders": []
-  },
-  {
     "id": 2,
     "name": "Matei",
     "role": "billing",
@@ -22,6 +14,24 @@
     "salary": "2500",
     "telefon": 768.23433,
     "orders": []
+  },
+  {
+    "id": 1,
+    "name": "Sorin",
+    "role": "packing",
+    "salary": "1500",
+    "telefon": 768.23456,
+    "orders": [
+      {
+        "id": 1,
+        "orderNumber": 12.0,
+        "totalAmount": 120.0,
+        "paymentMethod": "cash",
+        "address": "Gruia 15",
+        "date": "10.12.2022",
+        "articles": []
+      }
+    ]
   },
   {
     "id": 10,

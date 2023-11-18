@@ -15,13 +15,13 @@ public class WarehouseRepo extends AbstractRepo {
     private SuppliersRepo suppliersRepo;
     private CourierRepo courierRepo;
 
-    public WarehouseRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String ArticlesFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
+    public WarehouseRepo(String fileName, String specificationFilename, String reviewFilename, String courierFile, String ArticlesFile, String employeeFile,String supplierFile, String orderFile) {
 
         super(fileName);
-        this.courierRepo=new CourierRepo(courierFile,ClientFile,specificationFilename,reviewFilename,ArticlesFile,fileName,employeeFile,cartFilename,supplierFile,orderFile);
-        this.employeesRepo= new EmployeesRepo(employeeFile,ClientFile,specificationFilename,reviewFilename,courierFile,fileName,ArticlesFile,cartFilename,supplierFile,orderFile);
-        this.articlesRepo=new ArticlesRepo(ArticlesFile,ClientFile,specificationFilename,reviewFilename,courierFile,fileName,employeeFile,cartFilename,supplierFile,orderFile);
-        this.suppliersRepo=new SuppliersRepo(supplierFile,ClientFile,specificationFilename,reviewFilename,courierFile,fileName,employeeFile,cartFilename,ArticlesFile,orderFile);
+        this.courierRepo=new CourierRepo( courierFile,  specificationFilename,  reviewFilename,ArticlesFile,orderFile);
+        this.employeesRepo= new EmployeesRepo(employeeFile, specificationFilename,  reviewFilename,ArticlesFile,orderFile);
+        this.articlesRepo=new ArticlesRepo(ArticlesFile,specificationFilename,reviewFilename);
+        this.suppliersRepo=new SuppliersRepo(supplierFile);
     }
 
     @Override

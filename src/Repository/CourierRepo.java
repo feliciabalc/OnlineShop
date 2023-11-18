@@ -11,9 +11,9 @@ import java.util.List;
 
 public class CourierRepo extends AbstractRepo {
     private OrdersRepo ordersRepo;
-    public CourierRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String ArticlesFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile){
+    public CourierRepo(String fileName, String specificationFilename, String reviewFilename, String ArticlesFile, String orderFile){
         super(fileName);
-        this.ordersRepo = new OrdersRepo(orderFile, ClientFile,ArticlesFile,specificationFilename,reviewFilename,fileName,warehouseFile,employeeFile, cartFilename,supplierFile);
+        this.ordersRepo = new OrdersRepo(orderFile,specificationFilename,reviewFilename,ArticlesFile);
     }
     @Override
     public void save(List objects) {

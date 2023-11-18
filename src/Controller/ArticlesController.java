@@ -36,13 +36,6 @@ public class ArticlesController {
 
         articlesRepo.addReviewToArticle(a2,1);
 
-        articlesRepo.addCartToArticle(a2,1);
-        articlesRepo.addCartToArticle(a1,2);
-
-        articlesRepo.addOrderToArticle(a1,1);
-
-        articlesRepo.addWarehouseToArticle(a1, 1);
-
         articlesRepo.save(articles);
 
     }
@@ -84,21 +77,6 @@ public class ArticlesController {
         articlesRepo.removeSpecificationsToArticle(article, id);
     }
 
-    public void addCartToArticle(Articles article, int id){
-       articlesRepo.addCartToArticle(article, id);
-    }
-
-    public void removeCartToArticle(Articles article, int id){
-        articlesRepo.removeCartToArticle(article, id);
-    }
-
-    public void addOrderToArticle(Articles article, int id){
-       articlesRepo.addOrderToArticle(article, id);
-    }
-
-    public void removeOrderToArticle(Articles article, int id){
-       articlesRepo.removeOrderToArticle(article, id);
-    }
 
     public void addReviewToArticle(Articles article, int id){
         articlesRepo.addReviewToArticle(article, id);
@@ -107,16 +85,6 @@ public class ArticlesController {
     public void removeReviewToArticle(Articles article, int id){
         articlesRepo.removeReviewToArticle(article, id);
     }
-
-    public void addWarehouseToArticle(Articles article, int id){
-        articlesRepo.addWarehouseToArticle(article, id);
-    }
-
-    public void removeWarehouseToArticle(Articles article, int id){
-        articlesRepo.addWarehouseToArticle(article, id);
-    }
-
-
 
 
 

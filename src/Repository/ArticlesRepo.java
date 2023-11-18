@@ -13,18 +13,14 @@ import java.util.List;
 public class ArticlesRepo extends AbstractRepo {
     private SpecificationsRepo specificationsRepo;
     private ReviewRepo reviewRepo;
-    private CartRepo cartRepo;
-    private OrdersRepo ordersRepo;
-    private WarehouseRepo warehouseRepo;
 
-    public ArticlesRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
+
+    public ArticlesRepo(String fileName, String specificationFilename, String reviewFilename) {
 
         super(fileName);
-        this.specificationsRepo=new SpecificationsRepo(specificationFilename,ClientFile,fileName,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
-        this.reviewRepo = new ReviewRepo(reviewFilename,ClientFile,specificationFilename,fileName,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
-        this.cartRepo=new CartRepo(cartFilename,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,fileName,supplierFile,orderFile);
-        this.ordersRepo=new OrdersRepo(orderFile,ClientFile,fileName,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile);
-        this.warehouseRepo=new WarehouseRepo(warehouseFile, ClientFile,reviewFilename,specificationFilename,fileName,orderFile,courierFile,employeeFile,cartFilename,supplierFile);
+        this.specificationsRepo=new SpecificationsRepo(specificationFilename);
+        this.reviewRepo = new ReviewRepo(reviewFilename);
+
     }
 
 
@@ -38,36 +34,8 @@ public class ArticlesRepo extends AbstractRepo {
 
     public List<Articles> loadArticles() {
         Type articlesListType = new TypeToken<List<Articles>>() {}.getType();
-        List<Articles> articles = load(articlesListType);
-        for(Articles article : articles) {
-            List<Specifications> specificationsList = article.getSpecifications();
-            for(int i = 0; i< specificationsList.size(); i++) {
-                Specifications specification = specificationsRepo.findById(specificationsList.get(i).getId());
-                specificationsList.set(i, specification);
-            }
-            List<Review> reviewList = article.getReviews();
-            for(int j=0; j<reviewList.size(); j++){
-                Review review = reviewRepo.findById(reviewList.get(j).getId());
-                reviewList.set(j,review);
-            }
-            List<Cart> cartList = article.getCart();
-            if(cartList.size()!=0){
-                for(int k=0; k<cartList.size();k++){
-                    Cart cart= cartRepo.findById(cartList.get(k).getId());
-                    cartList.set(k,cart);
-                }}
-            List<Orders> ordersList = article.getOrders();
-            for(int l=0; l<ordersList.size();l++){
-                Orders order = ordersRepo.findById(ordersList.get(l).getId());
-                ordersList.set(l,order);
-            }
-            List<Warehouse> warehouseList = article.getWarehouse();
-            for(int m=0; m<warehouseList.size();m++){
-                Warehouse warehouse = warehouseRepo.findById(warehouseList.get(m).getId());
-                warehouseList.set(m,warehouse);
-            }
-        }
-        return articles;
+        return load(articlesListType);
+
     }
 
     public List<Articles> findAll(){
@@ -185,30 +153,7 @@ public class ArticlesRepo extends AbstractRepo {
         saveOneObject(article);
     }
 
-    public void addCartToArticle(Articles article, int id){
-        Cart cart = cartRepo.findById(id);
-        if (cart != null) {
-            article.addCart(cart);
-            saveOneObject(article);}
-    }
 
-    public void removeCartToArticle(Articles article, int id){
-        Cart cart = cartRepo.findById(id);
-        article.removeCart(cart);
-        saveOneObject(article);
-    }
-
-    public void addOrderToArticle(Articles article, int id){
-        Orders order=ordersRepo.findById(id);
-        article.addOrders(order);
-        saveOneObject(article);
-    }
-
-    public void removeOrderToArticle(Articles article, int id){
-        Orders order=ordersRepo.findById(id);
-        article.removeOrders(order);
-        saveOneObject(article);
-    }
 
     public void addReviewToArticle(Articles article, int id){
         Review review= reviewRepo.findById(id);
@@ -222,17 +167,6 @@ public class ArticlesRepo extends AbstractRepo {
         saveOneObject(article);
     }
 
-    public void addWarehouseToArticle(Articles article, int id){
-        Warehouse warehouse=warehouseRepo.findById(id);
-        article.addWarehouse(warehouse);
-        saveOneObject(article);
-    }
-
-    public void removeWarehouseToArticle(Articles article, int id){
-        Warehouse warehouse=warehouseRepo.findById(id);
-        article.removeWarehouse(warehouse);
-        saveOneObject(article);
-    }
 
 
     public List<Articles> filteredByMaterial(String material) {
@@ -313,6 +247,14 @@ public class ArticlesRepo extends AbstractRepo {
         } else {
             System.out.println("Article with ID " + id + " not found.");
         }
+    }
+
+    public void addOrderToArticle(Articles articles, Orders orders){
+        articles.addOrders(orders);
+    }
+
+    public void removeOrdersFromArticles(Articles articles, Orders orderItem){
+        articles.removeOrders(orderItem);
     }
 
 }

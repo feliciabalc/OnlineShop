@@ -7,14 +7,17 @@ import Repository.*;
 import java.util.List;
 
 public class Tests {
+    String orderFile ="OrdersFile.json";
+    String specificationFile = "SpecificationsFile.json";
+    String cartFile = "CartFile.json";
+    String reviewFile = "ReviewFile.json";
+    String ArticleFile= "ArticlesFile.json";
+    String ClientFile="ClientFile.json";
+    String courierFile="CourierFile.json";
+    String employeeFile="EmployeesFile.json";
 
    public void testSortAsc(){
-       String orderFile ="OrdersFile.json";
-       String specificationFile = "SpecificationsFile.json";
-       String cartFile = "CartFile.json";
-       String warehouseFile = "WarehouseFile.json";
-       String reviewFile = "ReviewFile.json";
-       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
+       ArticlesRepo articlesRepo = new ArticlesRepo(ArticleFile,specificationFile,reviewFile);
        ArticlesController ac = new ArticlesController(articlesRepo);
        List<Articles> sortedArticles=ac.sortPriceAsc();
 
@@ -23,7 +26,7 @@ public class Tests {
 
 
    public void testFillters(){
-       ClientRepo clientRepo = new ClientRepo("ClientFile.json");
+       ClientRepo clientRepo = new ClientRepo(ClientFile,ArticleFile,specificationFile, reviewFile,cartFile,orderFile);
        ClientController cc = new ClientController(clientRepo);
        List<Client> fillteredClients = cc.filteredByName("Mark");
 
@@ -31,8 +34,8 @@ public class Tests {
    }
 
    public void testFactory(){
-       EmployeesRepo employeesRepo = new EmployeesRepo("EmployeesFile.json");
-       CourierRepo courierRepo = new CourierRepo("CourierFile.json");
+       EmployeesRepo employeesRepo = new EmployeesRepo(employeeFile,specificationFile,reviewFile,ArticleFile, orderFile);
+       CourierRepo courierRepo = new CourierRepo(courierFile,specificationFile,reviewFile,ArticleFile,orderFile);
        WorkersFactory workersFactory = new WorkersFactory();
        WorkersController workersController = new WorkersController(employeesRepo, courierRepo, workersFactory);
 
@@ -45,7 +48,7 @@ public class Tests {
    }
 
    public void testObserver(){
-       CartRepo cartRepo = new CartRepo("CartFile.json");
+       CartRepo cartRepo = new CartRepo(cartFile, specificationFile, ArticleFile,reviewFile);
        Cart cart = cartRepo.findById(1);
 
        Client client = new Client(30, "Maria","Horea", 12345.67890 );
@@ -56,18 +59,18 @@ public class Tests {
        String cartFile = "CartFile.json";
        String warehouseFile = "WarehouseFile.json";
        String reviewFile = "ReviewFile.json";
-       ArticlesRepo articlesRepo = new ArticlesRepo("ArticlesFile.json",specificationFile,reviewFile,cartFile,orderFile,warehouseFile);
+       ArticlesRepo articlesRepo = new ArticlesRepo(ArticleFile,specificationFile,reviewFile);
        Articles article = articlesRepo.findById(5);
 
        ClientCartObserver clientCartObserver = new ClientCartObserver(client);
-       cart.setClient(client);
+
 
        assert(cartRepo.getObservers(cart) == clientCartObserver);
        cartRepo.updatePriceArticle(1, 1, 30);
    }
 
     public void testStrategy() {
-        OrdersRepo ordersRepo = new OrdersRepo("OrdersFile.json");
+        OrdersRepo ordersRepo = new OrdersRepo(orderFile,specificationFile,reviewFile,ArticleFile);
         Orders order = ordersRepo.findById(1);
 
         if ("Cash".equals(order.getPaymentMethod())) {

@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewRepo extends AbstractRepo {
-    private ClientRepo clientRepo;
-    private ArticlesRepo articlesRepo;
 
-    public ReviewRepo(String fileName, String ClientFile, String specificationFilename, String ArticlesFile, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String supplierFile, String orderFile) {
+
+    public ReviewRepo(String fileName) {
 
         super(fileName);
-        this.clientRepo=new ClientRepo(ClientFile,ArticlesFile,specificationFilename,fileName,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
-        this.articlesRepo=new ArticlesRepo(ArticlesFile,ClientFile,specificationFilename,fileName,courierFile,warehouseFile,employeeFile,cartFilename,supplierFile,orderFile);
+
     }
 
     @Override
@@ -105,9 +103,7 @@ public class ReviewRepo extends AbstractRepo {
             System.out.println( id + " not found.");
         }
     }
-    public void setClient(Client client) {client = client;}
 
-    public void setArticle(Articles article) {article = article;}
 
     public void updateComment(int id, String comment){
         List<Review> reviewList = loadReview();
@@ -170,16 +166,7 @@ public class ReviewRepo extends AbstractRepo {
         return filteredReview;
 
     }
-    public Client getClient(Review review, int id){
-        Client client = clientRepo.findById(id);
-        review.setClient(client);
-        return review.getClient();
-    }
 
-    public Articles getArticle(Review review, int id){
-        Articles article = articlesRepo.findById(id);
-        review.setArticle(article);
-        return review.getArticle();
-    }
+
 
 }

@@ -11,14 +11,13 @@ import java.util.List;
 
 public class CartRepo extends AbstractRepo {
 
-    private ClientRepo clientRepo;
     private ArticlesRepo articlesRepo;
 
-    public CartRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String ArticlesFile, String supplierFile, String orderFile) {
+
+    public CartRepo(String fileName,  String specificationFilename,  String ArticlesFile, String reviewFilename) {
 
         super(fileName);
-        this.clientRepo= new ClientRepo(ClientFile,ArticlesFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,fileName,supplierFile,orderFile);
-        this.articlesRepo = new ArticlesRepo(ArticlesFile,ClientFile,specificationFilename,reviewFilename,courierFile,warehouseFile,employeeFile,fileName,supplierFile,orderFile);
+        this.articlesRepo = new ArticlesRepo(ArticlesFile,specificationFilename,reviewFilename);
     }
 
 
@@ -36,9 +35,8 @@ public class CartRepo extends AbstractRepo {
 
 
 
+
     public void saveOneObject(Cart cart){
-        ClientCartObserver clientObserver = new ClientCartObserver(cart.getClient());
-        cart.addObserver(clientObserver);
         cart.notifyObservers();
         List<Cart> allCarts =loadCart();
         boolean found = false;
@@ -62,8 +60,6 @@ public class CartRepo extends AbstractRepo {
     }
 
     public void deleteObj(Cart cart){
-        ClientCartObserver clientObserver = new ClientCartObserver(cart.getClient());
-        cart.removeObserver(clientObserver);
         List<Cart> allCart =loadCart();
         allCart.remove(cart);
         save(allCart);
@@ -168,21 +164,16 @@ public class CartRepo extends AbstractRepo {
             System.out.println("Cart with ID " + id + " not found.");
         }
     }
-    public void updateteArticles(int id, Articles article, Articles newArticle) {
+    public void updateteArticles(int id, int articleId, Articles newArticle) {
         List<Cart> cartList = loadCart();
         boolean found = false;
 
         for (int i = 0; i < cartList.size(); i++) {
             Cart cart = cartList.get(i);
             if (cart.getId() == id) {
-                List<Articles> articles = cart.getArticles();
-                for (int j = 0; j <= articles.size(); j++)
-                    if (articles.get(j) == article) {
-                        articles.set(j, newArticle);
-                        cart.notifyObservers();
-                        found = true;
-                        break;
-                    }
+                Articles article = articlesRepo.findById(articleId);
+                cart.addArticles(article);
+                found = true;
             }
         }
         if (found) {
@@ -219,11 +210,7 @@ public class CartRepo extends AbstractRepo {
         }
     }
 
-    public Client getClient(Cart cart, int id){
-        Client client = clientRepo.findById(id);
-        cart.setClient(client);
-        return cart.getClient();
-    }
+
 
 
    public List<ClientCartObserver> getObservers(Cart cart){

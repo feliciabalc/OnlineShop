@@ -3,16 +3,7 @@
     "id": 1,
     "name": "Silviu",
     "telefon": 766.98762,
-    "articleType": "tricouri",
-    "warehouse": {
-      "id": 1,
-      "name": "R\u0026F",
-      "address": "Gruia 58",
-      "articles": [],
-      "employees": [],
-      "suppliers": [],
-      "couriers": []
-    }
+    "articleType": "tricouri"
   },
   {
     "id": 2,

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuppliersRepo extends AbstractRepo {
-    private WarehouseRepo warehouseRepo;
 
-    public SuppliersRepo(String fileName, String ClientFile, String specificationFilename, String reviewFilename, String courierFile, String warehouseFile, String employeeFile, String cartFilename, String ArticlesFile, String orderFile) {
+
+    public SuppliersRepo(String fileName) {
 
         super(fileName);
-        this.warehouseRepo=new WarehouseRepo(warehouseFile, ClientFile,reviewFilename,specificationFilename,ArticlesFile,orderFile,courierFile,employeeFile,cartFilename,fileName);
+
     }
 
     @Override
@@ -104,9 +104,7 @@ public class SuppliersRepo extends AbstractRepo {
             System.out.println( id + " not found.");
         }
     }
-    public void setWarehouse(Warehouse warehouse) {
-        warehouse = warehouse;
-    }
+
 
     public void updateArticleType(int id, String articleType){
         List<Suppliers> suppliersList = loadSuppliers();
@@ -139,9 +137,5 @@ public class SuppliersRepo extends AbstractRepo {
 
     }
 
-    public Warehouse getWarehouse(Suppliers suppliers, int id){
-        Warehouse warehouse = warehouseRepo.findById(id);
-        suppliers.setWarehouse(warehouse);
-        return suppliers.getWarehouse();
-    }
+
 }

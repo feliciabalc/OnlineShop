@@ -2,7 +2,6 @@ package Entities;
 
 public class Specifications {
     private int id;
-    private Articles article;
     private String[] size;
     private String color;
     private double quantity;
@@ -24,13 +23,6 @@ public class Specifications {
         this.id = id;
     }
 
-    public Articles getArticle() {
-        return article;
-    }
-
-    public void setArticle(Articles article) {
-        this.article = article;
-    }
 
     public String[] getSize() {
         return size;

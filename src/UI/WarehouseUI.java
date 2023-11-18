@@ -71,35 +71,35 @@ public class WarehouseUI {
         return warehouseController.filteredByAddress(address);
     }
 
-    public void addArticlesToWarehouse(Articles article, Warehouse warehouse) {
-        warehouseController.addArticlesToWarehouse(article, warehouse);
+    public void addArticlesToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.addArticlesToWarehouse(warehouse,id);
     }
 
-    public void removeArticlesToWarehouse(Articles article, Warehouse warehouse) {
-        warehouseController.removeArticlesToWarehouse(article, warehouse);
+    public void removeArticlesToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.removeArticlesToWarehouse(warehouse,id);
     }
 
-    public void addEmployeeToWarehouse(Employee employee, Warehouse warehouse) {
-        warehouseController.addEmployeeToWarehouse(employee, warehouse);
+    public void addEmployeeToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.addEmployeeToWarehouse(warehouse,id);
     }
 
-    public void removeEmployeeToWarehouse(Employee employee, Warehouse warehouse) {
-        warehouseController.removeEmployeeToWarehouse(employee, warehouse);
+    public void removeEmployeeToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.removeEmployeeToWarehouse(warehouse,id);
     }
 
-    public void addSupplierToWarehouse(Suppliers supplier, Warehouse warehouse) {
-        warehouseController.addSupplierToWarehouse(supplier, warehouse);
+    public void addSupplierToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.addSupplierToWarehouse(warehouse,id);
     }
 
-    public void removeSupplierToWarehouse(Suppliers supplier, Warehouse warehouse) {
-        warehouseController.removeSupplierToWarehouse(supplier, warehouse);
+    public void removeSupplierToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.removeSupplierToWarehouse(warehouse,id);
     }
 
-    public void addCourierToWarehouse(Courier courier, Warehouse warehouse) {
-        warehouseController.addCourierToWarehouse(courier, warehouse);
+    public void addCourierToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.addCourierToWarehouse(warehouse,id);
     }
 
-    public void removeCourierToWarehouse(Courier courier, Warehouse warehouse) {
-        warehouseController.removeCourierToWarehouse(courier, warehouse);
+    public void removeCourierToWarehouse(Warehouse warehouse,int id) {
+        warehouseController.removeCourierToWarehouse(warehouse,id);
     }
 }

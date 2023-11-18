@@ -36,8 +36,7 @@ public class ReviewController {
         review.add(rev2);
         review.add(rev3);
 
-        Client client1= new Client(1,"Ion", "piupiu 23", 0897.6535);
-        rev1.setClient(client1);
+
         reviewRepo.save(review);
     }
 
@@ -70,6 +69,7 @@ public class ReviewController {
        reviewRepo.updateteStars(id, stars);
     }
 
+
     public List<Review> filteredByStars(String stars) {
         return reviewRepo.filteredByStars(stars);
     }
@@ -79,11 +79,5 @@ public class ReviewController {
 
     }
 
-    public void setClient(Client client) {
-        reviewRepo.setClient(client);
-    }
 
-    public void setArticle(Articles article) {
-        reviewRepo.setArticle(article);
-    }
 }

@@ -38,9 +38,6 @@ public class OrdersController {
         orders.add(o2);
         orders.add(o3);
 
-        Client client1= new Client(1,"Ion", "piupiu 23", 0897.6535);
-        o1.setClient(client1);
-        ordersRepo.addEmployeeToOrder(o1,1);
 
         ordersRepo.save(orders);
     }
@@ -78,18 +75,12 @@ public class OrdersController {
 
     }
 
-    public void addEmployeeToOrder(Orders order, int id){
-
-        ordersRepo.addEmployeeToOrder(order, id);
-    }
-
-    public void removeEmployeeToOrder(Orders order, int id){
-        ordersRepo.removeEmployeeToOrder(order, id);}
 
 
 
-    public void addArticleToOrder(Articles article, Orders order){
-        ordersRepo.addArticleToOrder(article, order);
+
+    public void addArticleToOrder(Orders order, int id){
+        ordersRepo.addArticleToOrder(order, id);
     }
 
     public void removeArticleToOrder(Orders order, int id){
@@ -103,5 +94,7 @@ public class OrdersController {
     public void processPayment() {
         ordersRepo.processPayment();
     }
+
+
 
 }

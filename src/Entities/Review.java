@@ -5,8 +5,6 @@ public class Review {
     private String stars;
     private String comment;
     private String date;
-    private Client client;
-    private Articles article;
 
     public Review(int id,String stars, String comment, String date) {
         this.id = id;
@@ -47,21 +45,7 @@ public class Review {
         this.date = date;
     }
 
-    public Client getClient() {
-        return client;
-    }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Articles getArticle() {
-        return article;
-    }
-
-    public void setArticle(Articles article) {
-        this.article = article;
-    }
 
     @Override
     public String toString() {

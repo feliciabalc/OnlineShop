@@ -1,19 +1,6 @@
 [
   {
     "id": 1,
-    "article": {
-      "id": 1,
-      "name": "bluza",
-      "brand": "cx",
-      "material": "bumbac",
-      "type": "maneca",
-      "price": 24.0,
-      "specifications": [],
-      "reviews": [],
-      "cart": [],
-      "orders": [],
-      "warehouse": []
-    },
     "size": [
       "S",
       "M"

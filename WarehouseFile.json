@@ -11,24 +11,20 @@
         "material": "bumbac",
         "type": "maneca",
         "price": 24.0,
-        "specifications": [],
+        "specifications": [
+          {
+            "id": 1,
+            "size": [
+              "S",
+              "M"
+            ],
+            "color": "rosu",
+            "quantity": 25.0,
+            "availability": true
+          }
+        ],
         "reviews": [],
-        "cart": [],
-        "orders": [],
-        "warehouse": []
-      },
-      {
-        "id": 2,
-        "name": "tricou",
-        "brand": "cx",
-        "material": "bumbac",
-        "type": "maneca",
-        "price": 2.0,
-        "specifications": [],
-        "reviews": [],
-        "cart": [],
-        "orders": [],
-        "warehouse": []
+        "orders": []
       }
     ],
     "employees": [],
@@ -39,7 +35,26 @@
     "id": 1,
     "name": "GoBi",
     "address": "Gruia 56",
-    "articles": [],
+    "articles": [
+      {
+        "id": 2,
+        "name": "tricou",
+        "brand": "cx",
+        "material": "bumbac",
+        "type": "maneca",
+        "price": 2.0,
+        "specifications": [],
+        "reviews": [
+          {
+            "id": 1,
+            "stars": "5 stars",
+            "comment": "de calitate",
+            "date": "10.10.2023"
+          }
+        ],
+        "orders": []
+      }
+    ],
     "employees": [],
     "suppliers": [],
     "couriers": []

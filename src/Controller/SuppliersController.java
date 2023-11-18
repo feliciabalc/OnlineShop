@@ -35,8 +35,6 @@ public class SuppliersController {
         suppliers.add(sup2);
         suppliers.add(sup3);
 
-        Warehouse war1= new Warehouse(1,"R&F","Gruia 58");
-        sup1.setWarehouse(war1);
 
         suppliersRepo.save(suppliers);
     }
@@ -72,8 +70,6 @@ public class SuppliersController {
         return suppliersRepo.filteredByName(name);
 
     }
-    public void setWarehouse(Warehouse warehouse) {
-        suppliersRepo.setWarehouse(warehouse);
-    }
+
 }
 

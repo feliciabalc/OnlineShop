@@ -7,22 +7,23 @@ import java.util.List;
 public class Cart {
     private int id;
     private double quantity;
-    private Client client;
+
     private List<Articles> articles= new ArrayList<>();
 
     private List<ClientCartObserver> observers = new ArrayList<>();
 
-    public List<ClientCartObserver> getObservers(Cart cart) {
+
+    public List<ClientCartObserver> getObservers() {
+        return observers;
+    }
+    public void setObservers(List<ClientCartObserver> observers) {
+        this.observers = observers;
+    }
+    public List<ClientCartObserver> getCartObservers(Cart cart) {
         return cart.observers;
     }
 
-    public Client getClient() {
-        return client;
-    }
 
-    public void setClient(Client newClient) {
-        this.client = newClient;
-    }
 
 
     public Cart(int id, double quantity) {
@@ -67,15 +68,16 @@ public class Cart {
     }
 
 
-
     @Override
     public String toString() {
         return "Cart{" +
                 "id=" + id +
                 ", quantity=" + quantity +
-                ", client=" + client +
                 '}';
     }
+
+
+
 
     public void addObserver(ClientCartObserver observer) {
         observers.add(observer);
