@@ -1,18 +1,30 @@
 package Controller;
-import Entities.Cart;
-import Entities.Client;
-import Entities.Orders;
-import Entities.Review;
+import Entities.*;
+import Repository.CartRepo;
 import Repository.ClientRepo;
+import Repository.OrderRepo;
+import Repository.ReviewRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClientController {
     private ClientRepo clientRepo;
+    private ReviewRepo reviewRepo;
+    private final CartRepo cartRepo;
+    private final OrderRepo orderRepo;
 
-    public ClientController(ClientRepo clientRepo) {
+    public ClientController(
+        ClientRepo clientRepo,
+        ReviewRepo reviewRepo,
+        CartRepo cartRepo,
+        OrderRepo orderRepo
+    ) {
+
         this.clientRepo = clientRepo;
+        this.reviewRepo = reviewRepo;
+        this.cartRepo = cartRepo;
+        this.orderRepo = orderRepo;
     }
 
     public ClientRepo getClientRepo() {
@@ -37,19 +49,16 @@ public class ClientController {
         clients.add(client2);
         clients.add(client3);
 
-
-
-        clientRepo.addOrderToClient(client1, 1);
-        clientRepo.addReviewToClient(client2,1);
-        clientRepo.setCart(client1,1);
-
+        clientRepo.addReviewToClient(client2, reviewRepo.findById(1));
+        clientRepo.addOrderToClient(client1, orderRepo.findById(1));
+        client1.setCart(cartRepo.findById(1));
         clientRepo.save(clients);
-
 
     }
 
+
     public void saveOneObject(Client client){
-        clientRepo.saveOneObject(client);}
+        clientRepo.saveOneObject(client);;}
 
     public void deleteObj(Client client){ clientRepo.deleteObj(client);}
 
@@ -70,8 +79,6 @@ public class ClientController {
         clientRepo.update(id, client);
     }
 
-
-
     public void updateAddress(int id, String address){
         clientRepo.updateAddress(id, address);
     }
@@ -85,15 +92,28 @@ public class ClientController {
 
     }
     public void addReviewToClient( Client client, int id){
-        clientRepo.addReviewToClient(client, id);
+        Review review=reviewRepo.findById(id);
+        clientRepo.addReviewToClient(client, review);
     }
 
     public void removeReviewToClient(Client client, int id){
-        clientRepo.removeReviewToClient( client, id);}
+        Review review=reviewRepo.findById(id);
+        clientRepo.removeReviewToClient( client, review);}
 
     public void addOrderToClient(Client client, int id){
-        clientRepo.addOrderToClient(client, id);}
+        Order order=orderRepo.findById(id);
+          clientRepo.addOrderToClient(client, order);
+    }
 
     public void removeOrderToClient(Client client, int id){
-        clientRepo.removeOrderToClient(client, id);}
+        Order order=orderRepo.findById(id);
+        clientRepo.removeOrderToClient(client, order);}
+
+    public void setCart(Client client, int id){
+        Cart cart = cartRepo.findById(id);
+        cartRepo.saveOneObject(cart);
+        clientRepo.setCart(client, cart);
+    }
+
+
 }

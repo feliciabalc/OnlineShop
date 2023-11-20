@@ -1,10 +1,9 @@
 package Entities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class Orders {
+public class Order {
     private int id;
     private double orderNumber;
     private float totalAmount;
@@ -27,8 +26,8 @@ public class Orders {
         return paymentStrategy;
     }
 
-    public Orders(int id, double orderNumber, float totalAmount, String paymentMethod, String address,
-                  String date) {
+    public Order(int id, double orderNumber, float totalAmount, String paymentMethod, String address,
+                 String date) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.totalAmount = totalAmount;

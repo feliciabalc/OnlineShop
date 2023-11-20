@@ -9,12 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class EmployeesRepo extends AbstractRepo {
-    private OrdersRepo ordersRepo;
 
-    public EmployeesRepo(String fileName,String specificationFilename, String reviewFilename,  String ArticlesFile,String orderFile) {
+    public EmployeesRepo(String fileName) {
 
         super(fileName);
-        this.ordersRepo = new OrdersRepo(orderFile,specificationFilename,reviewFilename,ArticlesFile);
     }
 
     @Override
@@ -117,14 +115,12 @@ public class EmployeesRepo extends AbstractRepo {
         }
     }
 
-    public void addOrderToEmployee(Employee employee, int id){
-        Orders order = ordersRepo.findById(id);
+    public void addOrderToEmployee(Employee employee, Order order){
         employee.addOrders(order);
         saveOneObject(employee);
     }
 
-    public void removeOrderToEmployee(Employee employee, int id){
-        Orders order = ordersRepo.findById(id);
+    public void removeOrderToEmployee(Employee employee, Order order){
         employee.removeOrders(order);
         saveOneObject(employee);
     }
@@ -171,14 +167,14 @@ public class EmployeesRepo extends AbstractRepo {
         }
     }
 
-    public void updateteOrders(int id, Orders order, Orders newOrder){
+    public void updateteOrders(int id, Order order, Order newOrder){
         List<Employee> employeeList = loadEmployee();
         boolean found = false;
 
         for (int i = 0; i < employeeList.size(); i++) {
             Employee employee = employeeList.get(i);
             if (employee.getId() == id) {
-                List<Orders> orders=employee.getOrders();
+                List<Order> orders=employee.getOrders();
                 for(int j= 0; j<= orders.size(); j++)
                     if(orders.get(j)==order){
                         orders.set(j, newOrder);

@@ -3,7 +3,7 @@ package UI;
 import Controller.WorkersController;
 import Entities.Courier;
 import Entities.Employee;
-import Entities.Orders;
+import Entities.Order;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class WorkersUI {
         employeeController.updateteRole(id, role);
     }
 
-    public void updateteOrders(int id, Orders order, Orders newOrder) {
+    public void updateteOrders(int id, Order order, Order newOrder) {
         employeeController.updateteOrders(id, order, newOrder);
     }
 

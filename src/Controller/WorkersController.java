@@ -3,8 +3,8 @@ package Controller;
 import Entities.*;
 import Repository.CourierRepo;
 import Repository.EmployeesRepo;
+import Repository.OrderRepo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WorkersController {
@@ -14,13 +14,14 @@ public class WorkersController {
 
     private CourierRepo courierRepo;
 
-    public WorkersController(EmployeesRepo employeesRepo, CourierRepo courierRepo, WorkersFactory workersFactory) {
+    private OrderRepo orderRepo;
+
+    public WorkersController(EmployeesRepo employeesRepo, WorkersFactory workersFactory, CourierRepo courierRepo, OrderRepo orderRepo) {
         this.employeesRepo = employeesRepo;
-        this.courierRepo = courierRepo;
         this.workersFactory = workersFactory;
+        this.courierRepo = courierRepo;
+        this.orderRepo = orderRepo;
     }
-
-
 
     public EmployeesRepo getEmployeesRepo() {
         return employeesRepo;
@@ -62,10 +63,10 @@ public class WorkersController {
 
 
         Employee e1 = employeesRepo.findById(1);
-        employeesRepo.addOrderToEmployee(e1, 1);
+        employeesRepo.addOrderToEmployee(e1, orderRepo.findById(1));
 
         Courier c1 = courierRepo.findById(1);
-        courierRepo.addOrderToCurier(c1,2);
+        courierRepo.addOrderToCurier(c1,orderRepo.findById(2));
 
 
     }
@@ -97,7 +98,7 @@ public class WorkersController {
         employeesRepo.updateteRole(id, role);
     }
 
-    public void updateteOrders(int id, Orders order, Orders newOrder){
+    public void updateteOrders(int id, Order order, Order newOrder){
         employeesRepo.updateteOrders(id, order, newOrder);
     }
 
@@ -107,10 +108,13 @@ public class WorkersController {
     }
 
     public void addOrderToEmployee(Employee employee, int id){
-       employeesRepo.addOrderToEmployee(employee, id);
+        Order order = orderRepo.findById(id);
+       employeesRepo.addOrderToEmployee(employee, order);
     }
 
-    public void removeOrderToEmployee(Employee employee, int id){ employeesRepo.removeOrderToEmployee(employee, id);
+    public void removeOrderToEmployee(Employee employee, int id){
+        Order order = orderRepo.findById(id);
+        employeesRepo.removeOrderToEmployee(employee, order);
     }
 
 
@@ -130,10 +134,12 @@ public class WorkersController {
     }
 
     public void addOrderToCurier(Courier courier, int id){
-        courierRepo.addOrderToCurier(courier, id);}
+        Order order = orderRepo.findById(id);
+        courierRepo.addOrderToCurier(courier, order);}
 
     public void removeOrderToCourier(Courier courier, int id){
-        courierRepo.removeOrderToCourier(courier, id);}
+        Order order = orderRepo.findById(id);
+        courierRepo.removeOrderToCourier(courier, order);}
 
     public void updateteTelefon(int id, double telefon){
         courierRepo.updateteTelefon(id,telefon);}

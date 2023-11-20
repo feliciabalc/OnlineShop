@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "quantity": 5.0,
+    "quantity": 10.0,
     "articles": [
       {
         "id": 1,
@@ -10,20 +10,12 @@
         "material": "bumbac",
         "type": "maneca",
         "price": 30.0,
-        "specifications": [
-          {
-            "id": 1,
-            "size": [
-              "S",
-              "M"
-            ],
-            "color": "rosu",
-            "quantity": 25.0,
-            "availability": true
-          }
-        ],
+        "specifications": [],
         "reviews": [],
-        "orders": []
+        "orders": [],
+        "specificationIds": [
+          1
+        ]
       }
     ],
     "observers": []

@@ -16,7 +16,7 @@ public class OrderBillingSystem {
        }return instance;
     }
 
-    public void generateBill(Orders order){
+    public void generateBill(Order order){
         System.out.println("Generating bill for" + order.getId() + " with the total amount of" + order.getTotalAmount());
     }
 

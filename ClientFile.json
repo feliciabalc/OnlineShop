@@ -26,20 +26,12 @@
           "material": "bumbac",
           "type": "maneca",
           "price": 24.0,
-          "specifications": [
-            {
-              "id": 1,
-              "size": [
-                "S",
-                "M"
-              ],
-              "color": "rosu",
-              "quantity": 25.0,
-              "availability": true
-            }
-          ],
+          "specifications": [],
           "reviews": [],
-          "orders": []
+          "orders": [],
+          "specificationIds": [
+            1
+          ]
         }
       ],
       "observers": []

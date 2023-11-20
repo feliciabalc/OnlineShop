@@ -9,17 +9,10 @@ import java.util.Comparator;
 import java.util.List;
 
 
-
 public class ArticlesRepo extends AbstractRepo {
-    private SpecificationsRepo specificationsRepo;
-    private ReviewRepo reviewRepo;
 
-
-    public ArticlesRepo(String fileName, String specificationFilename, String reviewFilename) {
-
+    public ArticlesRepo(String fileName) {
         super(fileName);
-        this.specificationsRepo=new SpecificationsRepo(specificationFilename);
-        this.reviewRepo = new ReviewRepo(reviewFilename);
 
     }
 
@@ -30,29 +23,30 @@ public class ArticlesRepo extends AbstractRepo {
     }
 
 
-
-
     public List<Articles> loadArticles() {
-        Type articlesListType = new TypeToken<List<Articles>>() {}.getType();
+        Type articlesListType = new TypeToken<List<Articles>>() {
+        }.getType();
         return load(articlesListType);
 
     }
 
-    public List<Articles> findAll(){
+    public List<Articles> findAll() {
         return loadArticles();
     }
 
 
-    public Articles findById(int Id){
+    public Articles findById(int Id) {
+
+       // String query = "SELECT * FROM "
         List<Articles> allArticles = loadArticles();
         Articles foundItem = null;
-        for(Articles item : allArticles){
-                if(item.getId() == Id)
-                    foundItem =item;
+        for (Articles item : allArticles) {
+            if (item.getId() == Id)
+                foundItem = item;
 
         }
 
-    return foundItem;
+        return foundItem;
     }
 
     public void delete(int Id) {
@@ -77,7 +71,6 @@ public class ArticlesRepo extends AbstractRepo {
             System.out.println("Article with ID " + Id + " not found.");
         }
     }
-
 
 
     public void update(int id, Articles updatedArticle) {
@@ -106,8 +99,8 @@ public class ArticlesRepo extends AbstractRepo {
     }
 
 
-    public void saveOneObject(Articles article){
-        List<Articles> allArticles =loadArticles();
+    public void saveOneObject(Articles article) {
+        List<Articles> allArticles = loadArticles();
         boolean found = false;
         for (Articles item : allArticles) {
             if (item.getId() == article.getId()) {
@@ -122,10 +115,14 @@ public class ArticlesRepo extends AbstractRepo {
         save(allArticles);
     }
 
-    public void deleteObj(Articles article){
-        List<Articles> allArticles =loadArticles();
-        allArticles.remove(article);
-        save(allArticles);
+    public void deleteObj(Articles article) {
+        String query = "delete from articles where id = ?";
+
+       // this.exec(query, article.id);
+
+        List<Articles> allArticles = loadArticles();
+            allArticles.remove(article);
+            save(allArticles);
     }
 
     public List<Articles> filteredByBrand(String brand) {
@@ -141,32 +138,26 @@ public class ArticlesRepo extends AbstractRepo {
     }
 
 
-    public void addSpecificationsToArticle(Articles article, int id){
-        Specifications specification = specificationsRepo.findById(id);
+    public void addSpecificationsToArticle(Articles article, Specifications specification) {
         article.addSpecifications(specification);
         saveOneObject(article);
     }
 
-    public void removeSpecificationsToArticle(Articles article, int id){
-        Specifications specification = specificationsRepo.findById(id);
+    public void removeSpecificationsToArticle(Articles article, Specifications specification) {
         article.removeSpecifications(specification);
         saveOneObject(article);
     }
 
 
-
-    public void addReviewToArticle(Articles article, int id){
-        Review review= reviewRepo.findById(id);
+    public void addReviewToArticle(Articles article, Review review) {
         article.addReview(review);
         saveOneObject(article);
     }
 
-    public void removeReviewToArticle(Articles article, int id){
-        Review review= reviewRepo.findById(id);
+    public void removeReviewToArticle(Articles article, Review review) {
         article.removeReview(review);
         saveOneObject(article);
     }
-
 
 
     public List<Articles> filteredByMaterial(String material) {
@@ -180,6 +171,7 @@ public class ArticlesRepo extends AbstractRepo {
 
 
     }
+
     Comparator<Articles> artComparator = new Comparator<Articles>() {
         @Override
         public int compare(Articles a1, Articles a2) {
@@ -188,6 +180,7 @@ public class ArticlesRepo extends AbstractRepo {
             return comparisonResult;
         }
     };
+
     public List<Articles> sortPriceAsc() {
         List<Articles> articles = loadArticles();
         articles.sort(artComparator);
@@ -199,7 +192,7 @@ public class ArticlesRepo extends AbstractRepo {
         public int compare(Articles a1, Articles a2) {
             int comparisonResult = (int) (a1.getPrice() - a2.getPrice());
 
-            return comparisonResult*-1;
+            return comparisonResult * -1;
         }
     };
 
@@ -209,7 +202,7 @@ public class ArticlesRepo extends AbstractRepo {
         return articles;
     }
 
-    public void updateName(int id, String name){
+    public void updateName(int id, String name) {
         List<Articles> articlesList = loadArticles();
         boolean found = false;
 
@@ -229,7 +222,7 @@ public class ArticlesRepo extends AbstractRepo {
         }
     }
 
-    public void updatePrice(int id, float price){
+    public void updatePrice(int id, float price) {
         List<Articles> articlesList = loadArticles();
         boolean found = false;
 
@@ -249,11 +242,11 @@ public class ArticlesRepo extends AbstractRepo {
         }
     }
 
-    public void addOrderToArticle(Articles articles, Orders orders){
-        articles.addOrders(orders);
+    public void addOrderToArticle(Articles articles, Order order) {
+        articles.addOrders(order);
     }
 
-    public void removeOrdersFromArticles(Articles articles, Orders orderItem){
+    public void removeOrdersFromArticles(Articles articles, Order orderItem) {
         articles.removeOrders(orderItem);
     }
 

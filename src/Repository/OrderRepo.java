@@ -3,19 +3,16 @@ package Repository;
 import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class OrdersRepo extends AbstractRepo {
-   private ArticlesRepo articlesRepo;
+public class OrderRepo extends AbstractRepo {
 
-    public OrdersRepo(String fileName,String specificationFilename, String reviewFilename, String ArticlesFile) {
+    public OrderRepo(String fileName) {
 
         super(fileName);
-        this.articlesRepo = new ArticlesRepo(ArticlesFile,specificationFilename,reviewFilename);
     }
 
     @Override
@@ -23,13 +20,13 @@ public class OrdersRepo extends AbstractRepo {
         super.save(objects);
     }
 
-    public void saveOneObj(Orders order) {
-        List<Orders> orders = loadOrders();
+    public void saveOneObj(Order order) {
+        List<Order> orders = loadOrders();
         boolean found = false;
 
-        Iterator<Orders> iterator = orders.iterator();
+        Iterator<Order> iterator = orders.iterator();
         while (iterator.hasNext()) {
-            Orders existingOrder = iterator.next();
+            Order existingOrder = iterator.next();
             if (existingOrder.getId() == order.getId()) {
                 iterator.remove(); // Use iterator to remove the order
                 orders.add(order);
@@ -47,26 +44,26 @@ public class OrdersRepo extends AbstractRepo {
 
 
 
-    public void deleteObj(Orders orders){
-        List<Orders> allOrders =loadOrders();
-        allOrders.remove(orders);
+    public void deleteObj(Order order){
+        List<Order> allOrders =loadOrders();
+        allOrders.remove(order);
         save(allOrders);
     }
 
-    public List<Orders> loadOrders() {
-        Type orderListType = new TypeToken<List<Orders>>() {}.getType();
+    public List<Order> loadOrders() {
+        Type orderListType = new TypeToken<List<Order>>() {}.getType();
         return load(orderListType);
     }
 
-    public List<Orders> findAll(){
+    public List<Order> findAll(){
         return loadOrders();
     }
 
 
-    public Orders findById(int Id){
-        List<Orders> allOrders = loadOrders();
-        Orders foundItem = null;
-        for(Orders item : allOrders){
+    public Order findById(int Id){
+        List<Order> allOrders = loadOrders();
+        Order foundItem = null;
+        for(Order item : allOrders){
             if(item.getId() == Id)
                 foundItem =item;
 
@@ -76,12 +73,12 @@ public class OrdersRepo extends AbstractRepo {
     }
 
     public void delete(int Id) {
-        List<Orders> orderList = loadOrders();
-        Orders foundItem = null;
+        List<Order> orderList = loadOrders();
+        Order foundItem = null;
         int indexToRemove = -1;
 
         for (int i = 0; i < orderList.size(); i++) {
-            Orders item = orderList.get(i);
+            Order item = orderList.get(i);
             if (item.getId() == Id) {
                 foundItem = item;
                 indexToRemove = i;
@@ -100,18 +97,18 @@ public class OrdersRepo extends AbstractRepo {
 
 
 
-    public void update(int id, Orders updatedOrders) {
-        List<Orders> orderList = loadOrders();
+    public void update(int id, Order updatedOrder) {
+        List<Order> orderList = loadOrders();
         boolean found = false;
 
         for (int i = 0; i < orderList.size(); i++) {
-            Orders order = orderList.get(i);
+            Order order = orderList.get(i);
             if (order.getId() == id) {
-                order.setOrderNumber(updatedOrders.getOrderNumber());
-                order.setTotalAmount(updatedOrders.getTotalAmount());
-                order.setPaymentMethod(updatedOrders.getPaymentMethod());
-                order.setAddress(updatedOrders.getAddress());
-                order.setDate(updatedOrders.getDate());
+                order.setOrderNumber(updatedOrder.getOrderNumber());
+                order.setTotalAmount(updatedOrder.getTotalAmount());
+                order.setPaymentMethod(updatedOrder.getPaymentMethod());
+                order.setAddress(updatedOrder.getAddress());
+                order.setDate(updatedOrder.getDate());
                 found = true;
                 break;
             }
@@ -126,36 +123,32 @@ public class OrdersRepo extends AbstractRepo {
 
 
 
-    public void addArticleToOrder(Orders order,int id){
-        Articles article=articlesRepo.findById(id);
+    public void addArticleToOrder(Order order, Articles article){
         order.addArticle(article);
-        articlesRepo.addOrderToArticle(article, order);
         saveOneObj(order);
     }
 
-    public void removeArticleToOrder(Orders order,int id){
-        Articles article=articlesRepo.findById(id);
+    public void removeArticleToOrder(Order order, Articles article){
         order.removeArticle(article);
-        articlesRepo.removeOrdersFromArticles(article, order);
         saveOneObj(order);
     }
 
 
 
     public void updateAddress(int id, String address){
-        List<Orders> ordersList = loadOrders();
+        List<Order> orderList = loadOrders();
         boolean found = false;
 
-        for (int i = 0; i < ordersList.size(); i++) {
-            Orders orders = ordersList.get(i);
-            if (orders.getId() == id) {
-                orders.setAddress(address);
+        for (int i = 0; i < orderList.size(); i++) {
+            Order order = orderList.get(i);
+            if (order.getId() == id) {
+                order.setAddress(address);
                 found = true;
                 break;
             }
         }
         if (found) {
-            save(ordersList);
+            save(orderList);
             System.out.println("Order with ID " + id + " has been updated.");
         } else {
             System.out.println("Order with ID " + id + " not found.");
@@ -163,19 +156,19 @@ public class OrdersRepo extends AbstractRepo {
     }
 
     public void updatetePaymentMethod(int id, String paymentMethod){
-        List<Orders> ordersList = loadOrders();
+        List<Order> orderList = loadOrders();
         boolean found = false;
 
-        for (int i = 0; i < ordersList.size(); i++) {
-            Orders orders = ordersList.get(i);
-            if (orders.getId() == id) {
-                orders.setPaymentMethod(paymentMethod);
+        for (int i = 0; i < orderList.size(); i++) {
+            Order order = orderList.get(i);
+            if (order.getId() == id) {
+                order.setPaymentMethod(paymentMethod);
                 found = true;
                 break;
             }
         }
         if (found) {
-            save(ordersList);
+            save(orderList);
             System.out.println("Orders with ID " + id + " has been updated.");
         } else {
             System.out.println("Orders with ID " + id + " not found.");
@@ -184,10 +177,10 @@ public class OrdersRepo extends AbstractRepo {
     }
 
 
-    public List<Orders> filteredByDate(String date) {
-        List<Orders> orders = loadOrders();
-        List<Orders> filteredOrders = new ArrayList<>();
-        for (Orders item : orders) {
+    public List<Order> filteredByDate(String date) {
+        List<Order> orders = loadOrders();
+        List<Order> filteredOrders = new ArrayList<>();
+        for (Order item : orders) {
             if (item.getDate() == date)
                 filteredOrders.add(item);
         }

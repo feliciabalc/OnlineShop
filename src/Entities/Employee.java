@@ -1,7 +1,6 @@
 package Entities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Employee {
@@ -10,7 +9,7 @@ public class Employee {
     protected String role;
     protected String salary;
     protected double telefon;
-    protected List<Orders> orders= new ArrayList<>();
+    protected List<Order> orders= new ArrayList<>();
 
 
     public Employee(int id,String name, String salary, double telefon) {
@@ -61,11 +60,11 @@ public class Employee {
         this.telefon = telefon;
     }
 
-    public List<Orders> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
@@ -84,11 +83,11 @@ public class Employee {
 
 
 
-    public void addOrders(Orders order){
+    public void addOrders(Order order){
         orders.add(order);
     }
 
-    public void removeOrders(Orders order){
+    public void removeOrders(Order order){
         orders.remove(order);
     }
 }

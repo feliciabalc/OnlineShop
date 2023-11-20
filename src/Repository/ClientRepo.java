@@ -3,24 +3,14 @@ package Repository;
 import Entities.*;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class ClientRepo extends AbstractRepo {
-    private ReviewRepo reviewRepo;
-    private CartRepo cartRepo;
-    private OrdersRepo ordersRepo;
-
-
-    public ClientRepo(String fileName, String ArticlesFile, String specificationFilename, String reviewFilename, String cartFilename, String orderFile) {
-
+    public ClientRepo(String fileName) {
         super(fileName);
-        this.reviewRepo = new ReviewRepo(reviewFilename);
-        this.cartRepo = new CartRepo(cartFilename,  specificationFilename,  ArticlesFile, reviewFilename);
-        this.ordersRepo = new OrdersRepo(orderFile, specificationFilename,  reviewFilename, ArticlesFile);
     }
 
     @Override
@@ -31,6 +21,7 @@ public class ClientRepo extends AbstractRepo {
         Type clientListType = new TypeToken<List<Client>>() {}.getType();
         return load(clientListType);
     }
+
 
 
     public void saveOneObject(Client client) {
@@ -120,29 +111,27 @@ public class ClientRepo extends AbstractRepo {
         }
     }
 
-    public void addReviewToClient(Client client, int id){
-        Review review = reviewRepo.findById(id);
+    public void addReviewToClient(Client client, Review review){
         client.addReview(review);
         saveOneObject(client);
     }
 
-    public void removeReviewToClient(Client client, int id){
-        Review review = reviewRepo.findById(id);
+    public void removeReviewToClient(Client client, Review review){
         client.removeReview(review);
         saveOneObject(client);
     }
 
-    public void addOrderToClient(Client client, int id){
-        Orders order = ordersRepo.findById(id);
-        client.addOrders(order);
+    public void addOrderToClient(Client client, Order order){
+        client.addOrder(order);
         saveOneObject(client);
     }
 
-    public void removeOrderToClient(Client client, int id){
-        Orders order = ordersRepo.findById(id);
+    public void removeOrderToClient(Client client, Order order){
         client.removeOrders(order);
         saveOneObject(client);
     }
+
+
 
     public void updateAddress(int id, String address){
         List<Client> clientsList = loadClient();
@@ -195,8 +184,9 @@ public class ClientRepo extends AbstractRepo {
 
     }
 
-    public void setCart(Client client, int id){
-        Cart cart = cartRepo.findById(id);
+    public void setCart(Client client, Cart cart){
+        ClientCartObserver clientObserver = new ClientCartObserver(client);
+        cart.addObserver(clientObserver);
         client.setCart(cart);
     }
 

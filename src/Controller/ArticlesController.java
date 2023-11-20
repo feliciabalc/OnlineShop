@@ -1,6 +1,8 @@
 package Controller;
 import Entities.*;
 import Repository.ArticlesRepo;
+import Repository.ReviewRepo;
+import Repository.SpecificationsRepo;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,9 +10,13 @@ import java.util.List;
 
 public class ArticlesController {
     private static ArticlesRepo articlesRepo;
+    private static SpecificationsRepo specificationsRepo;
+    private static ReviewRepo reviewRepo;
 
-    public ArticlesController(ArticlesRepo articlesRepo) {
+    public ArticlesController(ArticlesRepo articlesRepo, SpecificationsRepo specificationsRepo, ReviewRepo reviewRepo) {
         this.articlesRepo = articlesRepo;
+        this.specificationsRepo = specificationsRepo;
+        this.reviewRepo = reviewRepo;
     }
 
     public ArticlesRepo getArticlesRepo() {
@@ -32,9 +38,9 @@ public class ArticlesController {
         articles.add(a2);
         articles.add(a3);
 
-        articlesRepo.addSpecificationsToArticle(a1,1);
+        articlesRepo.addSpecificationsToArticle(a1,specificationsRepo.findById(1));
 
-        articlesRepo.addReviewToArticle(a2,1);
+        articlesRepo.addReviewToArticle(a2,reviewRepo.findById(1));
 
         articlesRepo.save(articles);
 
@@ -70,20 +76,24 @@ public class ArticlesController {
 
 
     public void addSpecificationsToArticle(Articles article, int id){
-        articlesRepo.addSpecificationsToArticle(article, id);
+        Specifications specifications = specificationsRepo.findById(id);
+        articlesRepo.addSpecificationsToArticle(article, specifications);
     }
 
-    public void removeSpecificationsToArticle(Articles article, int id){
-        articlesRepo.removeSpecificationsToArticle(article, id);
+    public void removeSpecificationsToArticle(Articles article,int id){
+        Specifications specifications = specificationsRepo.findById(id);
+        articlesRepo.removeSpecificationsToArticle(article, specifications);
     }
 
 
     public void addReviewToArticle(Articles article, int id){
-        articlesRepo.addReviewToArticle(article, id);
+        Review review=reviewRepo.findById(id);
+        articlesRepo.addReviewToArticle(article, review);
     }
 
     public void removeReviewToArticle(Articles article, int id){
-        articlesRepo.removeReviewToArticle(article, id);
+        Review review=reviewRepo.findById(id);
+        articlesRepo.removeReviewToArticle(article, review);
     }
 
 

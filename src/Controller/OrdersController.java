@@ -1,77 +1,82 @@
 package Controller;
 import Entities.*;
-import Repository.OrdersRepo;
+import Repository.ArticlesRepo;
+import Repository.OrderRepo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersController {
-    private OrdersRepo ordersRepo;
+    private OrderRepo orderRepo;
 
-    public OrdersController(OrdersRepo ordersRepo) {
-        this.ordersRepo = ordersRepo;
+    private ArticlesRepo articlesRepo;
+
+    public OrdersController(OrderRepo orderRepo, ArticlesRepo articlesRepo) {
+        this.orderRepo = orderRepo;
+        this.articlesRepo = articlesRepo;
     }
 
-    public OrdersRepo getOrdersRepo() {
-        return ordersRepo;
+    public OrderRepo getOrdersRepo() {
+        return orderRepo;
     }
 
-    public void setOrdersRepo(OrdersRepo ordersRepo) {
-        this.ordersRepo = ordersRepo;
+    public void setOrdersRepo(OrderRepo orderRepo) {
+        this.orderRepo = orderRepo;
     }
 
 
-    public List<Orders> loadOrders() {
-        return ordersRepo.loadOrders();
+    public List<Order> loadOrders() {
+        return orderRepo.loadOrders();
     }
 
-    public void saveOneObj(Orders order ){ordersRepo.saveOneObj(order);}
+    public void saveOneObj(Order order ){
+        orderRepo.saveOneObj(order);}
 
-    public void deleteObj(Orders orders){ ordersRepo.deleteObj(orders);}
+    public void deleteObj(Order order){ orderRepo.deleteObj(order);}
 
     public void save() {
-        Orders o1 = new Orders(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
-        Orders o2 = new Orders(2, 13 ,100, "card", "Dornei 10", "24.05.2023");
-        Orders o3 = new Orders(3, 15, 98, "card", "Horea 10", "14.09.2023");
-        List<Orders> orders = new ArrayList<>();
+        Order o1 = new Order(1, 12, 120, "cash", "Gruia 15", "10.12.2022");
+        Order o2 = new Order(2, 13 ,100, "card", "Dornei 10", "24.05.2023");
+        Order o3 = new Order(3, 15, 98, "card", "Horea 10", "14.09.2023");
+        List<Order> orders = new ArrayList<>();
         orders.add(o1);
         orders.add(o2);
         orders.add(o3);
 
 
-        ordersRepo.save(orders);
+        orderRepo.save(orders);
     }
 
-    public List<Orders> findAll() {
-        return ordersRepo.loadOrders();
+    public List<Order> findAll() {
+        return orderRepo.loadOrders();
     }
 
-    public Orders findById(int Id) {
+    public Order findById(int Id) {
 
-        return ordersRepo.findById(Id);
+        return orderRepo.findById(Id);
     }
 
     public void delete(int id) {
-        ordersRepo.delete(id);
+        orderRepo.delete(id);
     }
 
-    public void updateTheOrders(int id, Orders orders) {
-        ordersRepo.update(id, orders);
+    public void updateTheOrders(int id, Order order) {
+        orderRepo.update(id, order);
     }
 
 
 
     public void updateAddress(int id, String address){
-        ordersRepo.updateAddress(id, address);
+        orderRepo.updateAddress(id, address);
     }
 
     public void updatetePaymentMethod(int id, String paymentMethod){
-        ordersRepo.updatetePaymentMethod(id, paymentMethod);
+        orderRepo.updatetePaymentMethod(id, paymentMethod);
     }
 
 
-    public List<Orders> filteredByDate(String date) {
-       return ordersRepo.filteredByDate(date);
+    public List<Order> filteredByDate(String date) {
+       return orderRepo.filteredByDate(date);
 
     }
 
@@ -79,20 +84,22 @@ public class OrdersController {
 
 
 
-    public void addArticleToOrder(Orders order, int id){
-        ordersRepo.addArticleToOrder(order, id);
+    public void addArticleToOrder(Order order, int id){
+        Articles article=articlesRepo.findById(id);
+        orderRepo.addArticleToOrder(order, article);
     }
 
-    public void removeArticleToOrder(Orders order, int id){
-        ordersRepo.removeArticleToOrder(order, id);
+    public void removeArticleToOrder(Order order, int id){
+        Articles article=articlesRepo.findById(id);
+        orderRepo.removeArticleToOrder(order, article);
     }
 
     public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
-        ordersRepo.setPaymentStrategy(paymentStrategy);
+        orderRepo.setPaymentStrategy(paymentStrategy);
     }
 
     public void processPayment() {
-        ordersRepo.processPayment();
+        orderRepo.processPayment();
     }
 
 

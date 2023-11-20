@@ -2,10 +2,8 @@ package UI;
 
 import Controller.OrdersController;
 import Entities.*;
-import Repository.ClientRepo;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class OrdersUI {
     private OrdersController ordersController;
@@ -22,7 +20,7 @@ public class OrdersUI {
         this.ordersController = ordersController;
     }
 
-    public List<Orders> loadOrders() {
+    public List<Order> loadOrders() {
         return ordersController.loadOrders();
     }
 
@@ -30,18 +28,18 @@ public class OrdersUI {
         ordersController.save();
     }
 
-    public void saveOneOrder(Orders order){
+    public void saveOneOrder(Order order){
         ordersController.saveOneObj(order);
     }
-    public void deleteObj(Orders orders) {
-        ordersController.deleteObj(orders);
+    public void deleteObj(Order order) {
+        ordersController.deleteObj(order);
     }
 
-    public List<Orders> findAll() {
+    public List<Order> findAll() {
         return ordersController.findAll();
     }
 
-    public Orders findById(int Id) {
+    public Order findById(int Id) {
         return ordersController.findById(Id);
     }
 
@@ -49,8 +47,8 @@ public class OrdersUI {
         ordersController.delete(id);
     }
 
-    public void updateTheOrders(int id, Orders orders) {
-        ordersController.updateTheOrders(id, orders);
+    public void updateTheOrders(int id, Order order) {
+        ordersController.updateTheOrders(id, order);
     }
 
     public void updateAddress(int id, String address) {
@@ -61,17 +59,17 @@ public class OrdersUI {
         ordersController.updatetePaymentMethod(id, paymentMethod);
     }
 
-    public List<Orders> filteredByDate(String date) {
+    public List<Order> filteredByDate(String date) {
         return ordersController.filteredByDate(date);
     }
 
 
 
-    public void addArticleToOrder(Orders order, int id) {
+    public void addArticleToOrder(Order order, int id) {
         ordersController.addArticleToOrder(order, id);
     }
 
-    public void removeArticleToOrder(Orders order, int id) {
+    public void removeArticleToOrder(Order order, int id) {
         ordersController.removeArticleToOrder(order, id);
     }
 

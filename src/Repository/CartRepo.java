@@ -8,16 +8,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 public class CartRepo extends AbstractRepo {
 
-    private ArticlesRepo articlesRepo;
-
-
-    public CartRepo(String fileName,  String specificationFilename,  String ArticlesFile, String reviewFilename) {
-
+    public CartRepo(String fileName) {
         super(fileName);
-        this.articlesRepo = new ArticlesRepo(ArticlesFile,specificationFilename,reviewFilename);
     }
 
 
@@ -36,8 +30,9 @@ public class CartRepo extends AbstractRepo {
 
 
 
+
     public void saveOneObject(Cart cart){
-        cart.notifyObservers();
+
         List<Cart> allCarts =loadCart();
         boolean found = false;
 
@@ -130,15 +125,13 @@ public class CartRepo extends AbstractRepo {
 
 
 
-    public void addArticlesToCart(Cart cart, int id){
-        Articles article = articlesRepo.findById(id);
+    public void addArticlesToCart(Cart cart, Articles article){
         cart.addArticles(article);
         saveOneObject(cart);
         cart.notifyObservers();
     }
 
-    public void removeArticlesToCart(Cart cart, int id){
-        Articles article = articlesRepo.findById(id);
+    public void removeArticlesToCart(Cart cart, Articles article){
         cart.removeArticles(article);
         saveOneObject(cart);
         cart.notifyObservers();
@@ -164,14 +157,14 @@ public class CartRepo extends AbstractRepo {
             System.out.println("Cart with ID " + id + " not found.");
         }
     }
-    public void updateteArticles(int id, int articleId, Articles newArticle) {
+    public void updateteArticles(int id, Articles articleToUpdate, Articles newArticle) {
         List<Cart> cartList = loadCart();
         boolean found = false;
 
         for (int i = 0; i < cartList.size(); i++) {
             Cart cart = cartList.get(i);
             if (cart.getId() == id) {
-                Articles article = articlesRepo.findById(articleId);
+                Articles article = articleToUpdate;
                 cart.addArticles(article);
                 found = true;
             }
@@ -216,5 +209,7 @@ public class CartRepo extends AbstractRepo {
    public List<ClientCartObserver> getObservers(Cart cart){
         return getObservers(cart);
     }
+
+
 
 }

@@ -3,7 +3,6 @@ import Controller.*;
 import Entities.*;
 import Repository.*;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class ShopUI {
@@ -23,31 +22,6 @@ public class ShopUI {
     SpecificationsController specificationsController = new SpecificationsController(specificationsRepo);
     SpecificationsUI specificationsUI=new SpecificationsUI(specificationsController);
 
-    ArticlesRepo ar = new ArticlesRepo(ArticleFile,specificationFile,reviewFile);
-    ArticlesController ac = new ArticlesController(ar);
-    ArticlesUI articlesUI= new ArticlesUI(ac);
-
-    ClientRepo clientRepo = new ClientRepo(ClientFile, ArticleFile, specificationFile,  reviewFile,  cartFile,  orderFile);
-    ClientController clientController = new ClientController(clientRepo);
-    ClientUI clientUI = new ClientUI(clientController);
-
-    CourierRepo courierRepo = new CourierRepo(courierFile, specificationFile,reviewFile, ArticleFile,orderFile);
-    EmployeesRepo er = new EmployeesRepo(employeeFile,specificationFile, reviewFile, ArticleFile,orderFile);
-
-    WorkersFactory workersFactory = new WorkersFactory();
-    WorkersController ec = new WorkersController(er, courierRepo, workersFactory);
-    WorkersUI workersUI = new WorkersUI(ec);
-
-
-    CartRepo cr = new CartRepo(cartFile,specificationFile, ArticleFile, reviewFile);
-    CartController cc = new CartController(cr);
-    CartUI cartUI= new CartUI(cc);
-
-
-    OrdersRepo ordersRepo = new OrdersRepo(orderFile,specificationFile, reviewFile,ArticleFile);
-    OrdersController ordersController = new OrdersController(ordersRepo);
-    OrdersUI ordersUI = new OrdersUI(ordersController);
-
     ReviewRepo reviewRepo = new ReviewRepo(reviewFile);
     ReviewController reviewController = new ReviewController(reviewRepo);
     ReviewUI reviewUI= new ReviewUI(reviewController);
@@ -56,8 +30,34 @@ public class ShopUI {
     SuppliersController suppliersController = new SuppliersController(suppliersRepo);
     SuppliersUI suppliersUI =new SuppliersUI(suppliersController);
 
-    WarehouseRepo warehouseRepo = new WarehouseRepo(warehouseFile,specificationFile,reviewFile, courierFile,ArticleFile,employeeFile, supplierFile, orderFile);
-    WarehouseController warehouseController = new WarehouseController(warehouseRepo);
+
+    ArticlesRepo ar = new ArticlesRepo(ArticleFile);
+    ArticlesController ac = new ArticlesController(ar,specificationsRepo, reviewRepo);
+    ArticlesUI articlesUI= new ArticlesUI(ac);
+
+    CartRepo cr = new CartRepo(cartFile);
+    CartController cc = new CartController(cr, ar);
+    CartUI cartUI= new CartUI(cc);
+
+    OrderRepo orderRepo = new OrderRepo(orderFile);
+    OrdersController ordersController = new OrdersController(orderRepo, ar);
+    OrdersUI ordersUI = new OrdersUI(ordersController);
+
+    ClientRepo clientRepo = new ClientRepo(ClientFile);
+    ClientController clientController = new ClientController(clientRepo, reviewRepo, cr, orderRepo);
+    ClientUI clientUI = new ClientUI(clientController);
+
+    CourierRepo courierRepo = new CourierRepo(courierFile);
+    EmployeesRepo er = new EmployeesRepo(employeeFile);
+
+    WorkersFactory workersFactory = new WorkersFactory();
+    WorkersController ec = new WorkersController(er, workersFactory, courierRepo, orderRepo);
+    WorkersUI workersUI = new WorkersUI(ec);
+
+
+
+    WarehouseRepo warehouseRepo = new WarehouseRepo(warehouseFile);
+    WarehouseController warehouseController = new WarehouseController(warehouseRepo, er, ar, suppliersRepo, courierRepo);
     WarehouseUI warehouseUI= new WarehouseUI(warehouseController);
 
 
@@ -230,121 +230,135 @@ public class ShopUI {
         System.out.println("8.Update article");
         System.out.println("9. Update cart quantity");
         System.out.println("10.Exit");
-        Scanner myObj = new Scanner(System.in);
-        int input2 = Integer.parseInt(myObj.nextLine());
+        Scanner scanner = new Scanner(System.in);
+        int input2;
+
+        do {
+            System.out.println("Enter your choice: ");
+            input2 = Integer.parseInt(scanner.nextLine());
+            switch (input2) {
+                case 1:
+                    articlesUI.displayAllArticles();
+                    break;
+
+                case 2:
+                    System.out.println("Please enter your id");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    Client client = clientUI.findById(id);
+                    System.out.println(client.getCart());
+                    break;
+
+                case 3:
+                    System.out.println("Please enter your id");
+                    int id1 = Integer.parseInt(scanner.nextLine());
+                    Client client1 = clientUI.findById(id1);
+                    System.out.println(client1.getOrders());
+                    break;
+
+                case 4:
+                    System.out.println("Give me id, number of stars, comment, date, your id and also the id of the reviewed article");
+                    int id2 = Integer.parseInt(scanner.nextLine());
+                    String stars = String.valueOf(scanner.nextLine());
+                    String comment = String.valueOf(scanner.nextLine());
+                    String date = String.valueOf(scanner.nextLine());
+
+                    int ClientId = Integer.parseInt(scanner.nextLine());
+                    int ArticleId = Integer.valueOf(Integer.parseInt(scanner.nextLine()));
+                    Review newR = new Review(id2, stars, comment, date);
+                    reviewUI.addReview(newR);
+                    Client client2 = clientUI.findById(ClientId);
+                    clientUI.addReviewToClient(client2, newR.getId());
+                    Articles article = articlesUI.findById(ArticleId);
+                    articlesUI.addReviewToArticle(article, newR.getId());
+                    break;
+
+                case 5:
+                    break;
 
 
+                case 6:
+                    System.out.println("Give me your id: ");
+                    int id4 = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter the order id: ");
+                    int orderId = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter the order number: ");
+                    int orderNr = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter the total amount of your order: ");
+                    float amount = Float.parseFloat(scanner.nextLine());
+                    System.out.println("What payment method do you choose: ");
+                    String paymentMethod = scanner.nextLine();
+                    System.out.println("Enter your address: ");
+                    String address = scanner.nextLine();
+                    System.out.println("Enter the date: ");
+                    String date1 = scanner.nextLine();
 
-            if (input2 == 1) {
-                articlesUI.displayAllArticles();
-            } else if (input2 == 2) {
-                System.out.println("Please enter your id");
-                int id = Integer.parseInt(myObj.nextLine());
-                Client client = clientUI.findById(id);
-                System.out.println(client.getCart());
-            } else if (input2 == 3) {
-                System.out.println("Please enter your id");
-                int id = Integer.parseInt(myObj.nextLine());
-                Client client = clientUI.findById(id);
-                System.out.println(client.getOrders());
-            } else if (input2 == 4) {
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Give me id, number of stars, comment, date, your id and also the id of the reviewed article");
-                int id = Integer.parseInt(scanner.nextLine());
-                String stars = String.valueOf(scanner.nextLine());
-                String comment = String.valueOf(scanner.nextLine());
-                String date = String.valueOf(scanner.nextLine());
+                    Order order = new Order(orderId, orderNr, amount, paymentMethod, address, date1);
+                    ordersUI.saveOneOrder(order);
+                    Client client4 = clientUI.findById(id4);
+                    clientUI.addOrderToClient(client4, order.getId());
 
-                int ClientId = Integer.parseInt(scanner.nextLine());
-                int ArticleId = Integer.valueOf(Integer.parseInt(scanner.nextLine()));
-                Review newR = new Review(id, stars, comment, date);
-                reviewUI.addReview(newR);
-                Client client  = clientUI.findById(ClientId);
-                clientUI.addReviewToClient(client, newR.getId());
-                Articles article = articlesUI.findById(ArticleId);
-                articlesUI.addReviewToArticle(article, newR.getId());
+                    if ("Cash".equals(order.getPaymentMethod())) {
+                        ordersUI.setPaymentStrategy(new CashOnDelieveryStrategy());
+                    } else {
+                        System.out.println("Please enter your card number: ");
+                        String cardNr = scanner.nextLine();
+                        ordersUI.setPaymentStrategy(new CreditCardPaymentStrategy(cardNr)); // Set the credit card number
+                    }
+                    ordersUI.processPayment();
+                    orderBillingSystem.generateBill(order);
+                    break;
 
-            } else if (input2 == 5) {
+                case 7:
+                    System.out.println("Enter you id: ");
+                    int idClient = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter you new address: ");
+                    String newAddress = scanner.nextLine();
 
+                    clientUI.updateAddress(idClient, newAddress);
+                    break;
 
-            }else if (input2 == 6){
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Give me your id: ");
-                int id = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter the order id: ");
-                int orderId = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter the order number: ");
-                int orderNr = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter the total amount of your order: ");
-                float amount = Float.parseFloat(scanner.nextLine());
-                System.out.println("What payment method do you choose: ");
-                String paymentMethod = scanner.nextLine();
-                System.out.println("Enter your address: ");
-                String address = scanner.nextLine();
-                System.out.println("Enter the date: ");
-                String date = scanner.nextLine();
+                case 8:
+                    System.out.println("Enter cart ID to update articles:");
+                    int id5 = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter article ID to update:");
+                    int articleId = Integer.parseInt(scanner.nextLine());
 
-                Orders order = new Orders(orderId, orderNr, amount, paymentMethod,address,date);
-                ordersUI.saveOneOrder(order);
-                Client client = clientUI.findById(id);
-                clientUI.addOrderToClient(client, order.getId());
+                    System.out.println("Enter id:");
+                    int newArticleid = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter name:");
+                    String name = scanner.nextLine();
+                    System.out.println("Enter brand:");
+                    String brand = scanner.nextLine();
+                    System.out.println("Enter material:");
+                    String material = scanner.nextLine();
+                    System.out.println("Enter type:");
+                    String type = scanner.nextLine();
+                    System.out.println("Enter price:");
+                    float price = Float.parseFloat(scanner.nextLine());
 
-                if ("Cash".equals(order.getPaymentMethod())) {
-                    ordersUI.setPaymentStrategy(new CashOnDelieveryStrategy());
-                } else {
-                    System.out.println("Please enter your card number: ");
-                    String cardNr = scanner.nextLine();
-                    ordersUI.setPaymentStrategy(new CreditCardPaymentStrategy(cardNr)); // Set the credit card number
-                }
-                ordersUI.processPayment();
-                orderBillingSystem.generateBill(order);
-            } else if (input2 == 7) {
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Enter you id: ");
-                int idClient= Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter you new address: ");
-                String newAddress = scanner.nextLine();
+                    Articles newArticle = new Articles(newArticleid, name, brand, material, type, price);
+                    cartUI.updateArticles(id5, articleId, newArticle);
 
-                clientUI.updateAddress(idClient, newAddress);
+                    System.out.println("Cart articles updated successfully!");
+                    break;
 
-            } else if(input2 == 8){
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Enter cart ID to update articles:");
-                int id = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter article ID to update:");
-                int articleId = Integer.parseInt(scanner.nextLine());
+                case 9:
+                    System.out.println("Enter cart ID to update quantity:");
+                    int id6 = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Enter new quantity:");
+                    double quantity = Double.parseDouble(scanner.nextLine());
 
-                System.out.println("Enter id:");
-                int newArticleid = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter name:");
-                String name = scanner.nextLine();
-                System.out.println("Enter brand:");
-                String brand = scanner.nextLine();
-                System.out.println("Enter material:");
-                String material = scanner.nextLine();
-                System.out.println("Enter type:");
-                String type = scanner.nextLine();
-                System.out.println("Enter price:");
-                float price = Float.parseFloat(scanner.nextLine());
+                    cartUI.updateQuantity(id6, quantity);
+                    break;
 
-                Articles newArticle = new Articles(id, name, brand, material, type, price);
-                cartUI.updateArticles(id, articleId,newArticle);
+                case 10:
+                    System.out.println("Exiting menu....");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+                    break;
 
-                System.out.println("Cart articles updated successfully!");
-            } else if (input2 == 9) {
-                Scanner scanner = new Scanner(System.in);
-                System.out.println("Enter cart ID to update quantity:");
-                int id = Integer.parseInt(scanner.nextLine());
-                System.out.println("Enter new quantity:");
-                double quantity = Double.parseDouble(scanner.nextLine());
-
-                cartUI.updateQuantity(id, quantity);
-
-            } else if (input2 == 10) {
-                //break;
-            } else
-                System.out.println("Invalid choice");
-
-
+            }
+        }while(input2!=10);
     }
 }

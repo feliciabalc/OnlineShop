@@ -1,6 +1,7 @@
 package Controller;
 
 import Entities.*;
+import Repository.ArticlesRepo;
 import Repository.CartRepo;
 
 import java.util.ArrayList;
@@ -10,8 +11,11 @@ import java.util.List;
 public class CartController {
     private CartRepo cartRepo;
 
-    public CartController(CartRepo cartRepo) {
+    private ArticlesRepo articlesRepo;
+
+    public CartController(CartRepo cartRepo, ArticlesRepo articlesRepo) {
         this.cartRepo = cartRepo;
+        this.articlesRepo = articlesRepo;
     }
 
     public CartRepo getCartRepo() {
@@ -28,11 +32,13 @@ public class CartController {
     }
 
     public void addArticlesToCart(Cart cart, int id){
-        cartRepo.addArticlesToCart(cart, id);
+        Articles article = articlesRepo.findById(id);
+        cartRepo.addArticlesToCart(cart, article);
     }
 
-    public void removeArticlesToCart(Cart cart, int id){
-        cartRepo.removeArticlesToCart( cart, id);
+    public void removeArticlesToCart(Cart cart, int id ){
+        Articles article = articlesRepo.findById(id);
+        cartRepo.removeArticlesToCart( cart, article);
     }
 
     public void save() {
@@ -46,11 +52,13 @@ public class CartController {
         carts.add(cart3);
         carts.add(cart4);
 
-        cartRepo.addArticlesToCart(cart1, 1);
+        cartRepo.addArticlesToCart(cart1, articlesRepo.findById(1));
         cartRepo.save(carts);
     }
 
-    public void saveOneObj(Cart cart){ cartRepo.saveOneObject(cart);}
+    public void saveOneObj(Cart cart){
+
+        cartRepo.saveOneObject(cart);}
 
     public void deleteObj(Cart cart){ cartRepo.deleteObj(cart);}
 
@@ -77,7 +85,8 @@ public class CartController {
         cartRepo.updateQuantity(id, quantity);
     }
     public void updateteArticles(int id, int articleId, Articles newArticle) {
-        cartRepo.updateteArticles(id,  articleId, newArticle);
+        Articles article = articlesRepo.findById(articleId);
+        cartRepo.updateteArticles(id,  article, newArticle);
     }
 
     public List<ClientCartObserver> getObservers(Cart cart){

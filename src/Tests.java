@@ -1,8 +1,7 @@
-import Controller.ArticlesController;
-import Controller.ClientController;
-import Controller.WorkersController;
+import Controller.*;
 import Entities.*;
 import Repository.*;
+import UI.*;
 
 import java.util.List;
 
@@ -10,15 +9,61 @@ public class Tests {
     String orderFile ="OrdersFile.json";
     String specificationFile = "SpecificationsFile.json";
     String cartFile = "CartFile.json";
+    String warehouseFile = "WarehouseFile.json";
     String reviewFile = "ReviewFile.json";
     String ArticleFile= "ArticlesFile.json";
     String ClientFile="ClientFile.json";
     String courierFile="CourierFile.json";
     String employeeFile="EmployeesFile.json";
+    String supplierFile="SuppliersFile.json";
+
+
+    SpecificationsRepo specificationsRepo = new SpecificationsRepo(specificationFile);
+    SpecificationsController specificationsController = new SpecificationsController(specificationsRepo);
+    SpecificationsUI specificationsUI=new SpecificationsUI(specificationsController);
+
+    ReviewRepo reviewRepo = new ReviewRepo(reviewFile);
+    ReviewController reviewController = new ReviewController(reviewRepo);
+    ReviewUI reviewUI= new ReviewUI(reviewController);
+
+    SuppliersRepo suppliersRepo = new SuppliersRepo(supplierFile);
+    SuppliersController suppliersController = new SuppliersController(suppliersRepo);
+    SuppliersUI suppliersUI =new SuppliersUI(suppliersController);
+
+
+    ArticlesRepo ar = new ArticlesRepo(ArticleFile);
+    ArticlesController ac = new ArticlesController(ar,specificationsRepo, reviewRepo);
+    ArticlesUI articlesUI= new ArticlesUI(ac);
+
+    CartRepo cr = new CartRepo(cartFile);
+    CartController cc = new CartController(cr, ar);
+    CartUI cartUI= new CartUI(cc);
+
+    OrderRepo orderRepo = new OrderRepo(orderFile);
+    OrdersController ordersController = new OrdersController(orderRepo, ar);
+    OrdersUI ordersUI = new OrdersUI(ordersController);
+
+    ClientRepo clientRepo = new ClientRepo(ClientFile);
+    ClientController clientController = new ClientController(clientRepo, reviewRepo, cr, orderRepo);
+    ClientUI clientUI = new ClientUI(clientController);
+
+    CourierRepo courierRepo = new CourierRepo(courierFile);
+    EmployeesRepo er = new EmployeesRepo(employeeFile);
+
+    WorkersFactory workersFactory = new WorkersFactory();
+    WorkersController ec = new WorkersController(er, workersFactory, courierRepo, orderRepo);
+    WorkersUI workersUI = new WorkersUI(ec);
+
+
+
+    WarehouseRepo warehouseRepo = new WarehouseRepo(warehouseFile);
+    WarehouseController warehouseController = new WarehouseController(warehouseRepo, er, ar, suppliersRepo, courierRepo);
+    WarehouseUI warehouseUI= new WarehouseUI(warehouseController);
+
+
+    OrderBillingSystem orderBillingSystem = OrderBillingSystem.getInstance();
 
    public void testSortAsc(){
-       ArticlesRepo articlesRepo = new ArticlesRepo(ArticleFile,specificationFile,reviewFile);
-       ArticlesController ac = new ArticlesController(articlesRepo);
        List<Articles> sortedArticles=ac.sortPriceAsc();
 
        assert(sortedArticles.get(0).getPrice()==100);
@@ -26,52 +71,35 @@ public class Tests {
 
 
    public void testFillters(){
-       ClientRepo clientRepo = new ClientRepo(ClientFile,ArticleFile,specificationFile, reviewFile,cartFile,orderFile);
-       ClientController cc = new ClientController(clientRepo);
-       List<Client> fillteredClients = cc.filteredByName("Mark");
+       List<Client> fillteredClients = clientController.filteredByName("Mark");
 
        assert(fillteredClients.size() == 2);
    }
 
    public void testFactory(){
-       EmployeesRepo employeesRepo = new EmployeesRepo(employeeFile,specificationFile,reviewFile,ArticleFile, orderFile);
-       CourierRepo courierRepo = new CourierRepo(courierFile,specificationFile,reviewFile,ArticleFile,orderFile);
-       WorkersFactory workersFactory = new WorkersFactory();
-       WorkersController workersController = new WorkersController(employeesRepo, courierRepo, workersFactory);
+       ec.saveOneObject(10, "Ion", "13009", 12345.6789, "OrdersManagement");
+       assert(ec.findEmployeeById(10) != null);
 
-       workersController.saveOneObject(10, "Ion", "13009", 12345.6789, "OrdersManagement");
-       assert(workersController.findEmployeeById(10) != null);
-
-       workersController.saveOneObject(20, "Maria", "4500", 0789.3457, "Courier");
+       ec.saveOneObject(20, "Maria", "4500", 0789.3457, "Courier");
        assert(courierRepo.findById(20)!=null);
 
    }
 
    public void testObserver(){
-       CartRepo cartRepo = new CartRepo(cartFile, specificationFile, ArticleFile,reviewFile);
-       Cart cart = cartRepo.findById(1);
+       Cart cart = cr.findById(1);
 
        Client client = new Client(30, "Maria","Horea", 12345.67890 );
-
-
-       String orderFile ="OrdersFile.json";
-       String specificationFile = "SpecificationsFile.json";
-       String cartFile = "CartFile.json";
-       String warehouseFile = "WarehouseFile.json";
-       String reviewFile = "ReviewFile.json";
-       ArticlesRepo articlesRepo = new ArticlesRepo(ArticleFile,specificationFile,reviewFile);
-       Articles article = articlesRepo.findById(5);
+       Articles article = ar.findById(5);
 
        ClientCartObserver clientCartObserver = new ClientCartObserver(client);
 
 
-       assert(cartRepo.getObservers(cart) == clientCartObserver);
-       cartRepo.updatePriceArticle(1, 1, 30);
+       assert(cr.getObservers(cart) == clientCartObserver);
+       cr.updatePriceArticle(1, 1, 30);
    }
 
     public void testStrategy() {
-        OrdersRepo ordersRepo = new OrdersRepo(orderFile,specificationFile,reviewFile,ArticleFile);
-        Orders order = ordersRepo.findById(1);
+        Order order = orderRepo.findById(1);
 
         if ("Cash".equals(order.getPaymentMethod())) {
             order.setPaymentStrategy(new CashOnDelieveryStrategy());

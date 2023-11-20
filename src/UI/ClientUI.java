@@ -3,13 +3,8 @@ package UI;
 import Controller.ClientController;
 import Entities.Cart;
 import Entities.Client;
-import Entities.Orders;
-import Entities.Review;
-import Repository.CartRepo;
-import Repository.ClientRepo;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class ClientUI {
     private ClientController clientController;
@@ -75,6 +70,7 @@ public class ClientUI {
     public void addReviewToClient(Client client, int id) {
         clientController.addReviewToClient(client, id);
     }
+
     public void removeReviewToClient(Client client, int id){
         clientController.removeReviewToClient(client, id);}
 

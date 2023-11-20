@@ -1,8 +1,6 @@
 package Repository;
-import Entities.Client;
-import Entities.Employee;
 import Entities.Courier;
-import Entities.Orders;
+import Entities.Order;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -10,10 +8,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class CourierRepo extends AbstractRepo {
-    private OrdersRepo ordersRepo;
-    public CourierRepo(String fileName, String specificationFilename, String reviewFilename, String ArticlesFile, String orderFile){
+    public CourierRepo(String fileName){
         super(fileName);
-        this.ordersRepo = new OrdersRepo(orderFile,specificationFilename,reviewFilename,ArticlesFile);
+
     }
     @Override
     public void save(List objects) {
@@ -89,14 +86,12 @@ public class CourierRepo extends AbstractRepo {
 
 
 
-    public void addOrderToCurier( Courier courier, int id){
-        Orders order = ordersRepo.findById(id);
+    public void addOrderToCurier( Courier courier, Order order){
         courier.addOrders(order);
         saveOneObject(courier);
     }
 
-    public void removeOrderToCourier(Courier courier, int id){
-        Orders order = ordersRepo.findById(id);
+    public void removeOrderToCourier(Courier courier, Order order){
         courier.removeOrders(order);
         saveOneObject(courier);
     }
@@ -143,14 +138,14 @@ public class CourierRepo extends AbstractRepo {
 
 
 
-    public void updateteOrders(int id, Orders order, Orders newOrder) {
+    public void updateteOrders(int id, Order order, Order newOrder) {
         List<Courier> courierList = loadCourier();
         boolean found = false;
 
         for (int i = 0; i < courierList.size(); i++) {
             Courier courier = courierList.get(i);
             if (courier.getId() == id) {
-                List<Orders> orders = courier.getOrders();
+                List<Order> orders = courier.getOrders();
                 for (int j = 0; j <=orders.size(); j++)
                     if (orders.get(j) == order) {
                         orders.set(j, newOrder);

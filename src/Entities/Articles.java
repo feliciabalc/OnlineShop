@@ -13,7 +13,18 @@ public class Articles {
     private List<Specifications> specifications= new ArrayList<>();
     private List<Review> reviews= new ArrayList<>();
 
-    private List<Orders> orders= new ArrayList<>();
+    private List<Order> orders= new ArrayList<>();
+
+    private List<Integer> specificationIds = new ArrayList<>();
+
+
+    public List<Integer> getSpecificationIds() {
+        return specificationIds;
+    }
+
+    public void setSpecificationIds(List<Integer> specificationIds) {
+        this.specificationIds = specificationIds;
+    }
 
     public List<Specifications> getSpecifications() {
         return specifications;
@@ -31,11 +42,11 @@ public class Articles {
         this.reviews = reviews;
     }
 
-    public List<Orders> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Orders> orders) {
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
 
@@ -110,11 +121,11 @@ public class Articles {
     }
 
     public void addSpecifications(Specifications specification){
-        specifications.add(specification);
+        specificationIds.add(specification.getId());
     }
 
     public void removeSpecifications(Specifications specification){
-        specifications.remove(specification);
+        specificationIds.remove(specification.getId());
     }
 
     public void addReview(Review review){
@@ -127,11 +138,11 @@ public class Articles {
 
 
 
-    public void addOrders(Orders orderItem){
+    public void addOrders(Order orderItem){
         orders.add(orderItem);
     }
 
-    public void removeOrders(Orders orderItem){
+    public void removeOrders(Order orderItem){
         orders.remove(orderItem);
     }
 }

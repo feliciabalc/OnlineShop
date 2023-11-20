@@ -8,7 +8,7 @@ public class CreditCardPaymentStrategy implements PaymentStrategy{
     }
 
     @Override
-    public void processPayment(Orders order) {
+    public void processPayment(Order order) {
         System.out.println("Paid for order with id "+ order.getId() + " :" + order.getTotalAmount() + " using credit card: " + cardNumber);
     }
 }

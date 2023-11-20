@@ -1,8 +1,7 @@
 package Controller;
 
 import Entities.*;
-import Repository.EmployeesRepo;
-import Repository.WarehouseRepo;
+import Repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,21 @@ import java.util.function.Supplier;
 public class WarehouseController {
     private WarehouseRepo warehouseRepo;
 
-    public WarehouseController(WarehouseRepo warehouseRepo) {
+    private EmployeesRepo employeesRepo;
+
+    private ArticlesRepo articlesRepo;
+
+    private SuppliersRepo suppliersRepo;
+
+    private CourierRepo courierRepo;
+
+    public WarehouseController(WarehouseRepo warehouseRepo, EmployeesRepo employeesRepo,
+                               ArticlesRepo articlesRepo, SuppliersRepo suppliersRepo, CourierRepo courierRepo) {
         this.warehouseRepo = warehouseRepo;
+        this.employeesRepo = employeesRepo;
+        this.articlesRepo = articlesRepo;
+        this.suppliersRepo = suppliersRepo;
+        this.courierRepo = courierRepo;
     }
 
     public WarehouseRepo getWarehouseRepo() {
@@ -37,8 +49,8 @@ public class WarehouseController {
         warehouse.add(war2);
         warehouse.add(war3);
 
-        warehouseRepo.addArticlesToWarehouse(war1,1);
-        warehouseRepo.addArticlesToWarehouse(war2, 2);
+        warehouseRepo.addArticlesToWarehouse(war1,articlesRepo.findById(1));
+        warehouseRepo.addArticlesToWarehouse(war2, articlesRepo.findById(2));
         warehouseRepo.save(warehouse);
     }
 
@@ -86,26 +98,34 @@ public class WarehouseController {
     }
 
     public void addArticlesToWarehouse(Warehouse warehouse, int id){
-        warehouseRepo.addArticlesToWarehouse(warehouse, id);}
+        Articles article=articlesRepo.findById(id);
+        warehouseRepo.addArticlesToWarehouse(warehouse, article);}
 
     public void removeArticlesToWarehouse(Warehouse warehouse, int id){
-        warehouseRepo.removeArticlesToWarehouse(warehouse, id);}
+        Articles article=articlesRepo.findById(id);
+        warehouseRepo.removeArticlesToWarehouse(warehouse, article);}
 
     public void addEmployeeToWarehouse(Warehouse warehouse,int id){
-        warehouseRepo.addEmployeeToWarehouse(warehouse, id);}
+        Employee employee=employeesRepo.findById(id);
+        warehouseRepo.addEmployeeToWarehouse(warehouse, employee);}
 
     public void removeEmployeeToWarehouse(Warehouse warehouse,int id){
-        warehouseRepo.removeEmployeeToWarehouse(warehouse, id);}
+        Employee employee=employeesRepo.findById(id);
+        warehouseRepo.removeEmployeeToWarehouse(warehouse, employee);}
 
     public void addSupplierToWarehouse(Warehouse warehouse,int id){
-        warehouseRepo.addSupplierToWarehouse(warehouse, id);}
+        Suppliers supplier=suppliersRepo.findById(id);
+        warehouseRepo.addSupplierToWarehouse(warehouse, supplier);}
 
     public void removeSupplierToWarehouse(Warehouse warehouse,int id){
-        warehouseRepo.removeSupplierToWarehouse(warehouse, id);}
+        Suppliers supplier=suppliersRepo.findById(id);
+        warehouseRepo.removeSupplierToWarehouse(warehouse, supplier);}
 
     public void addCourierToWarehouse(Warehouse warehouse,int id){
-        warehouseRepo.addCourierToWarehouse(warehouse, id);}
+        Courier courier=courierRepo.findById(id);
+        warehouseRepo.addCourierToWarehouse(warehouse, courier);}
 
     public void removeCourierToWarehouse(Warehouse warehouse,int id){
-        warehouseRepo.removeCourierToWarehouse(warehouse, id);}
+        Courier courier=courierRepo.findById(id);
+        warehouseRepo.removeCourierToWarehouse(warehouse, courier);}
 }

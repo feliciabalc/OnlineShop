@@ -10,18 +10,12 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class WarehouseRepo extends AbstractRepo {
-    private EmployeesRepo employeesRepo;
-    private ArticlesRepo articlesRepo;
-    private SuppliersRepo suppliersRepo;
-    private CourierRepo courierRepo;
 
-    public WarehouseRepo(String fileName, String specificationFilename, String reviewFilename, String courierFile, String ArticlesFile, String employeeFile,String supplierFile, String orderFile) {
+
+    public WarehouseRepo(String fileName) {
 
         super(fileName);
-        this.courierRepo=new CourierRepo( courierFile,  specificationFilename,  reviewFilename,ArticlesFile,orderFile);
-        this.employeesRepo= new EmployeesRepo(employeeFile, specificationFilename,  reviewFilename,ArticlesFile,orderFile);
-        this.articlesRepo=new ArticlesRepo(ArticlesFile,specificationFilename,reviewFilename);
-        this.suppliersRepo=new SuppliersRepo(supplierFile);
+
     }
 
     @Override
@@ -111,50 +105,42 @@ public class WarehouseRepo extends AbstractRepo {
         }
     }
 
-    public void addArticlesToWarehouse(Warehouse warehouse,int id){
-        Articles article=articlesRepo.findById(id);
+    public void addArticlesToWarehouse(Warehouse warehouse,Articles article){
         warehouse.addArticles(article);
         saveOneObj(warehouse);
     }
 
-    public void removeArticlesToWarehouse(Warehouse warehouse,int id){
-        Articles article=articlesRepo.findById(id);
+    public void removeArticlesToWarehouse(Warehouse warehouse,Articles article){
         warehouse.removeArticle(article);
         saveOneObj(warehouse);
     }
 
-    public void addEmployeeToWarehouse(Warehouse warehouse,int id){
-        Employee employee=employeesRepo.findById(id);
+    public void addEmployeeToWarehouse(Warehouse warehouse,Employee employee){
         warehouse.addEmployee(employee);
         saveOneObj(warehouse);
     }
 
-    public void removeEmployeeToWarehouse(Warehouse warehouse,int id){
-        Employee employee=employeesRepo.findById(id);
+    public void removeEmployeeToWarehouse(Warehouse warehouse,Employee employee){
         warehouse.removeEmployee(employee);
         saveOneObj(warehouse);
     }
 
-    public void addSupplierToWarehouse(Warehouse warehouse,int id){
-        Suppliers supplier = suppliersRepo.findById(id);
+    public void addSupplierToWarehouse(Warehouse warehouse,Suppliers supplier){
         warehouse.addSuppliers(supplier);
         saveOneObj(warehouse);
     }
 
-    public void removeSupplierToWarehouse(Warehouse warehouse,int id){
-        Suppliers supplier = suppliersRepo.findById(id);
+    public void removeSupplierToWarehouse(Warehouse warehouse,Suppliers supplier){
         warehouse.removeSuppliers(supplier);
         saveOneObj(warehouse);
     }
 
-    public void addCourierToWarehouse(Warehouse warehouse,int id){
-        Courier courier = courierRepo.findById(id);
+    public void addCourierToWarehouse(Warehouse warehouse,Courier courier){
         warehouse.addCourier(courier);
         saveOneObj(warehouse);
     }
 
-    public void removeCourierToWarehouse(Warehouse warehouse,int id){
-        Courier courier = courierRepo.findById(id);
+    public void removeCourierToWarehouse(Warehouse warehouse,Courier courier){
         warehouse.removeCourier(courier);
         saveOneObj(warehouse);
     }
