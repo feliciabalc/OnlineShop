@@ -10,7 +10,6 @@ public class Client{
     private double telefon;
     private List<Order> orders= new ArrayList<>();
     private Cart cart;
-    private Integer cartId;
     private List<Review> reviews= new ArrayList();
 
     public Client(int id,String name, String address, double telefon) {

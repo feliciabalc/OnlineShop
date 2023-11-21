@@ -66,4 +66,10 @@ public class Specifications {
                 ", availability=" + availability +
                 '}';
     }
+
+    public boolean getAvailability(){
+        if(this.availability == true)
+            return true;
+        return false;
+    }
 }

@@ -1,7 +1,5 @@
 import DB_Repo.ArticleRepoDB;
-import Entities.Articles;
-import Entities.Cart;
-import Entities.Client;
+import Entities.*;
 import Repository.CartRepo;
 import Repository.ClientRepo;
 import UI.ShopUI;
@@ -29,19 +27,29 @@ public class Main {
 
 
         List<Articles> articlesList = new ArrayList<>();
-        Articles articles = new Articles(10, "rochie", "zara", "tafta", "lunga", 156);
-        articlesList.add(articles);
+        //Articles articles = new Articles(2,"tricou", "cx", "bumbac", "maneca", 2);
+
+
+
+        Specifications specification = new Specifications(1, new String[]{"S", "M"}, "blue", 26, true);
+        System.out.println(specification.getAvailability());
+        //articles.addSpecifications(specification);
+
+       // articlesList.add(articles);
 
         String jdbcUrl = "jdbc:mysql://localhost:3306/onlineshop";
         String username = "shop_user";
         String password = "shop_pass";
 
-        ArticleRepoDB articleRepoDB = new ArticleRepoDB(jdbcUrl, username, password);
-        //articleRepoDB.saveIntoDB(articlesList);
-        System.out.println(articleRepoDB.loadFromDB(articlesList));
+       // ArticleRepoDB articleRepoDB = new ArticleRepoDB(jdbcUrl, username, password);
+        //System.out.println(articleRepoDB.loadFromDB());
 
 
         //continua main
+        ///  public void addOrderToArticle(Articles articles, int specId) {
+        //          il adaug in saveIntoDB, dupa ca sail iau il caut in tabelu lui
+        //        articles.addOrders(order);
+        //trebe si un controller articlesOrder
 
     }
 }
