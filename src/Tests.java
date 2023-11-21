@@ -1,4 +1,6 @@
 import Controller.*;
+import DB_Controller.ArticleControllerDB;
+import DB_Repo.ArticleRepoDB;
 import Entities.*;
 import Repository.*;
 import UI.*;
@@ -60,6 +62,13 @@ public class Tests {
     WarehouseController warehouseController = new WarehouseController(warehouseRepo, er, ar, suppliersRepo, courierRepo);
     WarehouseUI warehouseUI= new WarehouseUI(warehouseController);
 
+    String connectionString = "jdbc:mysql://localhost:3306/onlineshop";
+    String username = "shop_user";
+    String password = "shop_pass";
+
+    ArticleRepoDB articleRepo = new ArticleRepoDB(connectionString, username, password);
+    ArticleControllerDB articleController= new ArticleControllerDB(articleRepo);
+
 
     OrderBillingSystem orderBillingSystem = OrderBillingSystem.getInstance();
 
@@ -107,6 +116,19 @@ public class Tests {
             order.setPaymentStrategy(new CreditCardPaymentStrategy("1234.5678")); // Set the credit card number
         }
         order.processPayment();
+    }
+
+
+    public void testLoad_db(){
+
+        List<Articles> articlesList = articleController.loadFromDB();
+        assert(articlesList.size() == 4);
+    }
+
+    public void testUpdate_find(){
+       articleController.updatePrice(10, 200);
+       Articles article1 = articleController.findById(10);
+       assert(article1.getPrice() == 200);
     }
 
 

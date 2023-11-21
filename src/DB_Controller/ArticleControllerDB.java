@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ArticleControllerDB {
-    private static ArticleRepoDB articleRepo;
+    private  ArticleRepoDB articleRepo;
 
     public ArticleControllerDB(ArticleRepoDB articleRepo) {
         this.articleRepo = articleRepo;
@@ -18,7 +18,7 @@ public class ArticleControllerDB {
         articleRepo.saveIntoDB(articles);
     }
 
-    private List<Articles> loadFromDB(){
+    public List<Articles> loadFromDB(){
         return articleRepo.loadFromDB();
     }
 
