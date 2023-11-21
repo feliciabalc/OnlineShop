@@ -1,6 +1,6 @@
-import Entities.Articles;
-import Entities.Cart;
-import Entities.Specifications;
+package DB_Repo;
+
+import Entities.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ public class CartRepoDB {
         this.username = username;
         this.password = password;
     }
-
     public void saveIntoDB(List<Cart> carts) {
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);
              PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Cart (Id, Quantity, Articles_id) VALUES (?, ?)")) {
@@ -48,7 +47,7 @@ public class CartRepoDB {
         }
     }
 
-    private Cart createCartFromResultSet(ResultSet resultSet) throws SQLException {
+    public Cart createCartFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         double quantity = resultSet.getDouble("Quantity");
 
@@ -70,5 +69,45 @@ public class CartRepoDB {
             e.printStackTrace(); // Handle the exception properly
         }
         return result;
+    }
+
+    public Cart findById(int Id){
+        List<Cart> allCart = loadFromDB();
+        Cart foundItem = null;
+        for(Cart item : allCart){
+            if(item.getId() == Id)
+                foundItem =item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Cart WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void updateQuantity(int Id, double Quantity) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Cart SET Quantity = ? WHERE Id = ?")) {
+
+            preparedStatement.setDouble(1, Quantity);
+            preparedStatement.setInt(2, Id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

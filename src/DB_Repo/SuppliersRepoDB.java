@@ -37,7 +37,7 @@ public class SuppliersRepoDB {
         }
     }
 
-    private Suppliers createSuppliersFromResultSet(ResultSet resultSet) throws SQLException {
+    public Suppliers createSuppliersFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         String name = resultSet.getString("Name");
         Double telefon = resultSet.getDouble("Telefon");
@@ -63,5 +63,54 @@ public class SuppliersRepoDB {
         }
         return result;
     }
+
+
+
+    public Suppliers findById(int Id) {
+
+        List<Suppliers> allSuppliers = loadFromDB();
+        Suppliers foundItem = null;
+        for (Suppliers item : allSuppliers) {
+            if (item.getId() == Id)
+                foundItem = item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Suppliers WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public List<Suppliers> filterByName(String name) {
+        List<Suppliers> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Suppliers WHERE Name = ?")) {
+
+            preparedStatement.setString(1, name);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(createSuppliersFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }

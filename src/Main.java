@@ -32,7 +32,7 @@ public class Main {
 
 
         Specifications specification = new Specifications(1, new String[]{"S", "M"}, "blue", 26, true);
-        System.out.println(specification.getAvailability());
+        //System.out.println(specification.getAvailability());
         //articles.addSpecifications(specification);
 
        // articlesList.add(articles);
@@ -41,7 +41,10 @@ public class Main {
         String username = "shop_user";
         String password = "shop_pass";
 
-       // ArticleRepoDB articleRepoDB = new ArticleRepoDB(jdbcUrl, username, password);
+       ArticleRepoDB articleRepoDB = new ArticleRepoDB(jdbcUrl, username, password);
+       // System.out.println(articleRepoDB.findById(1));
+        //articleRepoDB.updatePrice(1, 25);
+        System.out.println(articleRepoDB.filterByBrand("zara"));
         //System.out.println(articleRepoDB.loadFromDB());
 
 

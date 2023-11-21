@@ -91,7 +91,7 @@ public class WarehouseRepoDB {
         }
     }
 
-    private Warehouse createWarehouseFromResultSet(ResultSet resultSet) throws SQLException {
+    public Warehouse createWarehouseFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         String name = resultSet.getString("Name");
         String address = resultSet.getString("Address");
@@ -116,5 +116,52 @@ public class WarehouseRepoDB {
         }
         return result;
     }
+
+
+    public Warehouse findById(int Id) {
+
+        List<Warehouse> warehouseList = loadFromDB();
+        Warehouse foundItem = null;
+        for (Warehouse item : warehouseList) {
+            if (item.getId() == Id)
+                foundItem = item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Warehouse WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public List<Warehouse> filterByAddress(String address) {
+        List<Warehouse> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Warehouse WHERE Address = ?")) {
+
+            preparedStatement.setString(1, address);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(createWarehouseFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 }

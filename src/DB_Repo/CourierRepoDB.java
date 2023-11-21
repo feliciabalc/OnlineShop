@@ -38,7 +38,7 @@ public class CourierRepoDB {
         }
     }
 
-    private Courier createCourierFromResultSet(ResultSet resultSet) throws SQLException {
+    public Courier createCourierFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         String name = resultSet.getString("Name");
         String salary = resultSet.getString("Salary");
@@ -64,5 +64,49 @@ public class CourierRepoDB {
         }
         return result;
     }
+
+
+    public Courier findById(int Id) {
+
+        List<Courier> allCouriers = loadFromDB();
+        Courier foundItem = null;
+        for (Courier item : allCouriers) {
+            if (item.getId() == Id)
+                foundItem = item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Courier WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void updateSalary(int Id, String salary) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Courier SET Salary = ? WHERE Id = ?")) {
+
+            preparedStatement.setString(1, salary);
+            preparedStatement.setInt(2, Id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

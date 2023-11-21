@@ -22,10 +22,10 @@ import com.google.gson.reflect.TypeToken;
 import java.util.Objects;
 
 
-public class ArticleRepoDB{
-    private  String connectionString;
-    private  String username;
-    private  String password ;
+public class ArticleRepoDB {
+    private String connectionString;
+    private String username;
+    private String password;
 
 
     public ArticleRepoDB(String connectionString, String username, String password) {
@@ -33,8 +33,6 @@ public class ArticleRepoDB{
         this.username = username;
         this.password = password;
     }
-
-
 
 
     public void saveIntoDB(List<Articles> articles) {
@@ -89,11 +87,7 @@ public class ArticleRepoDB{
     }
 
 
-
-
-
-
-    private Articles createArticleFromResultSet(ResultSet resultSet) throws SQLException {
+    public Articles createArticleFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         String name = resultSet.getString("Name");
         String brand = resultSet.getString("Brand");
@@ -103,7 +97,6 @@ public class ArticleRepoDB{
 
         return new Articles(id, name, brand, material, type, price);
     }
-
 
 
     public List<Articles> loadFromDB() {
@@ -134,6 +127,105 @@ public class ArticleRepoDB{
     //            }
     //            System.out.println("Specification IDs: " + specificationIdsString);
     //            preparedStatement.setString(7, specificationIdsString);
+
+
+    public Articles findById(int Id) {
+
+        List<Articles> allArticles = loadFromDB();
+        Articles foundItem = null;
+        for (Articles item : allArticles) {
+            if (item.getId() == Id)
+                foundItem = item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Articles WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void update(int Id, Articles updatedArticle) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Articles SET Name = ?, Brand = ?, Material = ?, Type = ?, Price = ? WHERE Id = ?")) {
+
+            preparedStatement.setString(1, updatedArticle.getName());
+            preparedStatement.setString(2, updatedArticle.getBrand());
+            preparedStatement.setString(3, updatedArticle.getMaterial());
+            preparedStatement.setString(4, updatedArticle.getType());
+            preparedStatement.setDouble(5, updatedArticle.getPrice());
+            preparedStatement.setInt(6, Id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updatePrice(int Id, double newPrice) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Articles SET Price = ? WHERE Id = ?")) {
+
+            preparedStatement.setDouble(1, newPrice);
+            preparedStatement.setInt(2, Id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public List<Articles> filterByBrand(String brand) {
+        List<Articles> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Articles WHERE Brand = ?")) {
+
+            preparedStatement.setString(1, brand);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(createArticleFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<Articles> sortByPriceAsc() {
+        List<Articles> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             Statement statement = connection.createStatement()) {
+
+            String sql = "SELECT * FROM Articles ORDER BY Price ASC";
+            try (ResultSet resultSet = statement.executeQuery(sql)) {
+                while (resultSet.next()) {
+                    result.add(createArticleFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 
 
 }

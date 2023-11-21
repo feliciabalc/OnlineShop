@@ -40,7 +40,7 @@ public class SpecificationsRepoDB {
         }
     }
 
-    private Specifications createSpecificationsFromResultSet(ResultSet resultSet) throws SQLException {
+    public Specifications createSpecificationsFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         String[] size = new String[]{resultSet.getString("Size")};
         String color = resultSet.getString("Color");
@@ -65,6 +65,86 @@ public class SpecificationsRepoDB {
             e.printStackTrace(); // Handle the exception properly
         }
         return result;
+    }
+
+
+    public Specifications findById(int Id) {
+
+        List<Specifications> allSpecifications = loadFromDB();
+        Specifications foundItem = null;
+        for (Specifications item : allSpecifications) {
+            if (item.getId() == Id)
+                foundItem = item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Specifications WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public List<Specifications> filterBySize(String size) {
+        List<Specifications> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Specifications WHERE Size = ?")) {
+
+            preparedStatement.setString(1, size);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(createSpecificationsFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public List<Specifications> filterByColor(String color) {
+        List<Specifications> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Specifications WHERE Color = ?")) {
+
+            preparedStatement.setString(1, color);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(createSpecificationsFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    public void updateQuantity(int Id, double newQuantity) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Specifications SET Quantity = ? WHERE Id = ?")) {
+
+            preparedStatement.setDouble(1, newQuantity);
+            preparedStatement.setInt(2, Id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

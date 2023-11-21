@@ -70,7 +70,7 @@ public class ClientRepoDB {
         }
     }
 
-    private Client createClientFromResultSet(ResultSet resultSet) throws SQLException {
+    public Client createClientFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
         String name = resultSet.getString("Name");
         String address = resultSet.getString("Address");
@@ -97,6 +97,70 @@ public class ClientRepoDB {
         }
         return result;
     }
+
+
+
+    public Client findById(int Id) {
+
+        List<Client> allClients = loadFromDB();
+        Client foundItem = null;
+        for (Client item : allClients) {
+            if (item.getId() == Id)
+                foundItem = item;
+
+        }
+
+        return foundItem;
+    }
+
+    public void delete(int Id) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Client WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, Id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void updateAddress(int Id, String address) {
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Client SET Address = ? WHERE Id = ?")) {
+
+            preparedStatement.setString(1, address);
+            preparedStatement.setInt(2, Id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public List<Client> filterByName(String name) {
+        List<Client> result = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Client WHERE Name = ?")) {
+
+            preparedStatement.setString(1, name);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    result.add(createClientFromResultSet(resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
 
 }
