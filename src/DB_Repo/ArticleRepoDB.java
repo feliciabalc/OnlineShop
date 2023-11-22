@@ -46,37 +46,16 @@ public class ArticleRepoDB {
                 preparedStatement.setString(4, article.getMaterial());
                 preparedStatement.setString(5, article.getType());
                 preparedStatement.setDouble(6, article.getPrice());
-
-                String specificationIdsString = "";
-                for (Specifications specification : article.getSpecifications()) {
-                    specificationIdsString += specification.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!specificationIdsString.isEmpty()) {
-                    specificationIdsString = specificationIdsString.substring(0, specificationIdsString.length() - 1);
-                }
-
-                if (!specificationIdsString.isEmpty()) {
-                    preparedStatement.setInt(7, Integer.parseInt(specificationIdsString));
-                } else {
+                if(article.getSpecifications() == null)
                     preparedStatement.setNull(7, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(7, article.getSpecifications().get(0).getId());
 
-                // Convert review IDs to a string
-                String reviewIdsString = "";
-                for (Review review : article.getReviews()) {
-                    reviewIdsString += review.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!reviewIdsString.isEmpty()) {
-                    reviewIdsString = reviewIdsString.substring(0, reviewIdsString.length() - 1);
-                }
-
-                if (!reviewIdsString.isEmpty()) {
-                    preparedStatement.setInt(8, Integer.parseInt(reviewIdsString));
-                } else {
+                if(article.getReviews() == null)
                     preparedStatement.setNull(8, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(8, article.getReviews().get(0).getId());
+
 
                 preparedStatement.executeUpdate();
             }
@@ -85,6 +64,81 @@ public class ArticleRepoDB {
             e.printStackTrace();
         }
     }
+
+    public void addSpecifications(int articleId, int specId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Articles SET Specification_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, specId);
+            preparedStatement.setInt(2, articleId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public void addReview(int articleId, int revId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Review SET Review_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, revId);
+            preparedStatement.setInt(2, articleId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public int getSpecificationId(int articleId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Specification_id FROM Articles WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, articleId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Specification_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+    public int getReviewId(int articleId) {
+        int reviewId = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Review_id FROM Articles WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, articleId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    reviewId = resultSet.getInt("Review_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reviewId;
+    }
+
 
 
     public Articles createArticleFromResultSet(ResultSet resultSet) throws SQLException {
@@ -111,7 +165,7 @@ public class ArticleRepoDB {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle the exception properly
+            e.printStackTrace();
         }
         return result;
     }
@@ -173,6 +227,8 @@ public class ArticleRepoDB {
             e.printStackTrace();
         }
     }
+
+
 
     public void updatePrice(int Id, double newPrice) {
         try (Connection connection = DriverManager.getConnection(connectionString, username, password);

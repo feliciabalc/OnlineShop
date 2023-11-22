@@ -1,7 +1,9 @@
 package DB_Controller;
 
 import DB_Repo.CourierRepoDB;
+import Entities.Articles;
 import Entities.Courier;
+import Entities.Order;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,4 +39,7 @@ public class CourierControllerDB {
     public void updateSalary(int Id, String salary) {
         courierRepo.updateSalary(Id,salary);
     }
+
+
+
 }

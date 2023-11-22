@@ -1,4 +1,5 @@
 import DB_Repo.ArticleRepoDB;
+import DB_Repo.CartRepoDB;
 import Entities.*;
 import Repository.CartRepo;
 import Repository.ClientRepo;
@@ -21,13 +22,12 @@ public class Main {
         t1.testLoad_db();
         t1.testUpdate_find();;
 
+        String connectionString = "jdbc:mysql://localhost:3306/onlineshop";
+        String username = "shop_user";
+        String password = "shop_pass";
 
-        ///  public void addOrderToArticle(Articles articles, int specId) {
-        //          il adaug in saveIntoDB, dupa ca sail iau il caut in tabelu lui
-        //        articles.addOrders(order);
-        //trebe si un controller articlesOrder
-        //orderArticle
 
+        //pattern
 
     }
 }

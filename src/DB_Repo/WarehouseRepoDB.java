@@ -26,63 +26,26 @@ public class WarehouseRepoDB {
                 preparedStatement.setString(2, warehouse.getName());
                 preparedStatement.setString(3, warehouse.getAddress());
 
-                String articlesIdsString = "";
-                for (Articles articles : warehouse.getArticles()) {
-                    articlesIdsString += articles.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!articlesIdsString.isEmpty()) {
-                    articlesIdsString = articlesIdsString.substring(0, articlesIdsString.length() - 1);
-                }
-                if (!articlesIdsString.isEmpty()) {
-                    preparedStatement.setInt(4, Integer.parseInt(articlesIdsString));
-                } else {
+                if(warehouse.getArticles() == null)
                     preparedStatement.setNull(4, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(4, warehouse.getArticles().get(0).getId());
 
 
-                String suppliersIdsString = "";
-                for (Suppliers suppliers : warehouse.getSuppliers()) {
-                    suppliersIdsString += suppliers.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!suppliersIdsString.isEmpty()) {
-                    suppliersIdsString = suppliersIdsString.substring(0, suppliersIdsString.length() - 1);
-                }
-                if (!suppliersIdsString.isEmpty()) {
-                    preparedStatement.setInt(5, Integer.parseInt(suppliersIdsString));
-                } else {
+                if(warehouse.getSuppliers() == null)
                     preparedStatement.setNull(5, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(5, warehouse.getSuppliers().get(0).getId());
 
-                String couriersString = "";
-                for (Courier courier1 : warehouse.getCouriers()) {
-                    couriersString += courier1.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!couriersString.isEmpty()) {
-                    couriersString = couriersString.substring(0, couriersString.length() - 1);
-                }
-                if (!couriersString.isEmpty()) {
-                    preparedStatement.setInt(6, Integer.parseInt(couriersString));
-                } else {
+                if(warehouse.getCouriers() == null)
+                    preparedStatement.setNull(5, Types.INTEGER);
+                else
+                    preparedStatement.setInt(5, warehouse.getCouriers().get(0).getId());
+
+                if(warehouse.getEmployees() == null)
                     preparedStatement.setNull(6, Types.INTEGER);
-                }
-
-                String employeesIdsString = "";
-                for (Employee employee1 : warehouse.getEmployees()) {
-                    employeesIdsString += employee1.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!employeesIdsString.isEmpty()) {
-                    employeesIdsString = employeesIdsString.substring(0, employeesIdsString.length() - 1);
-                }
-                if (!employeesIdsString.isEmpty()) {
-                    preparedStatement.setInt(7, Integer.parseInt(employeesIdsString));
-                } else {
-                    preparedStatement.setNull(7, Types.INTEGER);
-                }
-
+                else
+                    preparedStatement.setInt(6, warehouse.getEmployees().get(0).getId());
                 preparedStatement.executeUpdate();
             }
 
@@ -162,6 +125,152 @@ public class WarehouseRepoDB {
         }
         return result;
     }
+
+
+    public void addArticle(int articleId, int warehouseId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Warehouse SET Articles_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, articleId);
+            preparedStatement.setInt(2, warehouseId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addSupplier(int sId, int warehouseId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Warehouse SET Suppliers_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, sId);
+            preparedStatement.setInt(2, warehouseId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addCourier(int cId, int warehouseId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Warehouse SET Courier_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, cId);
+            preparedStatement.setInt(2, warehouseId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addEmployee(int eId, int warehouseId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Warehouse SET Employee_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, eId);
+            preparedStatement.setInt(2, warehouseId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getArticleId(int warehouseId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Articles_id FROM Warehouse WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, warehouseId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Articles_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+    public int getSupplierId(int warehouseId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Suppliers_id FROM Warehouse WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, warehouseId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Suppliers_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+    public int getCourierId(int warehouseId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Courier_id FROM Warehouse WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, warehouseId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Courier_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+
+    public int getEmployeeId(int warehouseId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Employee_id FROM Warehouse WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, warehouseId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Employee_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+
+
 
 
 }

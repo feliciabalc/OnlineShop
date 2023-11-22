@@ -1,7 +1,9 @@
 package DB_Controller;
 
 import DB_Repo.EmployeeRepoDB;
+import DB_Repo.OrderRepoDB;
 import Entities.Employee;
+import Entities.Order;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +12,11 @@ import java.util.List;
 public class EmployeeControllerDB {
     private EmployeeRepoDB employeeRepo;
 
-    public EmployeeControllerDB(EmployeeRepoDB employeeRepo) {
+    private OrderRepoDB orderRepo;
+
+    public EmployeeControllerDB(EmployeeRepoDB employeeRepo, OrderRepoDB orderRepo) {
         this.employeeRepo = employeeRepo;
+        this.orderRepo = orderRepo;
     }
 
     public void saveIntoDB(List<Employee> employees) {
@@ -45,5 +50,13 @@ public class EmployeeControllerDB {
         return employeeRepo.filterByRole(role);
     }
 
+
+    public Order getOrder(int employeeId){
+        Order order = null;
+        int ID = employeeRepo.getOrderId(employeeId);
+        if(ID != -1)
+            order=orderRepo.findById(ID);
+        return order;
+    }
 
 }

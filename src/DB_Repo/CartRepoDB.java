@@ -24,20 +24,10 @@ public class CartRepoDB {
                 preparedStatement.setInt(1, cart.getId());
                 preparedStatement.setDouble(2, cart.getQuantity());
 
-                String articlesIdsString = "";
-                for (Articles articles : cart.getArticles()) {
-                    articlesIdsString += articles.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!articlesIdsString.isEmpty()) {
-                    articlesIdsString = articlesIdsString.substring(0, articlesIdsString.length() - 1);
-                }
-                System.out.println("Cart IDs: " + articlesIdsString);
-                if (!articlesIdsString.isEmpty()) {
-                    preparedStatement.setInt(3, Integer.parseInt(articlesIdsString));
-                } else {
+                if(cart.getArticles() == null)
                     preparedStatement.setNull(3, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(3, cart.getArticles().get(0).getId());
 
                 preparedStatement.executeUpdate();
             }
@@ -45,6 +35,42 @@ public class CartRepoDB {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void addArticle(int cartId, int articleId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Cart SET Articles_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, articleId);
+            preparedStatement.setInt(2, cartId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getArticleId(int cartId) {
+        int articleId = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Articles_id FROM Cart WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, cartId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    cartId = resultSet.getInt("Article_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return articleId;
     }
 
     public Cart createCartFromResultSet(ResultSet resultSet) throws SQLException {

@@ -27,23 +27,27 @@ public class EmployeeRepoDB {
                 preparedStatement.setString(3, employee.getSalary());
                 preparedStatement.setDouble(4, employee.getTelefon());
 
-                String ordersIdsString = "";
-                for (Order orders : employee.getOrders()) {
-                    ordersIdsString += orders.getId() + ",";
-                }
-                // Remove the trailing comma
-                if (!ordersIdsString.isEmpty()) {
-                    ordersIdsString = ordersIdsString.substring(0, ordersIdsString.length() - 1);
-                }
-
-                if (!ordersIdsString.isEmpty()) {
-                    preparedStatement.setInt(5, Integer.parseInt(ordersIdsString));
-                } else {
+                if(employee.getOrders() == null)
                     preparedStatement.setNull(5, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(5, employee.getOrders().get(0).getId());
 
                 preparedStatement.executeUpdate();
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addOrder(int orderId, int employeeId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Employee SET Orders_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, orderId);
+            preparedStatement.setInt(2, employeeId);
+
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -58,6 +62,30 @@ public class EmployeeRepoDB {
 
         return new Employee(id, name,salary,telefon);
     }
+
+
+    public int getOrderId(int employeeId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Orders_id FROM Employee WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, employeeId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Orders_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+
 
     public List<Employee> loadFromDB() {
         List<Employee> result = new ArrayList<>();

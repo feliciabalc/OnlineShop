@@ -17,36 +17,38 @@ public class ShopUi_DB {
     String username = "shop_user";
     String password = "shop_pass";
 
-    ArticleRepoDB articleRepo = new ArticleRepoDB(connectionString, username, password);
-    ArticleControllerDB articleController= new ArticleControllerDB(articleRepo);
-
-
-    CartRepoDB cartRepo = new CartRepoDB(connectionString, username, password);
-    CartControllerDB cartController= new CartControllerDB(cartRepo);
-
-    ClientRepoDB clientRepo = new ClientRepoDB(connectionString, username, password);
-    ClientControllerDB clientController = new ClientControllerDB(clientRepo);
-
-    CourierRepoDB courierRepo = new CourierRepoDB(connectionString, username, password);
-    CourierControllerDB courierController = new CourierControllerDB(courierRepo);
-
-    EmployeeRepoDB employeeRepo = new EmployeeRepoDB(connectionString, username, password);
-    EmployeeControllerDB employeeController=new EmployeeControllerDB(employeeRepo);
-
-    OrderRepoDB orderRepo=new OrderRepoDB(connectionString,username,password);
-    OrderControllerDB orderController=new OrderControllerDB(orderRepo);
-
     ReviewRepoDB reviewRepo=new ReviewRepoDB(connectionString,username,password);
     ReviewControllerDB reviewController=new ReviewControllerDB(reviewRepo);
 
     SpecificationsRepoDB specificationsRepo=new SpecificationsRepoDB(connectionString,username,password);
     SpecificationsControllerDB specificationsController=new SpecificationsControllerDB(specificationsRepo);
 
+    ArticleRepoDB articleRepo = new ArticleRepoDB(connectionString, username, password);
+    ArticleControllerDB articleController= new ArticleControllerDB(articleRepo, specificationsRepo, reviewRepo);
+
+
+    CartRepoDB cartRepo = new CartRepoDB(connectionString, username, password);
+    CartControllerDB cartController= new CartControllerDB(cartRepo, articleRepo);
+
+    OrderRepoDB orderRepo=new OrderRepoDB(connectionString,username,password);
+    OrderControllerDB orderController=new OrderControllerDB(orderRepo);
+
+    ClientRepoDB clientRepo = new ClientRepoDB(connectionString, username, password);
+    ClientControllerDB clientController = new ClientControllerDB(clientRepo, orderRepo, reviewRepo, cartRepo);
+
+    CourierRepoDB courierRepo = new CourierRepoDB(connectionString, username, password);
+    CourierControllerDB courierController = new CourierControllerDB(courierRepo);
+
+    EmployeeRepoDB employeeRepo = new EmployeeRepoDB(connectionString, username, password);
+    EmployeeControllerDB employeeController=new EmployeeControllerDB(employeeRepo, orderRepo);
+
+
+
     SuppliersRepoDB suppliersRepo=new SuppliersRepoDB(connectionString,username,password);
     SuppliersControllerDB suppliersController=new SuppliersControllerDB(suppliersRepo);
 
     WarehouseRepoDB warehouseRepo=new WarehouseRepoDB(connectionString,username,password);
-    WarehouseControllerDB warehouseController=new WarehouseControllerDB(warehouseRepo);
+    WarehouseControllerDB warehouseController=new WarehouseControllerDB(warehouseRepo, articleRepo, suppliersRepo, courierRepo, employeeRepo);
 
 
 
@@ -239,7 +241,7 @@ public class ShopUi_DB {
             input2 = Integer.parseInt(scanner.nextLine());
             switch (input2) {
                 case 1:
-                    articleController.loadFromDB();
+                    System.out.println(articleController.loadFromDB());
                     break;
 
                 case 2:
@@ -270,9 +272,9 @@ public class ShopUi_DB {
                     reviewList.add(newR);
                     reviewController.saveIntoDB(reviewList);
                     Client client2 = clientController.findById(ClientId);
-                    clientUI.addReviewToClient(client2, newR.getId());
-                    Articles article = articlesUI.findById(ArticleId);
-                    articlesUI.addReviewToArticle(article, newR.getId());
+                    clientController.addReview(id2,ClientId);
+                    Articles article =articleController.findById(ArticleId);
+                    articleController.addReview(ArticleId, newR.getId());
                     break;
 
                 case 5:
@@ -299,18 +301,8 @@ public class ShopUi_DB {
                     List<Order> orderList = new ArrayList<>();
                     orderController.saveIntoDB(orderList);
 
-                    Client client4 = clientUI.findById(id4);
-                    clientUI.addOrderToClient(client4, order.getId());
-
-                    if ("Cash".equals(order.getPaymentMethod())) {
-                        ordersUI.setPaymentStrategy(new CashOnDelieveryStrategy());
-                    } else {
-                        System.out.println("Please enter your card number: ");
-                        String cardNr = scanner.nextLine();
-                        ordersUI.setPaymentStrategy(new CreditCardPaymentStrategy(cardNr)); // Set the credit card number
-                    }
-                    ordersUI.processPayment();
-                    orderBillingSystem.generateBill(order);
+                    Client client4 = clientController.findById(id4);
+                    clientController.addOrder(orderId, id4);
                     break;
 
                 case 7:
@@ -343,4 +335,3 @@ public class ShopUi_DB {
     }
 }
 
-}

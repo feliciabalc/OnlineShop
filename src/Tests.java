@@ -1,6 +1,10 @@
 import Controller.*;
 import DB_Controller.ArticleControllerDB;
+import DB_Controller.ReviewControllerDB;
+import DB_Controller.SpecificationsControllerDB;
 import DB_Repo.ArticleRepoDB;
+import DB_Repo.ReviewRepoDB;
+import DB_Repo.SpecificationsRepoDB;
 import Entities.*;
 import Repository.*;
 import UI.*;
@@ -66,8 +70,14 @@ public class Tests {
     String username = "shop_user";
     String password = "shop_pass";
 
+    ReviewRepoDB revRepo=new ReviewRepoDB(connectionString,username,password);
+    ReviewControllerDB revController=new ReviewControllerDB(revRepo);
+
+    SpecificationsRepoDB specRepo=new SpecificationsRepoDB(connectionString,username,password);
+    SpecificationsControllerDB specController=new SpecificationsControllerDB(specRepo);
+
     ArticleRepoDB articleRepo = new ArticleRepoDB(connectionString, username, password);
-    ArticleControllerDB articleController= new ArticleControllerDB(articleRepo);
+    ArticleControllerDB articleController= new ArticleControllerDB(articleRepo, specRepo, revRepo);
 
 
     OrderBillingSystem orderBillingSystem = OrderBillingSystem.getInstance();

@@ -27,33 +27,15 @@ public class ClientRepoDB {
                 preparedStatement.setString(3, client.getAddress());
                 preparedStatement.setDouble(4, client.getTelefon());
 
-                String orderIdsString = "";
-                for (Order order:client.getOrders()) {
-                    orderIdsString+=order.getId();
-                }
-                // Remove the trailing comma
-                if (!orderIdsString.isEmpty()) {
-                    orderIdsString = orderIdsString.substring(0, orderIdsString.length() - 1);
-                }
-                if (!orderIdsString.isEmpty()) {
-                    preparedStatement.setInt(5, Integer.parseInt(orderIdsString));
-                } else {
+                if(client.getOrders() == null)
                     preparedStatement.setNull(5, Types.INTEGER);
-                }
+                else
+                    preparedStatement.setInt(5, client.getOrders().get(0).getId());
 
-                String reviewIdsString = "";
-                for (Review review:client.getReview()) {
-                    reviewIdsString+=review.getId();
-                }
-                // Remove the trailing comma
-                if (!reviewIdsString.isEmpty()) {
-                    reviewIdsString = reviewIdsString.substring(0, reviewIdsString.length() - 1);
-                }
-                if (!reviewIdsString.isEmpty()) {
-                    preparedStatement.setInt(6, Integer.parseInt(reviewIdsString));
-                } else {
-                    preparedStatement.setNull(6, Types.INTEGER);
-                }
+                if(client.getReview() == null)
+                preparedStatement.setNull(6, Types.INTEGER);
+                else
+                preparedStatement.setInt(6, client.getReview().get(0).getId());
 
                 if (client.getCart()!= null) {
                     preparedStatement.setInt(7, client.getCart().getId());
@@ -69,6 +51,98 @@ public class ClientRepoDB {
             e.printStackTrace();
         }
     }
+
+    public void addOrder(int orderId, int clientId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Client SET Orders_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, orderId);
+            preparedStatement.setInt(2, clientId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addReview(int revId, int clientId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Client SET Review_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, revId);
+            preparedStatement.setInt(2, clientId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addCart(int cartId, int clientId){
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Client SET Cart_id = ? WHERE Id =?")) {
+
+            preparedStatement.setInt(1, cartId);
+            preparedStatement.setInt(2, clientId);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public int getOrderId(int clientId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Orders_id FROM Client WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, clientId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Orders_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+
+    public int getRevId(int clientId) {
+        int Id = -1;
+
+        try (Connection connection = DriverManager.getConnection(connectionString, username, password);
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT Review_id FROM Client WHERE Id = ?")) {
+
+            preparedStatement.setInt(1, clientId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Id = resultSet.getInt("Review_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Id;
+    }
+
+
+
 
     public Client createClientFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("Id");
